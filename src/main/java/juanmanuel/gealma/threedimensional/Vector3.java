@@ -112,10 +112,8 @@ public record Vector3(double i, double j, double k) implements Geometric3 {
     @NotNull
     @Override
     public Vector3 times(double other) {
-        return new Vector3(i * other, j * other, k * other);
+        return this.inner(other);
     }
-
-    ;
 
     @NotNull
     @Override
@@ -132,6 +130,12 @@ public record Vector3(double i, double j, double k) implements Geometric3 {
     @Override
     public @NotNull Geometric3 times(@NotNull Trivector3 other) {
         return this.inner(other).plus(this.outer(other));
+    }
+
+    @NotNull
+    @Override
+    public Vector3 inner(double other) {
+        return new Vector3(i * other, j * other, k * other);
     }
 
     @NotNull
@@ -160,16 +164,26 @@ public record Vector3(double i, double j, double k) implements Geometric3 {
     @Override
     public Bivector3 inner(@NotNull Trivector3 other) {
         //TODO: Vector computation?
-        return new Bivector3(this.k * other.ijk() / 2, this.i * other.ijk() / 2, this.j * other.ijk() / 2);
+        return new Bivector3(
+                this.i * other.ijk(),
+                this.j * other.ijk(),
+                this.k * other.ijk()
+        );
+    }
+
+    @NotNull
+    @Override
+    public Geometric3 outer(double other) {
+        return Geometric3Object.ZERO;
     }
 
     @NotNull
     @Override
     public Bivector3 outer(@NotNull Vector3 other) {
         return new Bivector3(
-                this.i * other.j + other.i * this.j,
-                this.j * other.k + other.j * this.k,
-                this.k * other.i + other.k * this.i
+                this.i * other.j - other.i * this.j,
+                this.j * other.k - other.j * this.k,
+                this.k * other.i - other.k * this.i
         );
     }
 
@@ -181,8 +195,13 @@ public record Vector3(double i, double j, double k) implements Geometric3 {
 
     @NotNull
     @Override
-    public Bivector3 outer(@NotNull Trivector3 other) {
-        return new Bivector3(this.k * other.ijk(), this.i * other.ijk(), this.j * other.ijk());
+    public Geometric3 outer(@NotNull Trivector3 other) {
+        return Geometric3Object.ZERO;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + i + ")i + (" + j + ")j + (" + k + ")k";
     }
 
     public static Vector3 plus(Vector3... vectors) {

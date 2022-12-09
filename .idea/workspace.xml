@@ -4,27 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1dd672b6-0dc7-4794-94cf-24075b421c45" name="Changes" comment="Vector3 basic math finished">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/fourdimensional/package-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/nthdimensional/Geometric.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/nthdimensional/Vector.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/package-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Bivector3.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Trivector3.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Vector3.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/package-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/twodimensional/package-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+    <list default="true" id="1dd672b6-0dc7-4794-94cf-24075b421c45" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/fourdimensional/Geometric4.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3Object.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/twodimensional/Geometric2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/juanmanuel/gealma/threedimensional/Vector3Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/nthdimensional/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/nthdimensional/GeometricObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Bivector3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Bivector3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Trivector3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Trivector3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Vector3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Vector3.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,11 +29,12 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="module-info" />
         <option value="package-info" />
-        <option value="Interface" />
         <option value="Record" />
+        <option value="Interface" />
+        <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -72,6 +65,8 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
@@ -79,9 +74,103 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
     <key name="MoveInnerDialog.RECENTS_KEY">
+      <recent name="juanmanuel.gealma.threedimensional" />
       <recent name="juanmanuel.gealma" />
     </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="juanmanuel.gealma.threedimensional" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.Vector3Test">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="juanmanuel.gealma.Main" />
+      <module name="GeAlMa" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="juanmanuel.gealma.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Vector3Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GeAlMa" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="juanmanuel.gealma.threedimensional.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="juanmanuel.gealma.threedimensional" />
+      <option name="MAIN_CLASS_NAME" value="juanmanuel.gealma.threedimensional.Vector3Test" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Vector3Test.plus" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GeAlMa" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="juanmanuel.gealma.threedimensional.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="juanmanuel.gealma.threedimensional" />
+      <option name="MAIN_CLASS_NAME" value="juanmanuel.gealma.threedimensional.Vector3Test" />
+      <option name="METHOD_NAME" value="plus" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Vector3Test.times" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GeAlMa" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="juanmanuel.gealma.threedimensional.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="juanmanuel.gealma.threedimensional" />
+      <option name="MAIN_CLASS_NAME" value="juanmanuel.gealma.threedimensional.Vector3Test" />
+      <option name="METHOD_NAME" value="times" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Vector3Test.unaryMinus" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GeAlMa" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="juanmanuel.gealma.threedimensional.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="juanmanuel.gealma.threedimensional" />
+      <option name="MAIN_CLASS_NAME" value="juanmanuel.gealma.threedimensional.Vector3Test" />
+      <option name="METHOD_NAME" value="unaryMinus" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.Vector3Test" />
+        <item itemvalue="JUnit.Vector3Test.plus" />
+        <item itemvalue="JUnit.Vector3Test.times" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.Vector3Test.unaryMinus" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -93,23 +182,32 @@
       <updated>1670469965864</updated>
       <workItem from="1670469966928" duration="1071000" />
       <workItem from="1670505141256" duration="4384000" />
-      <workItem from="1670518000862" duration="451000" />
+      <workItem from="1670518000862" duration="10135000" />
+      <workItem from="1670583938363" duration="19317000" />
     </task>
+    <task id="LOCAL-00001" summary="Vector3 basic math finished">
+      <created>1670518583838</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1670518583838</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Vector3 basic math finished" />
     <option name="LAST_COMMIT_MESSAGE" value="Vector3 basic math finished" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3.java</url>
-          <line>55</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

@@ -1,10 +1,11 @@
 package juanmanuel.gealma.nthdimensional;
 
-public record Vector(GeometricElement... values) {
-
+public record GeometricObject(GeometricElement... values) {
 
     public record GeometricElement(Basis basis, double value) {
-
+        public GeometricElement[] plus(GeometricElement other) {
+            return this == other ? new GeometricElement[] {this} : new GeometricElement[] {this, other};
+        }
     }
     public record Basis(String basis) {
         public Basis[] plus(Basis other) {
