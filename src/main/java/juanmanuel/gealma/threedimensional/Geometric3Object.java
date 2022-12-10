@@ -16,6 +16,16 @@ public record Geometric3Object(double scalar, @NotNull Vector3 vector, @NotNull 
     }
 
     @Override
+    public @NotNull Geometric3 unitary() {
+        return this.div(this.magnitude());
+    }
+
+    @Override
+    public @NotNull Geometric3 inverse() {
+        return null;
+    }
+
+    @Override
     public @NotNull Geometric3 plus(double other) {
         return new Geometric3Object(scalar + other, vector, bivector, trivector);
     }
@@ -110,6 +120,36 @@ public record Geometric3Object(double scalar, @NotNull Vector3 vector, @NotNull 
     @Override
     public @NotNull Geometric3 outer(@NotNull Trivector3 other) {
         return other.outer(scalar).plus(vector.outer(other)).plus(bivector.outer(other)).plus(trivector.outer(other));
+    }
+
+    @Override
+    public Geometric3 div(double other) {
+//        TODO
+//        return new Geometric3Object(
+//                this.scalar / other,
+//                this.vector.div(other),
+//                this.bivector.div(other),
+//                this.trivector.div(other)
+//                );
+        return null;
+    }
+
+    @Override
+    public Geometric3 div(@NotNull Vector3 other) {
+//        return other.inverse().times(other).plus(this.vector.div(other)).plus(this.bivector.div(other)).plus(this.trivector.div(other));
+        return null;
+    }
+
+    @Override
+    public Geometric3 div(@NotNull Bivector3 other) {
+//        return other.inverse().times(other).plus(this.vector.div(other)).plus(this.bivector.div(other)).plus(this.trivector.div(other));
+        return null;
+    }
+
+    @Override
+    public Geometric3 div(@NotNull Trivector3 other) {
+//        return other.inverse().times(other).plus(this.vector.div(other)).plus(this.bivector.div(other)).plus(this.trivector.div(other));
+        return null;
     }
 
     @Override

@@ -39,8 +39,16 @@ public interface Geometric3 extends Geometric {
     @NotNull Geometric3 outer(@NotNull Bivector3 other);
     @NotNull Geometric3 outer(@NotNull Trivector3 other);
 
+    Geometric3 div(double other);
+    Geometric3 div(@NotNull Vector3 other);
+    Geometric3 div(@NotNull Bivector3 other);
+    Geometric3 div(@NotNull Trivector3 other);
+
+
     @NotNull Geometric3 unaryMinus();
     @NotNull Geometric3 unaryPlus();
+    Geometric3 unitary();
+    @NotNull Geometric3 inverse();
     double magnitude();
 //    Geometric inner(Geometric other);
 //    Geometric outher(Geometric other);

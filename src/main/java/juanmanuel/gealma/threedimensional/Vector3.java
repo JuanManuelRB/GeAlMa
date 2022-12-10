@@ -25,6 +25,12 @@ public record Vector3(double i, double j, double k) implements Geometric3 {
 
     @NotNull
     @Override
+    public Vector3 unitary() {
+        return this.div(this.magnitude());
+    }
+
+    @NotNull
+    @Override
     public Vector3 unaryMinus() {
         return new Vector3(-i, -j, -k);
     }
@@ -36,11 +42,11 @@ public record Vector3(double i, double j, double k) implements Geometric3 {
     }
 
     // Geometric Primitives
+
     @Override
     public double scalar() {
         return 0;
     }
-
     @NotNull
     @Override
     public Vector3 vector() {
@@ -60,12 +66,12 @@ public record Vector3(double i, double j, double k) implements Geometric3 {
     }
 
     // Addition
+
     @NotNull
     @Override
     public Geometric3 plus(double other) {
         return new Geometric3Object(other, this, Bivector3.ZERO, Trivector3.ZERO);
     }
-
     @NotNull
     @Override
     public Vector3 plus(@NotNull Vector3 other) {
@@ -85,12 +91,12 @@ public record Vector3(double i, double j, double k) implements Geometric3 {
     }
 
     // Subtraction
+
     @NotNull
     @Override
     public Geometric3 minus(double other) {
         return this.plus(-other);
     }
-
     @NotNull
     @Override
     public Vector3 minus(@NotNull Vector3 other) {
@@ -197,6 +203,31 @@ public record Vector3(double i, double j, double k) implements Geometric3 {
     @Override
     public Geometric3 outer(@NotNull Trivector3 other) {
         return Geometric3Object.ZERO;
+    }
+
+    @Override
+    public @NotNull Vector3 div(double other) {
+        return new Vector3(i / other, j / other, k / other);
+    }
+
+    @Override
+    public @NotNull Geometric3 div(@NotNull Vector3 other) {
+        return this.times(other.inverse());
+    }
+
+    @Override
+    public @NotNull Geometric3 div(@NotNull Bivector3 other) {
+        return this.times(other.inverse());
+    }
+
+    @Override
+    public @NotNull Geometric3 div(@NotNull Trivector3 other) {
+        return this.times(other.inverse());
+    }
+
+    @Override
+    public @NotNull Vector3 inverse() {
+        return this.div(this.magnitude() * this.magnitude());
     }
 
     @Override

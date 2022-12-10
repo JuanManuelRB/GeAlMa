@@ -49,6 +49,17 @@ public record Trivector3(double ijk) implements Geometric3 {
 
     @NotNull
     @Override
+    public Trivector3 unitary() {
+        return this.div(this.magnitude());
+    }
+
+    @Override
+    public @NotNull Trivector3 inverse() {
+        return this.div(this.magnitude() * this.magnitude());
+    }
+
+    @NotNull
+    @Override
     public Geometric3 plus(double other) {
         return new Geometric3Object(other, Vector3.ZERO, Bivector3.ZERO, this);
     }
@@ -165,6 +176,26 @@ public record Trivector3(double ijk) implements Geometric3 {
     @Override
     public Geometric3 outer(@NotNull Trivector3 other) {
         return Geometric3Object.ZERO;
+    }
+
+    @Override
+    public @NotNull Trivector3 div(double other) {
+        return new Trivector3(ijk / other);
+    }
+
+    @Override
+    public @NotNull Geometric3 div(@NotNull Vector3 other) {
+        return this.times(other.inverse());
+    }
+
+    @Override
+    public @NotNull Geometric3 div(@NotNull Bivector3 other) {
+        return this.times(other.inverse());
+    }
+
+    @Override
+    public @NotNull Geometric3 div(@NotNull Trivector3 other) {
+        return this.times(other.inverse());
     }
 
     @Override
