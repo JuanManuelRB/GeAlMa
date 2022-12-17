@@ -47,7 +47,7 @@ public interface Geometric3 extends Geometric {
 
     @NotNull Geometric3 unaryMinus();
     @NotNull Geometric3 unaryPlus();
-    Geometric3 unitary();
+    Geometric3 normalized();
     @NotNull Geometric3 inverse();
     double magnitude();
 //    Geometric inner(Geometric other);

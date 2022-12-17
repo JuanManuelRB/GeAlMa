@@ -49,7 +49,7 @@ public record Trivector3(double ijk) implements Geometric3 {
 
     @NotNull
     @Override
-    public Trivector3 unitary() {
+    public Trivector3 normalized() {
         return this.div(this.magnitude());
     }
 
@@ -200,6 +200,6 @@ public record Trivector3(double ijk) implements Geometric3 {
 
     @Override
     public String toString() {
-        return "(" + ijk + ")ijk";
+        return  ijk + "(ijk)";
     }
 }

@@ -2,7 +2,7 @@ package juanmanuel.gealma.nthdimensional;
 
 public record GeometricObject(GeometricElement... values) {
 
-    public record GeometricElement(Basis basis, double value) {
+    public record GeometricElement(double value, Basis basis) {
         public GeometricElement[] plus(GeometricElement other) {
             return this == other ? new GeometricElement[] {this} : new GeometricElement[] {this, other};
         }

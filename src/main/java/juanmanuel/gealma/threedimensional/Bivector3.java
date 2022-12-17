@@ -46,7 +46,7 @@ public record Bivector3(double ij, double jk, double ki) implements Geometric3 {
     }
 
     @Override
-    public @NotNull Geometric3 unitary() {
+    public @NotNull Geometric3 normalized() {
         return this.div(this.magnitude());
     }
 
@@ -215,6 +215,22 @@ public record Bivector3(double ij, double jk, double ki) implements Geometric3 {
 
     @Override
     public String toString() {
-        return "(" + ij + ")ij + (" + jk + ")jk + (" + ki + ")ki";
+        var str = "";
+        if (ij != 0)
+            str += ij + "(ij)";
+
+        if (jk != 0) {
+            if (ij != 0)
+                str += " + ";
+            str += jk + "(jk)";
+        }
+
+        if (ki != 0) {
+            if (jk != 0)
+                str += " + ";
+            str += ki + "(ki)";
+        }
+        return str;
+        // return "(" + ij + ")ij + (" + jk + ")jk + (" + ki + ")ki";
     }
 }

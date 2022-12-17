@@ -10,7 +10,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1dd672b6-0dc7-4794-94cf-24075b421c45" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/nthdimensional/Vector.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3Numbers.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/nthdimensional/GeometricObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/nthdimensional/GeometricObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Bivector3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Bivector3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3Object.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3Object.java" afterDir="false" />
@@ -35,6 +42,7 @@
         <option value="Record" />
         <option value="Interface" />
         <option value="JUnit5 Test Class" />
+        <option value="Kotlin File" />
         <option value="Class" />
       </list>
     </option>
@@ -71,7 +79,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propCompiler&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -86,7 +94,7 @@
       <recent name="juanmanuel.gealma.threedimensional" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.Vector3Test">
+  <component name="RunManager" selected="Kotlin.Geometric3NumbersKt">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="juanmanuel.gealma.Main" />
       <module name="GeAlMa" />
@@ -147,29 +155,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Vector3Test.unaryMinus" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Geometric3NumbersKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="juanmanuel.gealma.threedimensional.Geometric3NumbersKt" />
       <module name="GeAlMa" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="juanmanuel.gealma.threedimensional.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="juanmanuel.gealma.threedimensional" />
-      <option name="MAIN_CLASS_NAME" value="juanmanuel.gealma.threedimensional.Vector3Test" />
-      <option name="METHOD_NAME" value="unaryMinus" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Kotlin.Geometric3NumbersKt" />
         <item itemvalue="JUnit.Vector3Test" />
         <item itemvalue="JUnit.Vector3Test.plus" />
         <item itemvalue="JUnit.Vector3Test.times" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.Vector3Test.unaryMinus" />
       </list>
     </recent_temporary>
   </component>
@@ -186,7 +185,11 @@
       <workItem from="1670518000862" duration="10135000" />
       <workItem from="1670583938363" duration="20459000" />
       <workItem from="1670628659462" duration="420000" />
-      <workItem from="1670690880342" duration="9626000" />
+      <workItem from="1670690880342" duration="10602000" />
+      <workItem from="1670716077648" duration="60000" />
+      <workItem from="1671250869493" duration="2889000" />
+      <workItem from="1671277568712" duration="3517000" />
+      <workItem from="1671298939861" duration="5385000" />
     </task>
     <task id="LOCAL-00001" summary="Vector3 basic math finished">
       <created>1670518583838</created>
@@ -209,7 +212,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670698102767</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added inverse, unitary and division on 3D and some test">
+      <created>1670707860597</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1670707860597</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -227,6 +237,8 @@
     <MESSAGE value="Vector3 basic math finished" />
     <MESSAGE value="3D basic math finished, some test for Vector3" />
     <MESSAGE value="Added inverse and division on 3D" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added inverse and division on 3D" />
+    <MESSAGE value="Added inverse, unitary and division on 3D and some test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added inverse, unitary and division on 3D and some test" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>

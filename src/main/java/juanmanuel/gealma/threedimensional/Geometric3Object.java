@@ -16,7 +16,7 @@ public record Geometric3Object(double scalar, @NotNull Vector3 vector, @NotNull 
     }
 
     @Override
-    public @NotNull Geometric3 unitary() {
+    public @NotNull Geometric3 normalized() {
         return this.div(this.magnitude());
     }
 
