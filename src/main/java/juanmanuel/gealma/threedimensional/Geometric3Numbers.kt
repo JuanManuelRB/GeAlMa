@@ -1,10 +1,10 @@
 package juanmanuel.gealma.threedimensional
 
-infix fun Geometric3.inner(other: Geometric3): Geometric3 {
+infix fun Geometric3.inn(other: Geometric3): Geometric3 {
     return this.inner(other)
 }
 
-infix fun Geometric3.outer(other: Geometric3): Geometric3 {
+infix fun Geometric3.out(other: Geometric3): Geometric3 {
     return this.outer(other)
 }
 
@@ -25,6 +25,27 @@ val Number.ki
 val Number.ijk
     get() = Trivector3(this.toDouble())
 
+val Vector3.I
+    get() = this.vectorI()
+
+val Vector3.J
+    get() = this.vectorJ()
+
+val Vector3.K
+    get() = this.vectorK()
+
+val Bivector3.IJ
+    get() = this.bivectorIJ()
+
+val Bivector3.JK
+    get() = this.bivectorJK()
+
+val Bivector3.KI
+    get() = this.bivectorKI()
+
+val Trivector3.IJK
+    get() = this.ijk()
+
 operator fun Number.plus(other: Geometric3): Geometric3 {
     return other + this.toDouble()
 }
@@ -40,12 +61,3 @@ operator fun Number.times(other: Geometric3): Geometric3 {
 operator fun Number.div(other: Geometric3): Geometric3 {
     return other.inverse() * this.toDouble()
 }
-
-//fun main() {
-//    val v1 = 1.i + 2.j
-//    println(v1)
-//    val b1 = 1.ij + 2.jk
-//    println(b1)
-//    val t1 = 1.ijk
-//    println(t1)
-//}

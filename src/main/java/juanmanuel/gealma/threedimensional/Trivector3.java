@@ -42,13 +42,11 @@ public record Trivector3(double ijk) implements Geometric3 {
         return new Trivector3(Math.abs(this.ijk));
     }
 
-    @Override
     public double magnitude() {
         return Math.sqrt(inner(this).scalar());
     }
 
     @NotNull
-    @Override
     public Trivector3 normalized() {
         return this.div(this.magnitude());
     }

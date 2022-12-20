@@ -9,6 +9,17 @@ public record Bivector3(double ij, double jk, double ki) implements Geometric3 {
     public static final Bivector3 KI = new Bivector3(0, 0, 1);
     public static final Bivector3 ONE = new Bivector3(1, 1, 1);
 
+    public double area() {
+        return magnitude();
+    }
+
+    public double magnitude() {
+        return Math.sqrt(inner(this).unaryPlus().scalar());
+    }
+
+    @NotNull public Bivector3 normalized() {
+        return this.div(this.magnitude());
+    }
 
     @Override
     public double scalar() {
@@ -46,29 +57,19 @@ public record Bivector3(double ij, double jk, double ki) implements Geometric3 {
     }
 
     @Override
-    public @NotNull Geometric3 normalized() {
-        return this.div(this.magnitude());
-    }
-
-    @Override
     public @NotNull Bivector3 inverse() {
         return this.div(this.magnitude() * this.magnitude());
     }
 
-    @Override
-    public double magnitude() {
-        return Math.sqrt(inner(this).scalar());
-    }
-
     @NotNull
     @Override
-    public Geometric3 plus(double other) {
+    public Geometric3Object plus(double other) {
         return new Geometric3Object(other, Vector3.ZERO, this, Trivector3.ZERO);
     }
 
     @NotNull
     @Override
-    public Geometric3 plus(@NotNull Vector3 other) {
+    public Geometric3Object plus(@NotNull Vector3 other) {
         return new Geometric3Object(0, other, this, Trivector3.ZERO);
     }
 
@@ -80,19 +81,19 @@ public record Bivector3(double ij, double jk, double ki) implements Geometric3 {
 
     @NotNull
     @Override
-    public Geometric3 plus(@NotNull Trivector3 other) {
+    public Geometric3Object plus(@NotNull Trivector3 other) {
         return new Geometric3Object(0, Vector3.ZERO, this, other);
     }
 
     @NotNull
     @Override
-    public Geometric3 minus(double other) {
+    public Geometric3Object minus(double other) {
         return this.plus(-other);
     }
 
     @NotNull
     @Override
-    public Geometric3 minus(@NotNull Vector3 other) {
+    public Geometric3Object minus(@NotNull Vector3 other) {
         return this.plus(other.unaryMinus());
     }
 
@@ -104,7 +105,7 @@ public record Bivector3(double ij, double jk, double ki) implements Geometric3 {
 
     @NotNull
     @Override
-    public Geometric3 minus(@NotNull Trivector3 other) {
+    public Geometric3Object minus(@NotNull Trivector3 other) {
         return this.plus(other.unaryMinus());
     }
 
@@ -146,9 +147,9 @@ public record Bivector3(double ij, double jk, double ki) implements Geometric3 {
 
     @NotNull
     @Override
-    public Geometric3 inner(@NotNull Bivector3 other) {
+    public Geometric3Object inner(@NotNull Bivector3 other) {
         return new Geometric3Object(
-                this.ij * other.ij + this.jk * other.jk + this.ki * other.ki,
+                -(this.ij * other.ij + this.jk * other.jk + this.ki * other.ki),
                 Vector3.ZERO,
                 Bivector3.ZERO,
                 Trivector3.ZERO
@@ -163,7 +164,7 @@ public record Bivector3(double ij, double jk, double ki) implements Geometric3 {
 
     @NotNull
     @Override
-    public Geometric3 outer(double other) {
+    public Geometric3Object outer(double other) {
         return Geometric3Object.ZERO;
     }
 
@@ -172,8 +173,8 @@ public record Bivector3(double ij, double jk, double ki) implements Geometric3 {
     public Vector3 outer(@NotNull Vector3 other) {
         return new Vector3(
                 this.ij * other.j() - this.ki * other.k(),
-                this.ij * other.j() - this.jk * other.k(),
-                this.jk * other.k() - this.ki * other.k()
+                this.jk * other.k() - this.ij * other.i(),
+                this.ki * other.i() - this.jk * other.j()
         );
     }
 
@@ -189,7 +190,7 @@ public record Bivector3(double ij, double jk, double ki) implements Geometric3 {
 
     @NotNull
     @Override
-    public Geometric3 outer(@NotNull Trivector3 other) {
+    public Geometric3Object outer(@NotNull Trivector3 other) {
         return Geometric3Object.ZERO;
     }
 
@@ -215,22 +216,37 @@ public record Bivector3(double ij, double jk, double ki) implements Geometric3 {
 
     @Override
     public String toString() {
-        var str = "";
-        if (ij != 0)
-            str += ij + "(ij)";
+//        var str = "";
+//        if (ij != 0)
+//            str += ij + "(ij)";
+//
+//        if (jk != 0) {
+//            if (ij != 0)
+//                str += " + ";
+//            str += jk + "(jk)";
+//        }
+//
+//        if (ki != 0) {
+//            if (jk != 0)
+//                str += " + ";
+//            str += ki + "(ki)";
+//        }
+//        return str;
+        return ij + "(ij) + " + jk + "(jk) + " + ki + "(ki)";
+    }
 
-        if (jk != 0) {
-            if (ij != 0)
-                str += " + ";
-            str += jk + "(jk)";
-        }
+    @NotNull
+    public Bivector3 bivectorIJ() {
+        return new Bivector3(ij, 0, 0);
+    }
 
-        if (ki != 0) {
-            if (jk != 0)
-                str += " + ";
-            str += ki + "(ki)";
-        }
-        return str;
-        // return "(" + ij + ")ij + (" + jk + ")jk + (" + ki + ")ki";
+    @NotNull
+    public Bivector3 bivectorJK() {
+        return new Bivector3(ij, 0, 0);
+    }
+
+    @NotNull
+    public Bivector3 bivectorKI() {
+        return new Bivector3(ij, 0, 0);
     }
 }

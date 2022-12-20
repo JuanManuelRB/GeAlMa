@@ -16,12 +16,8 @@ public record Geometric3Object(double scalar, @NotNull Vector3 vector, @NotNull 
     }
 
     @Override
-    public @NotNull Geometric3 normalized() {
-        return this.div(this.magnitude());
-    }
-
-    @Override
     public @NotNull Geometric3 inverse() {
+//        return Geometric3Object.ZERO.plus(1).div(this);
         return null;
     }
 
@@ -124,14 +120,12 @@ public record Geometric3Object(double scalar, @NotNull Vector3 vector, @NotNull 
 
     @Override
     public Geometric3 div(double other) {
-//        TODO
-//        return new Geometric3Object(
-//                this.scalar / other,
-//                this.vector.div(other),
-//                this.bivector.div(other),
-//                this.trivector.div(other)
-//                );
-        return null;
+        return new Geometric3Object(
+                this.scalar / other,
+                this.vector.div(other),
+                this.bivector.div(other),
+                this.trivector.div(other)
+                );
     }
 
     @Override
@@ -152,10 +146,6 @@ public record Geometric3Object(double scalar, @NotNull Vector3 vector, @NotNull 
         return null;
     }
 
-    @Override
-    public double magnitude() {
-        return 0;
-    }
     @Override
     public String toString() {
         return "" + scalar + " + " + vector + " + " + bivector + " + " + trivector;

@@ -210,7 +210,7 @@ class Vector3Test {
 
         assertEquals(i, new Vector3(i, j, k).i());
 
-        assertEquals(Vector3.I, new Vector3(1, 0, 0));
+        assertEquals(Vector3.ONE.vectorI(), new Vector3(1, 0, 0));
     }
 
     @Test
@@ -221,7 +221,7 @@ class Vector3Test {
 
         assertEquals(j, new Vector3(i, j, k).j());
 
-        assertEquals(Vector3.J, new Vector3(0, 1, 0));
+        assertEquals(Vector3.ONE.vectorJ(), new Vector3(0, 1, 0));
     }
 
     @Test
@@ -232,6 +232,6 @@ class Vector3Test {
 
         assertEquals(k, new Vector3(i, j, k).k());
 
-        assertEquals(Vector3.K, new Vector3(0, 0, 1));
+        assertEquals(Vector3.ONE.vectorK(), new Vector3(0, 0, 1));
     }
 }

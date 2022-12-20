@@ -21,12 +21,6 @@ public interface Geometric3 extends Geometric {
     @NotNull Geometric3 minus(@NotNull Bivector3 other);
     @NotNull Geometric3 minus(@NotNull Trivector3 other);
 
-    // Product
-    // @NotNull Geometric3 times(double other);
-    @NotNull Geometric3 times(@NotNull Vector3 other);
-    @NotNull Geometric3 times(@NotNull Bivector3 other);
-    @NotNull Geometric3 times(@NotNull Trivector3 other);
-
     // Inner Product
     @NotNull Geometric3 inner(double other);
     @NotNull Geometric3 inner(@NotNull Vector3 other);
@@ -39,6 +33,13 @@ public interface Geometric3 extends Geometric {
     @NotNull Geometric3 outer(@NotNull Bivector3 other);
     @NotNull Geometric3 outer(@NotNull Trivector3 other);
 
+    // Product
+    @NotNull Geometric3 times(@NotNull Vector3 other);
+    @NotNull Geometric3 times(@NotNull Bivector3 other);
+    @NotNull Geometric3 times(@NotNull Trivector3 other);
+
+    @NotNull Geometric3 inverse();
+
     Geometric3 div(double other);
     Geometric3 div(@NotNull Vector3 other);
     Geometric3 div(@NotNull Bivector3 other);
@@ -47,12 +48,7 @@ public interface Geometric3 extends Geometric {
 
     @NotNull Geometric3 unaryMinus();
     @NotNull Geometric3 unaryPlus();
-    Geometric3 normalized();
-    @NotNull Geometric3 inverse();
-    double magnitude();
-//    Geometric inner(Geometric other);
-//    Geometric outher(Geometric other);
-//    Geometric times(Geometric other);
+
 
     @NotNull
     default Geometric3 plus(@NotNull Geometric3 other) {
@@ -75,4 +71,18 @@ public interface Geometric3 extends Geometric {
         return new Geometric3Object(other * scalar(), vector().times(other), bivector().times(other), trivector().times(other));
     }
 
+    @NotNull
+    default Geometric3 times(Geometric3 other) {
+        return this.times(other.scalar()).plus(this.times(other.vector())).plus(this.times(other.bivector())).plus(this.times(other.trivector()));
+    }
+
+    @NotNull
+    default Geometric3 inner(Geometric3 geometric3) {
+        return this.inner(geometric3.scalar()).plus(this.inner(geometric3.vector())).plus(this.inner(geometric3.bivector())).plus(this.inner(geometric3.trivector()));
+    }
+
+    @NotNull
+    default Geometric3 outer(Geometric3 geometric3) {
+        return this.outer(geometric3.scalar()).plus(this.outer(geometric3.vector())).plus(this.outer(geometric3.bivector())).plus(this.outer(geometric3.trivector()));
+    }
 }
