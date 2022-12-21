@@ -63,8 +63,8 @@ public record Bivector3(double e1e2, double e2e3, double e3e1) implements Geomet
 
     @NotNull
     @Override
-    public Geometric3Object plus(double other) {
-        return new Geometric3Object(other, Vector3.ZERO, this, Trivector3.ZERO);
+    public Rotor3 plus(double other) {
+        return new Rotor3(other, this);
     }
 
     @NotNull
@@ -87,7 +87,7 @@ public record Bivector3(double e1e2, double e2e3, double e3e1) implements Geomet
 
     @NotNull
     @Override
-    public Geometric3Object minus(double other) {
+    public Rotor3 minus(double other) {
         return this.plus(-other);
     }
 

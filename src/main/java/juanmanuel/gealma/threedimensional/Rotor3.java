@@ -20,8 +20,11 @@ import org.jetbrains.annotations.NotNull;
  * a multivector with a grade of 1. A vector is a linear combination of the basis vectors of the algebra, and it is
  * orthogonal to the scalar unit, but it is not orthogonal to the bivectors.
  *
- * @param angle
- * @param plane
+ * @param scalar
+ * @param e1e2
+ * @param e2e3
+ * @param e3e1
+ *
  */
 public record Rotor3(double scalar, double e1e2, double e2e3, double e3e1) implements Geometric3 {
     public Rotor3(double scalar, Bivector3 bivector) {
@@ -38,18 +41,30 @@ public record Rotor3(double scalar, double e1e2, double e2e3, double e3e1) imple
         this(Math.acos(from.inner(to).scalar()), from.outer(to));
     }
 
+    public static Rotor3 fromAnglePlain(double angle, Bivector3 bivector3) {
+        var halfAngle = angle /2;
+        return new Rotor3(Math.cos(halfAngle), bivector3.normalized().times(Math.sin(halfAngle)));
+    }
+
     public @NotNull Rotor3 reverse() {
-        return new Rotor3(angle, bivector().unaryMinus());
+        return new Rotor3(scalar, -e1e2, -e2e3, -e3e1);
+    }
+
+    public double magnitude() {
+        return Math.sqrt((scalar * scalar) + (e1e2 * e1e2) + (e2e3 * e2e3) + (e3e1 * e3e1));
+    }
+
+    public Rotor3 normalized() {
+        return this.div(magnitude());
     }
 
     public @NotNull Vector3 rotate(Vector3 vector) {
-        var scalar = scalar();
-        return this.times(vector).times(reverse()).vector();
+        var normal = normalized();
+        return normal.times(vector).times(normal.reverse()).vector();
     }
 
-    @Override
-    public double scalar() {
-        return Math.cos(angle / 2);
+    public double angle() {
+        return Math.atan2(bivector().magnitude(), scalar);
     }
 
     @Override
@@ -59,7 +74,7 @@ public record Rotor3(double scalar, double e1e2, double e2e3, double e3e1) imple
 
     @Override
     public @NotNull Bivector3 bivector() {
-        return plane.times(Math.sin(angle / 2));
+        return new Bivector3(e1e2, e2e3, e3e1);
     }
 
     @Override
@@ -103,7 +118,7 @@ public record Rotor3(double scalar, double e1e2, double e2e3, double e3e1) imple
     }
 
     @Override
-    public @NotNull Geometric3Object minus(@NotNull Trivector3 other) {
+    public @NotNull Geometric3 minus(@NotNull Trivector3 other) {
         return this.plus(other.unaryMinus());
     }
 
@@ -113,8 +128,20 @@ public record Rotor3(double scalar, double e1e2, double e2e3, double e3e1) imple
     }
 
     @Override
-    public @NotNull Geometric3 times(@NotNull Bivector3 other) {
-        return new Geometric3Object(scalar(), Vector3.ZERO, bivector(), Trivector3.ZERO).times(other);
+    public @NotNull Rotor3 times(@NotNull Bivector3 other) {
+
+        var out = bivector().outer(other);
+        var inn = bivector().inner(other).scalar();
+        var sca = other.times(scalar);
+        return new Rotor3(inn, out.plus(sca));
+    }
+
+    public @NotNull Rotor3 times(@NotNull Rotor3 other) {
+
+        var out = bivector().outer(other);
+        var inn = bivector().inner(other).scalar();
+        var sca = other.times(scalar);
+        return new Rotor3(inn, out.plus(sca));
     }
 
     @Override
@@ -163,8 +190,8 @@ public record Rotor3(double scalar, double e1e2, double e2e3, double e3e1) imple
     }
 
     @Override
-    public Geometric3 div(double other) {
-        return new Geometric3Object(scalar(), Vector3.ZERO, bivector(), Trivector3.ZERO).div(other);
+    public Rotor3 div(double other) {
+        return new Rotor3(scalar / other, e1e2 / other, e2e3 / other, e3e1 / other);
     }
 
     @Override
@@ -196,46 +223,4 @@ public record Rotor3(double scalar, double e1e2, double e2e3, double e3e1) imple
     public @NotNull Rotor3 inverse() {
         return new Rotor3(1 / scalar(), bivector().inverse());
     }
-
-//    private final Geometric3Object rotor3;
-//
-//    public Rotor3(double rotation, Bivector3 plane) {
-//        this.rotor3 = Geometric3Object.ZERO.plus(3 * Math.cos(rotation / 2)).plus(plane.normalized().times(Math.sin(rotation / 2)));
-//    }
-//
-//    private Rotor3(Geometric3Object geometric3Object) {
-//        rotor3 = geometric3Object;
-//    }
-//
-//    public Rotor3(Vector3 from, Vector3 to) {
-//        this(from.inner(to).scalar(), from.outer(to));
-//    }
-//
-//    public Rotor3 reverse() {
-//        return new Rotor3(new Geometric3Object(rotor3.scalar(), Vector3.ZERO, rotor3.bivector().unaryMinus(), Trivector3.ZERO));
-//    }
-//
-//    public Vector3 rotate(Vector3 vector3) {
-//        return rotor3.times(vector3).times(this.reverse().rotor3).vector();
-//    }
-//
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (obj == this) return true;
-//        if (obj instanceof Rotor3 other) {
-//            return this.rotor3.equals(other.rotor3);
-//        }
-//        return false;
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(rotor3);
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return rotor3.scalar() + " + " + rotor3.bivector();
-//    }
-
 }

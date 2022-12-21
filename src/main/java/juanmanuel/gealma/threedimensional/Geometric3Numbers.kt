@@ -57,6 +57,10 @@ operator fun Number.plus(other: Geometric3): Geometric3 {
     return other + this.toDouble()
 }
 
+operator fun Number.plus(other: Bivector3): Rotor3 {
+    return other + this.toDouble()
+}
+
 operator fun Number.minus(other: Geometric3): Geometric3 {
     return -other + this.toDouble()
 }
@@ -70,3 +74,10 @@ operator fun Number.div(other: Geometric3): Geometric3 {
 }
 
 operator fun Rotor3.not() = this.reverse()
+
+fun main() {
+    val b1 = 1.e1e2 + 2.e2e3
+    println((1 + b1))
+
+    println((1 + b1) * b1)
+}

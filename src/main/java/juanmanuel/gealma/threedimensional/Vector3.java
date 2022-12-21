@@ -29,6 +29,14 @@ public record Vector3(double e1, double e2, double e3) implements Geometric3 {
         return magnitude();
     }
 
+    public Vector3 projection(Vector3 other) {
+        return other.inverse().times(inner(other).scalar());
+    }
+
+    public Vector3 rejection(Vector3 other) {
+        return this.minus(projection(other));
+    }
+
     public static Vector3 sum(Vector3... vectors) {
         var vec = Vector3.ZERO;
         for (var vecs : vectors) {

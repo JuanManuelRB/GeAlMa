@@ -10,14 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1dd672b6-0dc7-4794-94cf-24075b421c45" name="Changes" comment="Added rotation with Rotors">
-      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/MathGeometric3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Bivector3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Bivector3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3Numbers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3Numbers.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Rotor3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Rotor3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Trivector3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Trivector3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Vector3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Vector3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/juanmanuel/gealma/threedimensional/Vector3Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/juanmanuel/gealma/threedimensional/Vector3Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
