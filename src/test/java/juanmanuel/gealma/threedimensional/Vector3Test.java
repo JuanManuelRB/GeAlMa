@@ -67,9 +67,9 @@ class Vector3Test {
         var k = rnd.nextDouble();
         var vec = new Vector3(i, j, k).unaryPlus();
 
-        assertEquals(Math.abs(i), vec.i());
-        assertEquals(Math.abs(j), vec.j());
-        assertEquals(Math.abs(k), vec.k());
+        assertEquals(Math.abs(i), vec.e1());
+        assertEquals(Math.abs(j), vec.e2());
+        assertEquals(Math.abs(k), vec.e3());
 
         assertEquals(new Vector3(Math.abs(i), Math.abs(j), Math.abs(k)), vec);
         assertEquals(Vector3.ONE, new Vector3(1, -1, -1).unaryPlus());
@@ -163,11 +163,11 @@ class Vector3Test {
 
     @Test
     void div() {
-//        var i = rnd.nextDouble();
-//        var j = rnd.nextDouble();
-//        var k = rnd.nextDouble();
+//        var e1 = rnd.nextDouble();
+//        var e2 = rnd.nextDouble();
+//        var e3 = rnd.nextDouble();
 //
-//        var vec = new Vector3(i, j, k);
+//        var vec = new Vector3(e1, e2, e3);
 //        assertEquals(Geometric3Object.ZERO.plus(1), vec.div(vec));
 //        assertEquals(1,vec.div(vec).scalar());
     }
@@ -183,22 +183,22 @@ class Vector3Test {
 
     @Test
     void inverse() {
-//        var i = rnd.nextDouble();
-//        var j = rnd.nextDouble();
-//        var k = rnd.nextDouble();
+//        var e1 = rnd.nextDouble();
+//        var e2 = rnd.nextDouble();
+//        var e3 = rnd.nextDouble();
 //
-//        var vec = new Vector3(i, j, k);
+//        var vec = new Vector3(e1, e2, e3);
 //        assertEquals(Geometric3Object.ZERO.plus(1), vec.times(vec.inverse()));
 //        assertEquals(1,vec.times(vec.inverse()).scalar());
     }
 
     @Test
     void unitary() {
-//        var i = rnd.nextDouble();
-//        var j = rnd.nextDouble();
-//        var k = rnd.nextDouble();
+//        var e1 = rnd.nextDouble();
+//        var e2 = rnd.nextDouble();
+//        var e3 = rnd.nextDouble();
 //
-//        var vec = new Vector3(i, j, k);
+//        var vec = new Vector3(e1, e2, e3);
 //        assertEquals(1, vec.unitary().magnitude());
     }
 
@@ -208,7 +208,7 @@ class Vector3Test {
         var j = rnd.nextDouble();
         var k = rnd.nextDouble();
 
-        assertEquals(i, new Vector3(i, j, k).i());
+        assertEquals(i, new Vector3(i, j, k).e1());
 
         assertEquals(Vector3.ONE.vectorI(), new Vector3(1, 0, 0));
     }
@@ -219,7 +219,7 @@ class Vector3Test {
         var j = rnd.nextDouble();
         var k = rnd.nextDouble();
 
-        assertEquals(j, new Vector3(i, j, k).j());
+        assertEquals(j, new Vector3(i, j, k).e2());
 
         assertEquals(Vector3.ONE.vectorJ(), new Vector3(0, 1, 0));
     }
@@ -230,7 +230,7 @@ class Vector3Test {
         var j = rnd.nextDouble();
         var k = rnd.nextDouble();
 
-        assertEquals(k, new Vector3(i, j, k).k());
+        assertEquals(k, new Vector3(i, j, k).e3());
 
         assertEquals(Vector3.ONE.vectorK(), new Vector3(0, 0, 1));
     }

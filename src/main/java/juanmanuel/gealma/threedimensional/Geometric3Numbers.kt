@@ -8,43 +8,50 @@ infix fun Geometric3.out(other: Geometric3): Geometric3 {
     return this.outer(other)
 }
 
-val Number.i
+val Number.e1
     get() = Vector3(this.toDouble(), .0, .0)
-val Number.j
+val Number.e2
     get() = Vector3(.0, this.toDouble(), .0)
-val Number.k
+val Number.e3
     get() = Vector3(.0, .0, this.toDouble())
 
-val Number.ij
+val Number.e1e2
     get() = Bivector3(this.toDouble(), .0, .0)
-val Number.jk
+val Number.e2e3
     get() = Bivector3(.0, this.toDouble(), .0)
-val Number.ki
+val Number.e3e1
     get() = Bivector3(.0, .0, this.toDouble())
 
-val Number.ijk
+val Number.i
+    get() = Bivector3(this.toDouble(), .0, .0)
+val Number.j
+    get() = Bivector3(.0, this.toDouble(), .0)
+val Number.k
+    get() = Bivector3(.0, .0, this.toDouble())
+
+val Number.e1e2e3
     get() = Trivector3(this.toDouble())
 
-val Vector3.I
+val Vector3.x
     get() = this.vectorI()
 
-val Vector3.J
+val Vector3.y
     get() = this.vectorJ()
 
-val Vector3.K
+val Vector3.z
     get() = this.vectorK()
 
-val Bivector3.IJ
+val Bivector3.i
     get() = this.bivectorIJ()
 
-val Bivector3.JK
+val Bivector3.j
     get() = this.bivectorJK()
 
-val Bivector3.KI
+val Bivector3.k
     get() = this.bivectorKI()
 
 val Trivector3.IJK
-    get() = this.ijk()
+    get() = this.e1e2e3()
 
 operator fun Number.plus(other: Geometric3): Geometric3 {
     return other + this.toDouble()
@@ -61,3 +68,5 @@ operator fun Number.times(other: Geometric3): Geometric3 {
 operator fun Number.div(other: Geometric3): Geometric3 {
     return other.inverse() * this.toDouble()
 }
+
+operator fun Rotor3.not() = this.reverse()

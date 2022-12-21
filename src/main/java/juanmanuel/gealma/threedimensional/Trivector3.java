@@ -2,7 +2,7 @@ package juanmanuel.gealma.threedimensional;
 
 import org.jetbrains.annotations.NotNull;
 
-public record Trivector3(double ijk) implements Geometric3 {
+public record Trivector3(double e1e2e3) implements Geometric3 {
     public static final Trivector3 ZERO = new Trivector3(0);
     public static final Trivector3 ONE = new Trivector3(1);
 
@@ -33,13 +33,13 @@ public record Trivector3(double ijk) implements Geometric3 {
     @NotNull
     @Override
     public Trivector3 unaryMinus() {
-        return new Trivector3(-this.ijk);
+        return new Trivector3(-this.e1e2e3);
     }
 
     @NotNull
     @Override
     public Trivector3 unaryPlus() {
-        return new Trivector3(Math.abs(this.ijk));
+        return new Trivector3(Math.abs(this.e1e2e3));
     }
 
     public double magnitude() {
@@ -77,7 +77,7 @@ public record Trivector3(double ijk) implements Geometric3 {
     @NotNull
     @Override
     public Trivector3 plus(@NotNull Trivector3 other) {
-        return new Trivector3(this.ijk + other.ijk);
+        return new Trivector3(this.e1e2e3 + other.e1e2e3);
     }
 
     @NotNull
@@ -131,25 +131,25 @@ public record Trivector3(double ijk) implements Geometric3 {
     @NotNull
     @Override
     public Trivector3 inner(double other) {
-        return new Trivector3(ijk * other);
+        return new Trivector3(e1e2e3 * other);
     }
 
     @NotNull
     @Override
     public Bivector3 inner(@NotNull Vector3 other) {
-        return new Bivector3(this.ijk * other.k(), this.ijk * other.i(), -(this.ijk * other.j()));
+        return new Bivector3(this.e1e2e3 * other.e3(), this.e1e2e3 * other.e1(), -(this.e1e2e3 * other.e2()));
     }
 
     @NotNull
     @Override
     public Vector3 inner(@NotNull Bivector3 other) {
-        return new Vector3(this.ijk * other.jk(), -(this.ijk * other.ki()), -(this.ijk * other.ij()));
+        return new Vector3(this.e1e2e3 * other.e2e3(), -(this.e1e2e3 * other.e3e1()), -(this.e1e2e3 * other.e1e2()));
     }
 
     @NotNull
     @Override
     public Geometric3 inner(@NotNull Trivector3 other) {
-        return Geometric3Object.ZERO.plus(-(this.ijk * other.ijk));
+        return Geometric3Object.ZERO.plus(-(this.e1e2e3 * other.e1e2e3));
     }
 
     @NotNull
@@ -178,7 +178,7 @@ public record Trivector3(double ijk) implements Geometric3 {
 
     @Override
     public @NotNull Trivector3 div(double other) {
-        return new Trivector3(ijk / other);
+        return new Trivector3(e1e2e3 / other);
     }
 
     @Override
@@ -198,6 +198,6 @@ public record Trivector3(double ijk) implements Geometric3 {
 
     @Override
     public String toString() {
-        return  ijk + "(ijk)";
+        return  e1e2e3 + "(e1e2e3)";
     }
 }

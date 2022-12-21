@@ -2,7 +2,7 @@ package juanmanuel.gealma.threedimensional;
 
 import org.jetbrains.annotations.NotNull;
 
-public record Vector3(double i, double j, double k) implements Geometric3 {
+public record Vector3(double e1, double e2, double e3) implements Geometric3 {
     public static final Vector3 ZERO = new Vector3(0, 0, 0);
     public static final Vector3 ONE = new Vector3(1, 1, 1);
 //    public static final Vector3 I = Vector3.ONE.vectorI();
@@ -10,15 +10,15 @@ public record Vector3(double i, double j, double k) implements Geometric3 {
 //    public static final Vector3 K = Vector3.ONE.vectorK();
 
     public Vector3 vectorI() {
-        return new Vector3(i, 0, 0);
+        return new Vector3(e1, 0, 0);
     }
 
     public Vector3 vectorJ() {
-        return new Vector3(0, j, 0);
+        return new Vector3(0, e2, 0);
     }
 
     public Vector3 vectorK() {
-        return new Vector3(0, 0, k);
+        return new Vector3(0, 0, e3);
     }
 
     public double magnitude() {
@@ -59,12 +59,12 @@ public record Vector3(double i, double j, double k) implements Geometric3 {
 
     @NotNull @Override
     public Vector3 unaryMinus() {
-        return new Vector3(-i, -j, -k);
+        return new Vector3(-e1, -e2, -e3);
     }
 
     @NotNull @Override
     public Vector3 unaryPlus() {
-        return new Vector3(Math.abs(i), Math.abs(j), Math.abs(k));
+        return new Vector3(Math.abs(e1), Math.abs(e2), Math.abs(e3));
     }
 
     @NotNull @Override
@@ -91,7 +91,7 @@ public record Vector3(double i, double j, double k) implements Geometric3 {
 
     @NotNull @Override
     public Vector3 plus(@NotNull Vector3 other) {
-        return new Vector3(this.i + other.i, this.j + other.j, this.k + other.k);
+        return new Vector3(this.e1 + other.e1, this.e2 + other.e2, this.e3 + other.e3);
     }
 
     // Subtraction
@@ -149,13 +149,13 @@ public record Vector3(double i, double j, double k) implements Geometric3 {
 
     @NotNull @Override
     public Vector3 inner(double other) {
-        return new Vector3(i * other, j * other, k * other);
+        return new Vector3(e1 * other, e2 * other, e3 * other);
     }
 
     @NotNull @Override
     public Geometric3Object inner(@NotNull Vector3 other) {
         return new Geometric3Object(
-                this.i * other.i + this.j * other.j + this.k * other.k,
+                this.e1 * other.e1 + this.e2 * other.e2 + this.e3 * other.e3,
                 Vector3.ZERO,
                 Bivector3.ZERO,
                 Trivector3.ZERO
@@ -166,9 +166,9 @@ public record Vector3(double i, double j, double k) implements Geometric3 {
     public Vector3 inner(@NotNull Bivector3 other) {
         //TODO: Vector computation?
         return new Vector3(
-                this.k * other.ki() - this.j * other.ij(),
-                this.i * other.ij() - this.k * other.jk(),
-                this.j * other.jk() - this.i * other.ki()
+                this.e3 * other.e3e1() - this.e2 * other.e1e2(),
+                this.e1 * other.e1e2() - this.e3 * other.e2e3(),
+                this.e2 * other.e2e3() - this.e1 * other.e3e1()
         );
     }
 
@@ -176,9 +176,9 @@ public record Vector3(double i, double j, double k) implements Geometric3 {
     public Bivector3 inner(@NotNull Trivector3 other) {
         //TODO: Vector computation?
         return new Bivector3(
-                this.i * other.ijk(),
-                this.j * other.ijk(),
-                this.k * other.ijk()
+                this.e1 * other.e1e2e3(),
+                this.e2 * other.e1e2e3(),
+                this.e3 * other.e1e2e3()
         );
     }
 
@@ -190,15 +190,15 @@ public record Vector3(double i, double j, double k) implements Geometric3 {
     @NotNull @Override
     public Bivector3 outer(@NotNull Vector3 other) {
         return new Bivector3(
-                this.i * other.j - other.i * this.j,
-                this.j * other.k - other.j * this.k,
-                this.k * other.i - other.k * this.i
+                this.e1 * other.e2 - other.e1 * this.e2,
+                this.e2 * other.e3 - other.e2 * this.e3,
+                this.e3 * other.e1 - other.e3 * this.e1
         );
     }
 
     @NotNull @Override
     public Vector3 div(double other) {
-        return new Vector3(i / other, j / other, k / other);
+        return new Vector3(e1 / other, e2 / other, e3 / other);
     }
 
     @NotNull @Override
@@ -223,7 +223,7 @@ public record Vector3(double i, double j, double k) implements Geometric3 {
 
     @NotNull @Override
     public Trivector3 outer(@NotNull Bivector3 other) {
-        return new Trivector3(this.i * other.jk() + this.j * other.ki() + this.k * other.ij());
+        return new Trivector3(this.e1 * other.e2e3() + this.e2 * other.e3e1() + this.e3 * other.e1e2());
     }
 
     @NotNull @Override
@@ -246,22 +246,22 @@ public record Vector3(double i, double j, double k) implements Geometric3 {
     @Override
     public String toString() {
 //        var str = "";
-//        if (i != 0)
-//            str += i + "(i)";
+//        if (e1 != 0)
+//            str += e1 + "(e1)";
 //
-//        if (j != 0){
-//            if (i != 0)
+//        if (e2 != 0){
+//            if (e1 != 0)
 //                str += " + ";
-//            str += j + "(j)";
+//            str += e2 + "(e2)";
 //        }
 //
-//        if (k != 0) {
-//            if (j != 0)
+//        if (e3 != 0) {
+//            if (e2 != 0)
 //                str += " + ";
-//            str += k + "(k)";
+//            str += e3 + "(e3)";
 //        }
 //        return str;
 
-        return i + "(i) + " + j + "(j) + " + k + "(k)";
+        return e1 + "(e1) + " + e2 + "(e2) + " + e3 + "(e3)";
     }
 }

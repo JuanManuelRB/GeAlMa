@@ -10,12 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1dd672b6-0dc7-4794-94cf-24075b421c45" name="Changes" comment="Added rotation with Rotors">
-      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Rotor3.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/MathGeometric3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Bivector3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Bivector3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3Numbers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3Numbers.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3Object.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3Object.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Rotor3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Rotor3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Trivector3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Trivector3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Vector3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Vector3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/juanmanuel/gealma/threedimensional/Vector3Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/juanmanuel/gealma/threedimensional/Vector3Test.java" afterDir="false" />
@@ -186,6 +185,9 @@
       <workItem from="1671298939861" duration="8718000" />
       <workItem from="1671371795254" duration="24426000" />
       <workItem from="1671470391385" duration="17279000" />
+      <workItem from="1671573406515" duration="850000" />
+      <workItem from="1671574416625" duration="132000" />
+      <workItem from="1671621079994" duration="7559000" />
     </task>
     <task id="LOCAL-00001" summary="Vector3 basic math finished">
       <created>1670518583838</created>
@@ -222,7 +224,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671318517510</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added rotation with Rotors">
+      <created>1671573524728</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1671573524728</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

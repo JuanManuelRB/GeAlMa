@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
  * with a grade (or number of dimensions) of 2. It can be expressed as a linear combination of the basis bivectors of
  * the algebra, which satisfy the following conditions:
  *
- * The bivectors are orthogonal to the scalar unit (i.e., the unit with a grade of 0).
+ * The bivectors are orthogonal to the scalar unit (e1.e., the unit with a grade of 0).
  * The bivectors are orthogonal to each other.
  * The bivectors square to the negative of the scalar unit.
  * For example, in 3-dimensional Euclidean space, the basis bivectors are e2e3, e3e1, and e1e2, where e1, e2, and e3 are
@@ -23,19 +23,19 @@ import org.jetbrains.annotations.NotNull;
  * @param angle
  * @param plane
  */
-public record Rotor3(double angle, @NotNull Bivector3 plane) implements Geometric3 {
-    public Rotor3 {
-        plane = plane.normalized();
+public record Rotor3(double scalar, double e1e2, double e2e3, double e3e1) implements Geometric3 {
+    public Rotor3(double scalar, Bivector3 bivector) {
+        this(scalar, bivector.e1e2(), bivector.e2e3(), bivector.e3e1());
     }
 
     /**
-     * Takes two vectors and creates a rotor that will rotate twice the angle the two vectors form.
+     * Takes two vectors and creates a rotor that will rotate twice the angle between the two vectors.
      *
      * @param from the vector from which the angle starts.
      * @param to the vector to which the angle ends.
      */
     public Rotor3(Vector3 from, Vector3 to) {
-        this(from.inner(to).scalar(), from.outer(to));
+        this(Math.acos(from.inner(to).scalar()), from.outer(to));
     }
 
     public @NotNull Rotor3 reverse() {
