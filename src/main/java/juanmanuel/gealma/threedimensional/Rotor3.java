@@ -269,7 +269,7 @@ public record Rotor3(double e0, double e1e2, double e2e3, double e3e1) implement
 
     @Override
     public @NotNull Rotor3 div(@NotNull Rotor3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
@@ -288,8 +288,8 @@ public record Rotor3(double e0, double e1e2, double e2e3, double e3e1) implement
     }
 
     @Override
-    public @NotNull Rotor3 inverse() {
-        return new Rotor3(1 / e0(), bivector().inverse());
+    public @NotNull Rotor3 reciprocal() {
+        return new Rotor3(1 / e0(), bivector().reciprocal());
     }
 
     @Override

@@ -73,7 +73,7 @@ operator fun Number.times(other: Geometric3): Geometric3 {
 }
 
 operator fun Number.div(other: Geometric3): Geometric3 {
-    return other.inverse() * this.toDouble()
+    return other.reciprocal() * this.toDouble()
 }
 
 operator fun Rotor3.not() = this.reverse()

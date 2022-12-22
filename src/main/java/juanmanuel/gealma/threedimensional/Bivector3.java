@@ -58,7 +58,7 @@ public record Bivector3(double e1e2, double e2e3, double e3e1) implements Geomet
     }
 
     @Override
-    public @NotNull Bivector3 inverse() {
+    public @NotNull Bivector3 reciprocal() {
         return this.div(this.magnitude() * this.magnitude());
     }
 
@@ -228,22 +228,22 @@ public record Bivector3(double e1e2, double e2e3, double e3e1) implements Geomet
 
     @Override
     public @NotNull Geometric3 div(@NotNull Vector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public @NotNull Rotor3 div(@NotNull Bivector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public @NotNull Rotor3 div(@NotNull Rotor3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public @NotNull Geometric3 div(@NotNull Trivector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override

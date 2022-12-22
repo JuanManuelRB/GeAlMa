@@ -50,7 +50,7 @@ public record Trivector3(double e1e2e3) implements Geometric3 {
     }
 
     @Override
-    public @NotNull Trivector3 inverse() {
+    public @NotNull Trivector3 reciprocal() {
         return this.unaryMinus();
     }
 
@@ -219,22 +219,22 @@ public record Trivector3(double e1e2e3) implements Geometric3 {
 
     @Override
     public @NotNull Bivector3 div(@NotNull Vector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public @NotNull Vector3 div(@NotNull Bivector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public @NotNull Geometric3 div(@NotNull Rotor3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public @NotNull Scalar div(@NotNull Trivector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override

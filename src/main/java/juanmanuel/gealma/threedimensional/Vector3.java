@@ -24,8 +24,8 @@ public record Vector3(double e1, double e2, double e3) implements Geometric3 {
 //            vec = vec.times(vecs);
 //        }
 //        return vec;
-//    } TODO
 
+//    } TODO
     @Override
     public @NotNull Scalar scalar() {
         return Scalar.ZERO;
@@ -54,6 +54,11 @@ public record Vector3(double e1, double e2, double e3) implements Geometric3 {
     @Override
     public @NotNull Vector3 unaryPlus() {
         return new Vector3(Math.abs(e1), Math.abs(e2), Math.abs(e3));
+    }
+
+    @Override
+    public double magnitude() {
+        return Math.sqrt(inner(this).e0());
     }
 
     @Override
@@ -94,11 +99,11 @@ public record Vector3(double e1, double e2, double e3) implements Geometric3 {
     public @NotNull Geometric3 plus(@NotNull Trivector3 other) {
         return new Geometric3Object(0, this, Bivector3.ZERO, other);
     }
-
     @Override
     public @NotNull Geometric3 minus(double other) {
         return this.plus(-other);
     }
+
     @Override
     public @NotNull Geometric3 minus(Scalar other) {
         return this.plus(other.unaryMinus());
@@ -170,7 +175,7 @@ public record Vector3(double e1, double e2, double e3) implements Geometric3 {
     }
 
     @Override
-    public @NotNull Scalar outer(Scalar other) {
+    public @NotNull Scalar outer(@NotNull Scalar other) {
         return Scalar.ZERO;
     }
 
@@ -229,7 +234,7 @@ public record Vector3(double e1, double e2, double e3) implements Geometric3 {
     }
 
     @Override
-    public @NotNull Vector3 inverse() {
+    public @NotNull Vector3 reciprocal() {
         return this.div(this.magnitude() * this.magnitude());
     }
 
@@ -245,26 +250,30 @@ public record Vector3(double e1, double e2, double e3) implements Geometric3 {
 
     @Override
     public @NotNull Geometric3 div(@NotNull Vector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public @NotNull Geometric3 div(@NotNull Bivector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public @NotNull Geometric3 div(@NotNull Rotor3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public @NotNull Geometric3 div(@NotNull Trivector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
+    }
+
+    public double length() {
+        return magnitude();
     }
 
     public Vector3 reflectOver(Vector3 other) {
-        return other.inverse().times(this).times(other).vector();
+        return other.reciprocal().times(this).times(other).vector();
     }
 
     public Vector3 rotated(Rotor3 rotor) {
@@ -275,17 +284,8 @@ public record Vector3(double e1, double e2, double e3) implements Geometric3 {
         return Rotor3.fromPlain(angle, plane).rotate(this);
     }
 
-    @Override
-    public double magnitude() {
-        return Math.sqrt(inner(this).e0());
-    }
-
-    public double length() {
-        return magnitude();
-    }
-
     public Vector3 projection(Vector3 other) {
-        return other.inverse().times(inner(other));
+        return other.reciprocal().times(inner(other));
     }
 
     public Vector3 rejection(Vector3 other) {

@@ -194,7 +194,7 @@ public record Scalar(double e0) implements Geometric3 {
     }
 
     @Override
-    public @NotNull Scalar inverse() {
+    public @NotNull Scalar reciprocal() {
         return new Scalar(1 / e0);
     }
 
@@ -210,22 +210,22 @@ public record Scalar(double e0) implements Geometric3 {
 
     @Override
     public @NotNull Geometric3 div(@NotNull Vector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public @NotNull Geometric3 div(@NotNull Bivector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public @NotNull Geometric3 div(@NotNull Rotor3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public @NotNull Geometric3 div(@NotNull Trivector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override

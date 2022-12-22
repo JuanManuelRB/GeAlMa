@@ -32,7 +32,7 @@ public record Geometric3Object(double e0, double e1, double e2, double e3, doubl
     }
 
     @Override
-    public @NotNull Geometric3 inverse() {
+    public @NotNull Geometric3 reciprocal() {
 //        return Geometric3Object.ZERO.plus(1).div(this); TODO
         return null;
     }
@@ -275,30 +275,30 @@ public record Geometric3Object(double e0, double e1, double e2, double e3, doubl
 
     @Override
     public @NotNull Geometric3 div(Scalar other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public @NotNull Geometric3 div(@NotNull Vector3 other) {
 //        return other.inverse().times(other).plus(this.vector.div(other)).plus(this.bivector.div(other)).plus(this.trivector.div(other));TODO
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public @NotNull Geometric3 div(@NotNull Bivector3 other) {
 //        return other.inverse().times(other).plus(this.vector.div(other)).plus(this.bivector.div(other)).plus(this.trivector.div(other));TODO
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public @NotNull Geometric3 div(@NotNull Rotor3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public @NotNull Geometric3 div(@NotNull Trivector3 other) {
 //        return other.inverse().times(other).plus(this.vector.div(other)).plus(this.bivector.div(other)).plus(this.trivector.div(other));TODO
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
