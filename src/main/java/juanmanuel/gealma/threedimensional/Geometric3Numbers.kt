@@ -8,6 +8,8 @@ infix fun Geometric3.out(other: Geometric3): Geometric3 {
     return this.outer(other)
 }
 
+val Number.e0
+    get() = Scalar(this.toDouble())
 val Number.e1
     get() = Vector3(this.toDouble(), .0, .0)
 val Number.e2
@@ -33,27 +35,28 @@ val Number.e1e2e3
     get() = Trivector3(this.toDouble())
 
 val Vector3.x
-    get() = this.vectorI()
+    get() = Vector3(this.e1, .0, .0)
 
 val Vector3.y
-    get() = this.vectorJ()
+    get() = Vector3(.0, this.e2, .0)
 
 val Vector3.z
-    get() = this.vectorK()
+    get() = Vector3(.0, .0, this.e3)
 
 val Bivector3.i
-    get() = this.bivectorIJ()
+    get() = Bivector3(this.e1e2, .0, .0)
 
 val Bivector3.j
-    get() = this.bivectorJK()
+    get() = Bivector3(.0, this.e2e3, .0)
 
 val Bivector3.k
-    get() = this.bivectorKI()
-
-val Trivector3.IJK
-    get() = this.e1e2e3()
+    get() = Bivector3(.0, .0, this.e3e1)
 
 operator fun Number.plus(other: Geometric3): Geometric3 {
+    return other + this.toDouble()
+}
+
+operator fun Number.plus(other: Scalar): Scalar {
     return other + this.toDouble()
 }
 
@@ -74,10 +77,3 @@ operator fun Number.div(other: Geometric3): Geometric3 {
 }
 
 operator fun Rotor3.not() = this.reverse()
-
-fun main() {
-    val b1 = 1.e1e2 + 2.e2e3
-    println((1 + b1))
-
-    println((1 + b1) * b1)
-}

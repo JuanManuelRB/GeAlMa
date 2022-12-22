@@ -169,7 +169,7 @@ class Vector3Test {
 //
 //        var vec = new Vector3(e1, e2, e3);
 //        assertEquals(Geometric3Object.ZERO.plus(1), vec.div(vec));
-//        assertEquals(1,vec.div(vec).scalar());
+//        assertEquals(1,vec.div(vec).e0());
     }
 
     @Test
@@ -189,7 +189,7 @@ class Vector3Test {
 //
 //        var vec = new Vector3(e1, e2, e3);
 //        assertEquals(Geometric3Object.ZERO.plus(1), vec.times(vec.inverse()));
-//        assertEquals(1,vec.times(vec.inverse()).scalar());
+//        assertEquals(1,vec.times(vec.inverse()).e0());
     }
 
     @Test
@@ -210,7 +210,7 @@ class Vector3Test {
 
         assertEquals(i, new Vector3(i, j, k).e1());
 
-        assertEquals(Vector3.ONE.vectorI(), new Vector3(1, 0, 0));
+//        assertEquals(Vector3.ONE.vectorI(), new Vector3(1, 0, 0));
     }
 
     @Test
@@ -221,7 +221,7 @@ class Vector3Test {
 
         assertEquals(j, new Vector3(i, j, k).e2());
 
-        assertEquals(Vector3.ONE.vectorJ(), new Vector3(0, 1, 0));
+//        assertEquals(Vector3.ONE.vectorJ(), new Vector3(0, 1, 0));
     }
 
     @Test
@@ -232,6 +232,6 @@ class Vector3Test {
 
         assertEquals(k, new Vector3(i, j, k).e3());
 
-        assertEquals(Vector3.ONE.vectorK(), new Vector3(0, 0, 1));
+//        assertEquals(Vector3.ONE.vectorK(), new Vector3(0, 0, 1));
     }
 }
