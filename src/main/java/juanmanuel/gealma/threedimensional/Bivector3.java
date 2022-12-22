@@ -17,10 +17,12 @@ public record Bivector3(double e1e2, double e2e3, double e3e1) implements Geomet
         return magnitude();
     }
 
+    @Override
     public double magnitude() {
         return Math.sqrt(inner(this).unaryPlus().e0());
     }
 
+    @Override
     public @NotNull Bivector3 normalized() {
         return this.div(this.magnitude());
     }
@@ -81,6 +83,11 @@ public record Bivector3(double e1e2, double e2e3, double e3e1) implements Geomet
     }
 
     @Override
+    public @NotNull Rotor3 plus(@NotNull Rotor3 other) {
+        return new Rotor3(other.scalar(), this.plus(other.bivector()));
+    }
+
+    @Override
     public @NotNull Geometric3 plus(@NotNull Trivector3 other) {
         return new Geometric3Object(scalar(), vector(), this, other);
     }
@@ -101,33 +108,13 @@ public record Bivector3(double e1e2, double e2e3, double e3e1) implements Geomet
     }
 
     @Override
-    public @NotNull Geometric3 minus(@NotNull Trivector3 other) {
+    public @NotNull Geometric3 minus(@NotNull Rotor3 other) {
         return this.plus(other.unaryMinus());
     }
 
     @Override
-    public @NotNull Bivector3 times(double other) {
-        return this.inner(other);
-    }
-
-    @Override
-    public @NotNull Bivector3 times(Scalar other) {
-        return this.inner(other);
-    }
-
-    @Override
-    public @NotNull Geometric3 times(@NotNull Vector3 other) {
-        return this.inner(other).plus(this.outer(other));
-    }
-
-    @Override
-    public @NotNull Rotor3 times(@NotNull Bivector3 other) {
-        return this.inner(other).plus(this.outer(other));
-    }
-
-    @Override
-    public @NotNull Geometric3 times(@NotNull Trivector3 other) {
-        return this.inner(other).plus(this.outer(other));
+    public @NotNull Geometric3 minus(@NotNull Trivector3 other) {
+        return this.plus(other.unaryMinus());
     }
 
     @Override
@@ -148,6 +135,11 @@ public record Bivector3(double e1e2, double e2e3, double e3e1) implements Geomet
     @Override
     public @NotNull Scalar inner(@NotNull Bivector3 other) {
         return new Scalar(-(this.e1e2 * other.e1e2 + this.e2e3 * other.e2e3 + this.e3e1 * other.e3e1));
+    }
+
+    @Override
+    public @NotNull Rotor3 inner(@NotNull Rotor3 other) {
+        return this.inner(other.scalar()).plus(this.inner(other.bivector()));
     }
 
     @Override
@@ -183,10 +175,45 @@ public record Bivector3(double e1e2, double e2e3, double e3e1) implements Geomet
         );
     }
 
+    @Override
+    public @NotNull Rotor3 outer(@NotNull Rotor3 other) {
+        return this.outer(other.scalar()).plus(this.outer(other.bivector()));
+    }
+
     @NotNull
     @Override
     public Scalar outer(@NotNull Trivector3 other) {
-        return scalar();
+        return Scalar.ZERO;
+    }
+
+    @Override
+    public @NotNull Bivector3 times(double other) {
+        return this.inner(other);
+    }
+
+    @Override
+    public @NotNull Bivector3 times(Scalar other) {
+        return this.inner(other);
+    }
+
+    @Override
+    public @NotNull Geometric3 times(@NotNull Vector3 other) {
+        return this.inner(other).plus(this.outer(other));
+    }
+
+    @Override
+    public @NotNull Rotor3 times(@NotNull Bivector3 other) {
+        return this.inner(other).plus(this.outer(other));
+    }
+
+    @Override
+    public @NotNull Rotor3 times(@NotNull Rotor3 other) {
+        return this.inner(other).plus(this.outer(other));
+    }
+
+    @Override
+    public @NotNull Vector3 times(@NotNull Trivector3 other) {
+        return this.inner(other);
     }
 
     @Override
@@ -206,6 +233,11 @@ public record Bivector3(double e1e2, double e2e3, double e3e1) implements Geomet
 
     @Override
     public @NotNull Rotor3 div(@NotNull Bivector3 other) {
+        return this.times(other.inverse());
+    }
+
+    @Override
+    public @NotNull Rotor3 div(@NotNull Rotor3 other) {
         return this.times(other.inverse());
     }
 

@@ -7,7 +7,15 @@ public interface Geometric3 extends Geometric {
     @NotNull Scalar scalar();
     @NotNull Vector3 vector();
     @NotNull Bivector3 bivector();
+    @NotNull default Rotor3 rotor() {
+        return scalar().plus(bivector());
+    }
     @NotNull Trivector3 trivector();
+    @NotNull Geometric3 unaryMinus();
+    @NotNull Geometric3 unaryPlus();
+    @NotNull Geometric3 normalized();
+
+    double magnitude();
 
     default double e0() {
         return scalar().e0();
@@ -41,15 +49,14 @@ public interface Geometric3 extends Geometric {
         return trivector().e1e2e3();
     }
 
-
     // Addition
     @NotNull Geometric3 plus(double other);
-
     @NotNull default Geometric3 plus(@NotNull Scalar other) {
         return plus(other.e0());
     }
     @NotNull Geometric3 plus(@NotNull Vector3 other);
     @NotNull Geometric3 plus(@NotNull Bivector3 other);
+    @NotNull Geometric3 plus(@NotNull Rotor3 other);
     @NotNull Geometric3 plus(@NotNull Trivector3 other);
     @NotNull
     default Geometric3 plus(@NotNull Geometric3 other) {
@@ -72,6 +79,7 @@ public interface Geometric3 extends Geometric {
     }
     @NotNull Geometric3 minus(@NotNull Vector3 other);
     @NotNull Geometric3 minus(@NotNull Bivector3 other);
+    @NotNull Geometric3 minus(@NotNull Rotor3 other);
     @NotNull Geometric3 minus(@NotNull Trivector3 other);
     @NotNull
     default Geometric3 minus(@NotNull Geometric3 other) {
@@ -94,6 +102,7 @@ public interface Geometric3 extends Geometric {
     }
     @NotNull Geometric3 inner(@NotNull Vector3 other);
     @NotNull Geometric3 inner(@NotNull Bivector3 other);
+    @NotNull Geometric3 inner(@NotNull Rotor3 other);
     @NotNull Geometric3 inner(@NotNull Trivector3 other);
     @NotNull
     default Geometric3 inner(Geometric3 geometric3) {
@@ -107,6 +116,7 @@ public interface Geometric3 extends Geometric {
     }
     @NotNull Geometric3 outer(@NotNull Vector3 other);
     @NotNull Geometric3 outer(@NotNull Bivector3 other);
+    @NotNull Geometric3 outer(@NotNull Rotor3 other);
     @NotNull Geometric3 outer(@NotNull Trivector3 other);
     @NotNull
     default Geometric3 outer(Geometric3 geometric3) {
@@ -134,6 +144,7 @@ public interface Geometric3 extends Geometric {
     }
     @NotNull Geometric3 times(@NotNull Vector3 other);
     @NotNull Geometric3 times(@NotNull Bivector3 other);
+    @NotNull Geometric3 times(@NotNull Rotor3 other);
     @NotNull Geometric3 times(@NotNull Trivector3 other);
     @NotNull
     default Geometric3 times(Geometric3 other) {
@@ -161,9 +172,7 @@ public interface Geometric3 extends Geometric {
     }
     @NotNull Geometric3 div(@NotNull Vector3 other);
     @NotNull Geometric3 div(@NotNull Bivector3 other);
+    @NotNull Geometric3 div(@NotNull Rotor3 other);
     @NotNull Geometric3 div(@NotNull Trivector3 other);
 
-
-    @NotNull Geometric3 unaryMinus();
-    @NotNull Geometric3 unaryPlus();
 }
