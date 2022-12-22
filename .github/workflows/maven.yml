@@ -28,9 +28,6 @@ jobs:
         java-version: '19'
         distribution: 'temurin'
         cache: maven
-        
-    - name: Set up Kotlin
-      uses: fwilhe2/setup-kotlin@main
     
     - name: Build with Maven
       run: mvn -B package --file pom.xml
