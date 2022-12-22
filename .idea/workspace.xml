@@ -10,15 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1dd672b6-0dc7-4794-94cf-24075b421c45" name="Changes" comment="Added Rotor specific methods, implemented even subalgebra.">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Bivector3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Bivector3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3Numbers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3Numbers.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3Object.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3Object.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Rotor3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Rotor3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Scalar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Scalar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Trivector3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Trivector3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Vector3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Vector3.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,6 +185,7 @@
       <workItem from="1671707157913" duration="9224000" />
       <workItem from="1671721092914" duration="471000" />
       <workItem from="1671721584328" duration="2933000" />
+      <workItem from="1671724643633" duration="1487000" />
     </task>
     <task id="LOCAL-00001" summary="Vector3 basic math finished">
       <created>1670518583838</created>
@@ -249,7 +243,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671717507043</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Commented code">
+      <created>1671724917963</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1671724917963</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -272,7 +273,8 @@
     <MESSAGE value="Added rotation with Rotors" />
     <MESSAGE value="Refactorized, added Scalar record, Rotors improved, need tests" />
     <MESSAGE value="Added Rotor specific methods, implemented even subalgebra." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Rotor specific methods, implemented even subalgebra." />
+    <MESSAGE value="Commented code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commented code" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>

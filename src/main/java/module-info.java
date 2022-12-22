@@ -1,5 +1,5 @@
 module geometricalgebra {
-    requires org.jetbrains.annotations;
+    requires transitive org.jetbrains.annotations;
     requires kotlin.stdlib;
 
     exports juanmanuel.gealma.threedimensional;
