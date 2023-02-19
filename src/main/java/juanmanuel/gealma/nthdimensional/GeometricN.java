@@ -1,4 +1,4 @@
 package juanmanuel.gealma.nthdimensional;
 
-public interface Geometric {
+public interface GeometricN {
 }

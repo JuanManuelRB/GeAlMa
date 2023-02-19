@@ -1,10 +1,8 @@
-package juanmanuel.gealma.threedimensional;
+package juanmanuel.gealma.oldthreedimensional;
 
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class Vector3Test {
     Random rnd = new Random();
@@ -156,7 +154,7 @@ class Vector3Test {
 
         assertEquals(v1.inner(v2).plus(v1.outer(v2)), v1.times(v2));
 
-        assertEquals(Geometric3Object.ZERO, Vector3.ONE.times(Vector3.ZERO));
+        assertEquals(Multivector3.ZERO, Vector3.ONE.times(Vector3.ZERO));
         assertEquals(Vector3.ONE.outer(Vector3.ONE), Vector3.ONE.times(Vector3.ONE).bivector());
         assertEquals(Vector3.ONE.inner(Vector3.ONE).scalar(), Vector3.ONE.times(Vector3.ONE).scalar());
     }
