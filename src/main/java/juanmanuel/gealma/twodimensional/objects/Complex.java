@@ -24,7 +24,8 @@ public record Complex(E0 real, E1E2 imaginary) implements Geometric2 {
 
     @Override
     public Geometric2 normalized() {
-        return this.div(magnitudeSquared());
+//        return this.div(magnitudeSquared());
+        return null;
     }
 
     @Override
@@ -34,7 +35,7 @@ public record Complex(E0 real, E1E2 imaginary) implements Geometric2 {
 
     @Override
     public Complex inverse() {
-        return;
+        return null;
     }
 
     @Override
@@ -55,5 +56,45 @@ public record Complex(E0 real, E1E2 imaginary) implements Geometric2 {
     @Override
     public Complex plus(Bivector2 other) {
         return new Complex(real, imaginary.plus(other.e1e2()));
+    }
+
+    @Override
+    public Geometric2 plus(Complex other) {
+        return null;
+    }
+
+    @Override
+    public Geometric2 plus(Multivector2 other) {
+        return null;
+    }
+
+    @Override
+    public Geometric2 minus(double other) {
+        return null;
+    }
+
+    @Override
+    public Geometric2 minus(Scalar other) {
+        return null;
+    }
+
+    @Override
+    public Geometric2 minus(Vector2 other) {
+        return null;
+    }
+
+    @Override
+    public Geometric2 minus(Bivector2 other) {
+        return null;
+    }
+
+    @Override
+    public Geometric2 minus(Complex other) {
+        return null;
+    }
+
+    @Override
+    public Geometric2 minus(Multivector2 other) {
+        return null;
     }
 }

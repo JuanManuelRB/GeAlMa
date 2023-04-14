@@ -3,6 +3,10 @@ package juanmanuel.gealma.threedimensional.basis;
 public record E1E2(double value) implements Geometric3Basis {
     public static final E1E2 ZERO = new E1E2(0);
 
+    public double value() {
+        return value;
+    }
+
     public E1E2 plus(E1E2 other) {
         return new E1E2(this.value + other.value());
     }

@@ -5,8 +5,11 @@
  */
 module geometricalgebra {
     requires kotlin.stdlib;
+    requires jdk.incubator.vector;
 
-    exports juanmanuel.gealma.threed;
     exports juanmanuel.gealma.threedimensional;
+    exports juanmanuel.gealma.threedimensional.objects;
+    exports juanmanuel.gealma.threedimensional.basis;
+    exports juanmanuel.gealma.threedimensional.operations;
 
 }

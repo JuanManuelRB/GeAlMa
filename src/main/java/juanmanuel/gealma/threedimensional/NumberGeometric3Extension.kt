@@ -96,5 +96,5 @@ operator fun Number.times(other: Bivector3): Bivector3 {
 }
 
 operator fun Number.div(other: Geometric3): Geometric3 {
-    return other.inverse() * this.toDouble()
+    return other.reciprocal() * this.toDouble()
 }

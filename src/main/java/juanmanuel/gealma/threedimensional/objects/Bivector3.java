@@ -3,17 +3,26 @@ package juanmanuel.gealma.threedimensional.objects;
 import juanmanuel.gealma.threedimensional.basis.E1E2;
 import juanmanuel.gealma.threedimensional.basis.E2E3;
 import juanmanuel.gealma.threedimensional.basis.E3E1;
+import juanmanuel.gealma.threedimensional.basis.Geometric3Basis;
+
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public record Bivector3(E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometric3 {
+    // Corresponds to the number of basis of the geometric object.
+    public static final byte NUMBER_OF_ELEMENTS = 3;
+
     public static final Bivector3 ZERO = new Bivector3(E1E2.ZERO, E2E3.ZERO, E3E1.ZERO);
+
+    public Bivector3 {
+        Objects.requireNonNull(e1e2);
+        Objects.requireNonNull(e2e3);
+        Objects.requireNonNull(e3e1);
+    }
 
     public Bivector3(double e1e2, double e2e3, double e3e1) {
         this(new E1E2(e1e2), new E2E3(e2e3), new E3E1(e3e1));
-    }
-
-    @Override
-    public String toString() {
-        return "(" + e1e2.value() + ")e1e2 + " + "(" + e2e3.value() + ")e2e3 + " + "(" + e3e1.value() + ")e3e1";
     }
 
     @Override
@@ -32,13 +41,17 @@ public record Bivector3(E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometric3 {
     }
 
     @Override
-    public Bivector3 inverse() {
+    public Bivector3 reciprocal() {
         return div(magnitudeSquared());
     }
 
     @Override
     public Bivector3 normalized() {
         return this.div(this.magnitude());
+    }
+
+    public Bivector3 projection(Bivector3 bivector) {
+        return bivector.reciprocal().times(this.inner(bivector));
     }
 
     @Override
@@ -254,31 +267,73 @@ public record Bivector3(E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometric3 {
 
     @Override
     public Bivector3 div(Scalar other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public Multivector3 div(Vector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public Rotor3 div(Bivector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public Rotor3 div(Rotor3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public Vector3 div(Trivector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public Multivector3 div(Multivector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
+    }
+
+    @Override
+    public Iterator<Geometric3Basis> iterator() {
+        return new Iterator<>() {
+            private byte actual = 1;
+
+            @Override
+            public boolean hasNext() {
+                return actual <= NUMBER_OF_ELEMENTS;
+            }
+
+            @Override
+            public Geometric3Basis next() {
+                return switch (actual) {
+                    case 1 -> {
+                        actual++;
+                        yield e1e2;
+                    }
+                    case 2 -> {
+                        actual++;
+                        yield e2e3;
+                    }
+                    case 3 -> {
+                        actual++;
+                        yield e3e1;
+                    }
+                    default ->
+                            throw new NoSuchElementException("The element " + actual + " does not correspond to any element of bivectors in three dimensions");
+                };
+            }
+        };
+    }
+
+    @Override
+    public String toString() {
+        return "(" + e1e2.value() + ")e1e2 + " + "(" + e2e3.value() + ")e2e3 + " + "(" + e3e1.value() + ")e3e1";
+    }
+
+    @Override
+    public Bivector3 reverse() {
+        return unaryMinus();
     }
 }

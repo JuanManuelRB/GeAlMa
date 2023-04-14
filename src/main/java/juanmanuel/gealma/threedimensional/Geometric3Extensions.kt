@@ -10,7 +10,7 @@ infix fun Geometric3.inner(other: Geometric3): Geometric3 {
 }
 
 infix fun Geometric3.outer(other: Geometric3): Geometric3 {
-    return this.inner(other)
+    return this.outer(other)
 }
 
 val Geometric3.s
@@ -47,11 +47,3 @@ val Geometric3.l
     get() = Trivector3(this.e1e2e3())
 
 //operator fun Rotor3.not(): Rotor3 = this.reverseConjugation()
-
-
-//fun main() {
-//    val vec = Vector3(1.0, .0, .0)
-//    println(vec inner vec)
-//    println(vec outer vec)
-//
-//}

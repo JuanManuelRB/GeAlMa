@@ -3,8 +3,24 @@ package juanmanuel.gealma.threedimensional.objects;
 import juanmanuel.gealma.threedimensional.basis.*;
 import juanmanuel.gealma.threedimensional.operations.*;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-public sealed interface Geometric3 extends Addition, Subtraction, GeometricProduct3, InnerProduct, OuterProduct, Division permits Bivector3, Multivector3, Rotor3, Scalar, Trivector3, Vector3 {
+/**
+ * This interface represents a geometric object in 3D space.
+ * <p>
+ * The geometric object is represented by a multivector, which is a sum of
+ * scalar, vector, bivector and trivector. The scalar is represented by a
+ * {@link Scalar}, the vector by a {@link Vector3}, the bivector by a
+ * {@link Bivector3} and the trivector by a {@link Trivector3}.
+ * </p>
+ */
+public sealed interface Geometric3
+        extends Addition, Subtraction, GeometricProduct3, InnerProduct, OuterProduct, Division, Reversion, Iterable<Geometric3Basis>
+        permits Bivector3, Multivector3, Rotor3, Scalar, Trivector3, Vector3 {
+    // Corresponds to the number of basis of the geometric object.
+    byte NUMBER_OF_ELEMENTS = 8;
+
     /**
      * @return the basis e0.
      */
@@ -61,24 +77,39 @@ public sealed interface Geometric3 extends Addition, Subtraction, GeometricProdu
         return E1E2E3.ZERO;
     }
 
+    /**
+     * @return the scalar part of the object.
+     */
     default Scalar scalar() {
         return new Scalar(this.e0());
     }
 
+    /**
+     * @return the vector part of the object.
+     */
     default Vector3 vector() {
         return new Vector3(this.e1(), this.e2(), this.e3());
     }
 
+    /**
+     * @return the bivector part of the object.
+     */
     default Bivector3 bivector() {
         return new Bivector3(this.e1e2(), this.e2e3(), this.e3e1());
     }
 
+    /**
+     * @return the trivector part of the object.
+     */
     default Trivector3 trivector() {
         return new Trivector3(this.e1e2e3());
     }
 
+    /**
+     * @return the multivector composed of the scalar, vector, bivector and trivector of the object.
+     */
     default Multivector3 multivector() {
-        return new Multivector3(scalar(), vector(), bivector(), trivector());
+        return new Multivector3(e0(), e1(), e2(), e3(), e1e2(), e2e3(), e3e1(), e1e2e3());
     }
 
     /**
@@ -110,14 +141,6 @@ public sealed interface Geometric3 extends Addition, Subtraction, GeometricProdu
         return bivector().plus(trivector());
     }
 
-//    /**
-//     *
-//     * @return a Paravector composed of the scalar and vector of the element.
-//     */
-//    default Paravector toParavector() {
-//        return new Paravector(e0(), e1(), e2(), e3());
-//    }
-
     /**
      * @return a Rotor composed of the scalar and bivector of the element.
      */
@@ -125,10 +148,19 @@ public sealed interface Geometric3 extends Addition, Subtraction, GeometricProdu
         return bivector().plus(scalar()).normalized();
     }
 
+    /**
+     * @return the normalized version of the object. The normalized version is the object divided by its magnitude.
+     */
     Geometric3 normalized();
 
+    /**
+     * @return the magnitude squared of the object.
+     */
     double magnitudeSquared();
 
+    /**
+     * @return the magnitude of the object.
+     */
     double magnitude();
 
     default Geometric3 plus(Geometric3 other) {
@@ -147,6 +179,70 @@ public sealed interface Geometric3 extends Addition, Subtraction, GeometricProdu
                 bivector().minus(other.bivector()),
                 trivector().minus(other.trivector())
         );
+    }
+
+    /**
+     * The geometric product of two geometric objects. The geometric product is the distributive product of each basis with each other basis.
+     *
+     * @param other the other object to be multiplied.
+     * @return the geometric product of the object and the other object.
+     */
+    default Geometric3 times(Geometric3 other) {
+        var thisMultivector = multivector();
+        var otherMultivector = other.multivector();
+        return thisMultivector.times(otherMultivector);
+    }
+
+    @Override
+    default Iterator<Geometric3Basis> iterator() {
+        return new Iterator<>() {
+            private byte actual = 1;
+
+            @Override
+            public boolean hasNext() {
+                return actual <= NUMBER_OF_ELEMENTS;
+            }
+
+            @Override
+            public Geometric3Basis next() {
+                return switch (actual) {
+                    case 1 -> {
+                        actual++;
+                        yield e0();
+                    }
+                    case 2 -> {
+                        actual++;
+                        yield e1();
+                    }
+                    case 3 -> {
+                        actual++;
+                        yield e2();
+                    }
+                    case 4 -> {
+                        actual++;
+                        yield e3();
+                    }
+                    case 5 -> {
+                        actual++;
+                        yield e1e2();
+                    }
+                    case 6 -> {
+                        actual++;
+                        yield e2e3();
+                    }
+                    case 7 -> {
+                        actual++;
+                        yield e3e1();
+                    }
+                    case 8 -> {
+                        actual++;
+                        yield e1e2e3();
+                    }
+                    default ->
+                            throw new NoSuchElementException("The element " + actual + " does not correspond to any element of geometric algebra in three dimensions");
+                };
+            }
+        };
     }
 
 //    default Geometric3 inner(Geometric3 other) {

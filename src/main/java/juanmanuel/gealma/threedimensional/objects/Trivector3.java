@@ -1,10 +1,23 @@
 package juanmanuel.gealma.threedimensional.objects;
 
+import juanmanuel.gealma.threedimensional.basis.E0;
 import juanmanuel.gealma.threedimensional.basis.E1E2E3;
+import juanmanuel.gealma.threedimensional.basis.Geometric3Basis;
+
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public record Trivector3(@Override E1E2E3 e1e2e3) implements Geometric3 {
+    // Corresponds to the number of basis of the geometric object.
+    public static final byte NUMBER_OF_ELEMENTS = 1;
+
     public static final Trivector3 ONE = new Trivector3(1);
     public static final Trivector3 ZERO = new Trivector3(E1E2E3.ZERO);
+
+    public Trivector3 {
+        Objects.requireNonNull(e1e2e3);
+    }
 
     public Trivector3(double e1e2e3) {
         this(new E1E2E3(e1e2e3));
@@ -40,13 +53,13 @@ public record Trivector3(@Override E1E2E3 e1e2e3) implements Geometric3 {
     }
 
     @Override
-    public Trivector3 inverse() {
+    public Trivector3 reciprocal() {
         return div(magnitudeSquared());
     }
 
     @Override
-    public Geometric3 plus(double other) {
-        return null;
+    public Multivector3 plus(double other) {
+        return plus(new Scalar(other));
     }
 
     @Override
@@ -75,7 +88,7 @@ public record Trivector3(@Override E1E2E3 e1e2e3) implements Geometric3 {
     }
 
     @Override
-    public Geometric3 plus(Multivector3 other) {
+    public Multivector3 plus(Multivector3 other) {
         return new Multivector3(
                 other.scalar(),
                 other.vector(),
@@ -90,42 +103,42 @@ public record Trivector3(@Override E1E2E3 e1e2e3) implements Geometric3 {
 
     @Override
     public Trivector3 div(Scalar other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public Bivector3 div(Vector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public Vector3 div(Bivector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public Multivector3 div(Rotor3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public Scalar div(Trivector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
-    public Geometric3 div(Multivector3 other) {
-        return this.times(other.inverse());
+    public Multivector3 div(Multivector3 other) {
+        return this.times(other.reciprocal());
     }
 
     @Override
-    public Geometric3 times(double other) {
-        return null;
+    public Trivector3 times(double other) {
+        return new Trivector3(e1e2e3.times(new E0(other)));
     }
 
     @Override
     public Trivector3 times(Scalar other) {
-        return inner(other);
+        return new Trivector3(e1e2e3.times(other.e0()));
     }
 
     @Override
@@ -195,48 +208,74 @@ public record Trivector3(@Override E1E2E3 e1e2e3) implements Geometric3 {
         return this.inner(other.scalar()).plus(this.inner(other.bivector()));
     }
 
+    /**
+     * @param other a trivector
+     * @return a scalar
+     */
     @Override
     public Scalar inner(Trivector3 other) {
         return new Scalar(e1e2e3.times(other.e1e2e3));
     }
 
+    /**
+     * @param other a multivector
+     * @return a multivector
+     */
     @Override
-    public Geometric3 inner(Multivector3 other) {
-        return null;
+    public Multivector3 inner(Multivector3 other) {
+        var trivScalar = this.inner(other.scalar());
+        var trivVector = this.inner(other.vector());
+        var trivBivector = this.inner(other.bivector());
+        var trivTrivector = this.inner(other.trivector());
+        return trivScalar.plus(trivVector).plus(trivBivector).plus(trivTrivector);
+    }
+
+    /**
+     * @param other a scalar
+     * @return a trivector
+     */
+    @Override
+    public Trivector3 outer(double other) {
+        return outer(new Scalar(other));
+    }
+
+    /**
+     * @param other a scalar
+     * @return a trivector
+     */
+    @Override
+    public Trivector3 outer(Scalar other) {
+        return new Trivector3(e1e2e3.times(other.e0()));
     }
 
     /**
      * Always 0
      *
-     * @param other
+     * @param other a vector
      * @return a scalar with value 0.
      */
-    @Override
-    public Scalar outer(double other) {
-        return Scalar.ZERO;
-    }
-
-    /**
-     * Always 0
-     *
-     * @param other
-     * @return a scalar with value 0.
-     */
-    @Override
-    public Scalar outer(Scalar other) {
-        return Scalar.ZERO;
-    }
-
     @Override
     public Scalar outer(Vector3 other) {
         return Scalar.ZERO;
     }
 
+    /**
+     * Always 0
+     *
+     * @param other a bivector
+     * @return a scalar with value 0.
+     */
     @Override
     public Scalar outer(Bivector3 other) {
         return Scalar.ZERO;
     }
 
+    /**
+     * Always 0
+     *
+     * @param other a rotor
+     * @return a scalar with value 0.
+     */
     @Override
     public Scalar outer(Rotor3 other) {
         // outer product = 0
@@ -249,33 +288,35 @@ public record Trivector3(@Override E1E2E3 e1e2e3) implements Geometric3 {
     }
 
     @Override
-    public Geometric3 outer(Multivector3 other) {
+    public Trivector3 outer(Multivector3 other) {
+        return outer(other.scalar());
+    }
+
+    @Override
+    public Multivector3 minus(double other) {
         return null;
     }
 
     @Override
-    public Geometric3 minus(double other) {
-        return null;
+    public Multivector3 minus(Scalar other) {
+        return this.plus(other.unaryMinus());
     }
 
     @Override
-    public Geometric3 minus(Scalar other) {
-        return null;
+    public Multivector3 minus(Vector3 other) {
+        return this.plus(other.unaryMinus());
     }
 
     @Override
-    public Geometric3 minus(Vector3 other) {
-        return null;
+    public Multivector3 minus(Bivector3 other) {
+        return this.plus(other.unaryMinus());
+
     }
 
     @Override
-    public Geometric3 minus(Bivector3 other) {
-        return null;
-    }
+    public Multivector3 minus(Rotor3 other) {
+        return this.plus(other.unaryMinus());
 
-    @Override
-    public Geometric3 minus(Rotor3 other) {
-        return null;
     }
 
     @Override
@@ -284,7 +325,33 @@ public record Trivector3(@Override E1E2E3 e1e2e3) implements Geometric3 {
     }
 
     @Override
-    public Geometric3 minus(Multivector3 other) {
-        return null;
+    public Multivector3 minus(Multivector3 other) {
+        return this.plus(other.unaryMinus());
+    }
+
+    @Override
+    public Iterator<Geometric3Basis> iterator() {
+        return new Iterator<>() {
+            private byte actual = 1;
+
+            @Override
+            public boolean hasNext() {
+                return actual <= NUMBER_OF_ELEMENTS;
+            }
+
+            @Override
+            public Geometric3Basis next() {
+                if (actual != 1)
+                    throw new NoSuchElementException("The element " + actual + " does not correspond to any element of vectors in three dimensions");
+
+                actual++;
+                return e1e2e3;
+            }
+        };
+    }
+
+    @Override
+    public Trivector3 reverse() {
+        return unaryMinus();
     }
 }

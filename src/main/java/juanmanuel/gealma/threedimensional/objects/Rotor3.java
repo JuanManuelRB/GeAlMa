@@ -1,12 +1,23 @@
 package juanmanuel.gealma.threedimensional.objects;
 
-import juanmanuel.gealma.threedimensional.basis.E0;
-import juanmanuel.gealma.threedimensional.basis.E1E2;
-import juanmanuel.gealma.threedimensional.basis.E2E3;
-import juanmanuel.gealma.threedimensional.basis.E3E1;
+import juanmanuel.gealma.threedimensional.basis.*;
+
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public record Rotor3(E0 e0, E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometric3 {
+    // Corresponds to the number of basis of the geometric object.
+    public static final byte NUMBER_OF_ELEMENTS = 4;
+
     public static final Rotor3 ZERO = new Rotor3(new E0(0), new E1E2(0), new E2E3(0), new E3E1(0));
+
+    public Rotor3 {
+        Objects.requireNonNull(e0);
+        Objects.requireNonNull(e1e2);
+        Objects.requireNonNull(e2e3);
+        Objects.requireNonNull(e3e1);
+    }
 
     public Rotor3(Scalar scalar, Bivector3 bivector3) {
         this(scalar.e0(), bivector3.e1e2(), bivector3.e2e3(), bivector3.e3e1());
@@ -71,20 +82,24 @@ public record Rotor3(E0 e0, E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometri
     }
 
     @Override
-    public Rotor3 inverse() {
+    public Rotor3 reciprocal() {
         return new Rotor3(e0, e1e2.unaryMinus(), e2e3.unaryMinus(), e3e1.unaryMinus());
     }
 
     public Vector3 rotate(Vector3 vector) {
 //        return this.times(vector).times(this.reverseConjugation()).vector();
-        var Rv = times(vector);
+        var rotorVector = times(vector);
 
-        var Rdag = reverseConjugation();
+        var rotorDagger = reverseConjugation();
 
-        var vec = Rv.vector();
-        var trivec = Rv.trivector();
+        var vec = rotorVector.vector();
+        var trivec = rotorVector.trivector();
 
-        return vec.times(Rdag).plus(trivec.times(Rdag)).vector();
+        return vec.times(rotorDagger).plus(trivec.times(rotorDagger)).vector();
+    }
+
+    public Bivector3 rotate(Bivector3 bivector) {
+        return this.times(bivector).times(this.reverseConjugation()).bivector();
     }
 
     public Rotor3 rotate(Rotor3 rotor3) {
@@ -125,6 +140,11 @@ public record Rotor3(E0 e0, E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometri
     @Override
     public Multivector3 plus(Multivector3 other) {
         return new Multivector3(scalar().plus(other.scalar()), other.vector(), bivector().plus(other.bivector()), other.trivector());
+    }
+
+    @Override
+    public Geometric3 minus(double other) {
+        return null;
     }
 
     @Override
@@ -172,8 +192,18 @@ public record Rotor3(E0 e0, E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometri
         );
     }
 
+    /**
+     * Does the inner product with a 3 dimensional vector.
+     *
+     * @param other a 3 dimensional geometric algebra vector.
+     * @return a multivector containing a vector and a trivector.
+     */
     @Override
     public Multivector3 inner(Vector3 other) {
+//        new Vector3(e0.times(other.e1()), e0.times(other.e2()), e0.times(other.e3())); scalar().inner(other)
+//        new Trivector3(e1e2.times(other.e3())
+//                        .plus(e2e3.times(other.e1()))
+//                        .plus(e3e1.times(other.e2()))); bivector().inner(other)
         return scalar().inner(other).plus(bivector().inner(other));
     }
 
@@ -197,6 +227,11 @@ public record Rotor3(E0 e0, E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometri
         return null;
     }
 
+    @Override
+    public Geometric3 outer(double other) {
+        return null;
+    }
+
     /**
      * Always 0.
      *
@@ -216,8 +251,8 @@ public record Rotor3(E0 e0, E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometri
     }
 
     @Override
-    public Geometric3 outer(Bivector3 other) {
-        return null;
+    public Rotor3 outer(Bivector3 other) {
+        return scalar().outer(other).plus(bivector().outer(other));
     }
 
     @Override
@@ -248,12 +283,13 @@ public record Rotor3(E0 e0, E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometri
 
     @Override
     public Multivector3 times(Vector3 other) {
-        return inner(other).plus(outer(other));
+//        return inner(other).plus(outer(other));
+        return scalar().times(other).plus(bivector().times(other));
     }
 
     @Override
-    public Geometric3 times(Bivector3 other) {
-        return null;
+    public Rotor3 times(Bivector3 other) {
+        return this.inner(other).plus(this.outer(other));
     }
 
     @Override
@@ -268,7 +304,7 @@ public record Rotor3(E0 e0, E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometri
 
     @Override
     public Geometric3 times(Multivector3 other) {
-        return null;
+        return multivector().times(other);
     }
 
     @Override
@@ -278,31 +314,72 @@ public record Rotor3(E0 e0, E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometri
 
     @Override
     public Rotor3 div(Scalar other) {
-        return times(other.inverse());
+        return times(other.reciprocal());
     }
 
     @Override
     public Geometric3 div(Vector3 other) {
-        return times(other.inverse());
+        return times(other.reciprocal());
     }
 
     @Override
     public Geometric3 div(Bivector3 other) {
-        return times(other.inverse());
+        return times(other.reciprocal());
     }
 
     @Override
     public Geometric3 div(Rotor3 other) {
-        return times(other.inverse());
+        return times(other.reciprocal());
     }
 
     @Override
     public Geometric3 div(Trivector3 other) {
-        return times(other.inverse());
+        return times(other.reciprocal());
     }
 
     @Override
     public Geometric3 div(Multivector3 other) {
-        return times(other.inverse());
+        return times(other.reciprocal());
+    }
+
+    @Override
+    public Iterator<Geometric3Basis> iterator() {
+        return new Iterator<>() {
+            private byte actual = 1;
+
+            @Override
+            public boolean hasNext() {
+                return actual <= NUMBER_OF_ELEMENTS;
+            }
+
+            @Override
+            public Geometric3Basis next() {
+                return switch (actual) {
+                    case 1 -> {
+                        actual++;
+                        yield e0;
+                    }
+                    case 2 -> {
+                        actual++;
+                        yield e1e2;
+                    }
+                    case 3 -> {
+                        actual++;
+                        yield e2e3;
+                    }
+                    case 4 -> {
+                        actual++;
+                        yield e3e1;
+                    }
+                    default ->
+                            throw new NoSuchElementException("The element " + actual + " does not correspond to any element of vectors in three dimensions");
+                };
+            }
+        };
+    }
+
+    @Override
+    public Rotor3 reverse() {
+        return new Rotor3(e0, e1e2.unaryMinus(), e2e3.unaryMinus(), e3e1.unaryMinus());
     }
 }

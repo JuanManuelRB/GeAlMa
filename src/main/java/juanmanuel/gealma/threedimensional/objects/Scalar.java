@@ -1,18 +1,25 @@
 package juanmanuel.gealma.threedimensional.objects;
 
 import juanmanuel.gealma.threedimensional.basis.E0;
+import juanmanuel.gealma.threedimensional.basis.Geometric3Basis;
 
-public record Scalar(@Override E0 e0) implements Geometric3 {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Objects;
+
+public record Scalar(@Override E0 e0) implements Geometric3, Comparable<Scalar> {
+    // Corresponds to the number of basis of the geometric object.
+    public static final byte NUMBER_OF_ELEMENTS = 1;
+
     public static final Scalar ZERO = new Scalar(E0.ZERO);
     public static final Scalar ONE = new Scalar(1);
 
-    public Scalar(double e0) {
-        this(new E0(e0));
+    public Scalar {
+        Objects.requireNonNull(e0);
     }
 
-    @Override
-    public String toString() {
-        return "(" + e0.value() + ")e0";
+    public Scalar(double e0) {
+        this(new E0(e0));
     }
 
     @Override
@@ -40,7 +47,7 @@ public record Scalar(@Override E0 e0) implements Geometric3 {
     }
 
     @Override
-    public Scalar inverse() {
+    public Scalar reciprocal() {
         return new Scalar(1 / value());
     }
 
@@ -239,26 +246,62 @@ public record Scalar(@Override E0 e0) implements Geometric3 {
 
     @Override
     public Vector3 div(Vector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public Bivector3 div(Bivector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public Rotor3 div(Rotor3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public Trivector3 div(Trivector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public Geometric3 div(Multivector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
+    }
+
+    @Override
+    public int compareTo(Scalar other) {
+        return Double.compare(e0.value(), other.e0.value());
+    }
+
+    @Override
+    public Iterator<Geometric3Basis> iterator() {
+        return new Iterator<>() {
+            private byte actual = 1;
+
+            @Override
+            public boolean hasNext() {
+                return actual <= NUMBER_OF_ELEMENTS;
+            }
+
+            @Override
+            public E0 next() {
+                if (actual != 1)
+                    throw new NoSuchElementException("The element " + actual + " does not correspond to any element of vectors in three dimensions");
+
+                actual++;
+                return e0;
+            }
+        };
+    }
+
+    @Override
+    public String toString() {
+        return "(" + e0.value() + ")e0";
+    }
+
+    @Override
+    public Scalar reverse() {
+        return this;
     }
 }

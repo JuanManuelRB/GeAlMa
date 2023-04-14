@@ -3,17 +3,26 @@ package juanmanuel.gealma.threedimensional.objects;
 import juanmanuel.gealma.threedimensional.basis.E1;
 import juanmanuel.gealma.threedimensional.basis.E2;
 import juanmanuel.gealma.threedimensional.basis.E3;
+import juanmanuel.gealma.threedimensional.basis.Geometric3Basis;
+
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public record Vector3(@Override E1 e1, @Override E2 e2, @Override E3 e3) implements Geometric3 {
+    // Corresponds to the number of basis of the geometric object.
+    public static final byte NUMBER_OF_ELEMENTS = 3;
     public static final Vector3 ZERO = new Vector3(E1.ZERO, E2.ZERO, E3.ZERO);
+    public static final Vector3 ONE = new Vector3(new E1(1), new E2(1), new E3(1));
+
+    public Vector3 {
+        Objects.requireNonNull(e1);
+        Objects.requireNonNull(e2);
+        Objects.requireNonNull(e3);
+    }
 
     public Vector3(double e1, double e2, double e3) {
         this(new E1(e1), new E2(e2), new E3(e3));
-    }
-
-    @Override
-    public String toString() {
-        return "(" + e1.value() + ")e1 + " + "(" + e2.value() + ")e2 + " + "(" + e3.value() + ")e3";
     }
 
     @Override
@@ -32,7 +41,7 @@ public record Vector3(@Override E1 e1, @Override E2 e2, @Override E3 e3) impleme
     }
 
     @Override
-    public Vector3 inverse() {
+    public Vector3 reciprocal() {
         return div(magnitudeSquared());
     }
 
@@ -44,27 +53,51 @@ public record Vector3(@Override E1 e1, @Override E2 e2, @Override E3 e3) impleme
     public double length() {
         return magnitude();
     }
-//
-//    public Vector3 reflectOver(Vector3 other) {
-//        return other.reciprocal().times(this).times(other).vector();
-//    }
-//
-//    public Vector3 rotated(Rotor3 rotor) {
-//        return rotor.rotate(this);
-//    }
-//
-//    public Vector3 rotated(double angle, Bivector3 plane) {
-//        return Rotor3.from(angle, plane).rotate(this);
-//    }
 
-    public Vector3 projection(Vector3 other) {
-        return other.inverse().times(inner(other));
+    public Vector3 reflectOver(Vector3 other) {
+        return other.reciprocal().times(this).times(other).vector();
     }
 
-    public Vector3 rejection(Vector3 other) {
-        return this.minus(projection(other));
+    public Vector3 rotated(Rotor3 rotor) {
+        return rotor.rotate(this);
     }
 
+    public Vector3 rotated(Bivector3 plane, double angle) {
+        return Rotor3.from(plane, angle).rotate(this);
+    }
+
+    public Vector3 rotated(Vector3 axis, double angle) {
+        return Rotor3.from(axis, angle).rotate(this);
+    }
+
+    public Vector3 projection(Vector3 vector) {
+        return vector.reciprocal().times(this.inner(vector));
+    }
+
+    public Vector3 projection(Bivector3 plane) {
+//        return plane.reciprocal().times(this.inner(plane));
+        return null;
+    }
+
+    public Vector3 rejection(Vector3 vector) {
+        return this.minus(projection(vector));
+    }
+
+    public Vector3 reflection(Vector3 vector) {
+        var proj = projection(vector);
+        var rej = this.minus(proj); // Equivalent to rejection(), but saves calling twice projection() method.
+
+        return proj.minus(rej);
+//        return vector.reciprocal().times(this).times(vector);
+    }
+
+    /**
+     * Returns an array of doubles with the values of the vector's basis. The order of the basis is the same as the order
+     * of the basis in the {@link Geometric3Basis}.
+     */
+    private double[] toArray() {
+        return new double[]{this.e1.value(), this.e2.value(), this.e3.value()};
+    }
 
     @Override
     public Multivector3 plus(double other) {
@@ -75,6 +108,7 @@ public record Vector3(@Override E1 e1, @Override E2 e2, @Override E3 e3) impleme
     public Multivector3 plus(Scalar other) {
         return new Multivector3(other, this, Bivector3.ZERO, Trivector3.ZERO);
     }
+
 
     @Override
     public Vector3 plus(Vector3 other) {
@@ -276,33 +310,73 @@ public record Vector3(@Override E1 e1, @Override E2 e2, @Override E3 e3) impleme
 
     @Override
     public Vector3 div(Scalar other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public Rotor3 div(Vector3 other) {
-        return times(other.inverse());
+        return times(other.reciprocal());
     }
 
     @Override
     public Multivector3 div(Bivector3 other) {
-        return times(other.inverse());
+        return times(other.reciprocal());
     }
 
     @Override
     public Multivector3 div(Rotor3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
     @Override
     public Bivector3 div(Trivector3 other) {
-        return times(other.inverse());
+        return times(other.reciprocal());
     }
 
     @Override
     public Multivector3 div(Multivector3 other) {
-        return this.times(other.inverse());
+        return this.times(other.reciprocal());
     }
 
+    @Override
+    public Iterator<Geometric3Basis> iterator() {
+        return new Iterator<>() {
+            private byte actual = 1;
 
+            @Override
+            public boolean hasNext() {
+                return actual <= NUMBER_OF_ELEMENTS;
+            }
+
+            @Override
+            public Geometric3Basis next() {
+                return switch (actual) {
+                    case 1 -> {
+                        actual++;
+                        yield e1;
+                    }
+                    case 2 -> {
+                        actual++;
+                        yield e2;
+                    }
+                    case 3 -> {
+                        actual++;
+                        yield e3;
+                    }
+                    default ->
+                            throw new NoSuchElementException("The element " + actual + " does not correspond to any element of vectors in three dimensions");
+                };
+            }
+        };
+    }
+
+    @Override
+    public String toString() {
+        return "(" + e1.value() + ")e1 + " + "(" + e2.value() + ")e2 + " + "(" + e3.value() + ")e3";
+    }
+
+    @Override
+    public Vector3 reverse() {
+        return this;
+    }
 }

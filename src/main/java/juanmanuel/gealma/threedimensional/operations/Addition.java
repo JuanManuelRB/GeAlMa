@@ -3,6 +3,7 @@ package juanmanuel.gealma.threedimensional.operations;
 import juanmanuel.gealma.threedimensional.objects.*;
 
 public interface Addition {
+
     Geometric3 plus(double other);
 
     Geometric3 plus(Scalar other);
