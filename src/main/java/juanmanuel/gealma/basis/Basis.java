@@ -1,9 +1,14 @@
-package juanmanuel.gealma.nuevo;
+package juanmanuel.gealma.basis;
 
-public sealed interface Basis<Self extends Basis<Self>> permits Basis1, E0 {
+public sealed interface Basis<Self extends Basis<Self>> extends Comparable<Self> permits Basis4 {
+    Basis<?> ZERO = null;
+    Basis<?> ONE = null;
+
     Self plus(Self other);
 
     Self minus(Self other);
+
+    Self unaryMinus();
 
     Self times(double scalar);
 
@@ -11,7 +16,9 @@ public sealed interface Basis<Self extends Basis<Self>> permits Basis1, E0 {
 
     Self times(E0 other);
 
-    Self unaryMinus();
+    Self inc();
+
+    Self dec();
 
     double value();
 

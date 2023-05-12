@@ -1,7 +1,5 @@
 package juanmanuel.gealma.threedimensional;
 
-import juanmanuel.gealma.threedimensional.objects.Vector3;
-
 import static java.lang.Math.sin;
 
 public final class MathGeometric3 {

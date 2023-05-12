@@ -1,6 +1,8 @@
-package juanmanuel.gealma.threedimensional.objects;
+package juanmanuel.gealma.threedimensional;
 
-import juanmanuel.gealma.basis.*;
+import juanmanuel.gealma.basis.Basis3;
+import juanmanuel.gealma.basis.E0;
+import juanmanuel.gealma.basis.E1E2E3;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

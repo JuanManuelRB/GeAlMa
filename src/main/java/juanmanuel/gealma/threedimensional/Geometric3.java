@@ -1,5 +1,8 @@
-package juanmanuel.gealma.threedimensional.objects;
+package juanmanuel.gealma.threedimensional;
 
+import jdk.incubator.vector.DoubleVector;
+import jdk.incubator.vector.VectorSpecies;
+import juanmanuel.gealma.Geometric;
 import juanmanuel.gealma.basis.*;
 import juanmanuel.gealma.operations.*;
 
@@ -22,12 +25,14 @@ import java.util.NoSuchElementException;
  */
 public sealed interface Geometric3<T extends Geometric3<T>>
         extends Iterable<Basis3<?>>, Addition<T>, Subtraction<T>, Reversion<T>, Normalization<T>,
-            InnerProduct<T, Geometric3<?>>, OuterProduct<T, Geometric3<?>>, Product<T, Geometric3<?>>,
-        Division<T, Geometric3<?>>
+        InnerProduct<T, Geometric3<?>>, OuterProduct<T, Geometric3<?>>, Product<T, Geometric3<?>>,
+        Division<T, Geometric3<?>>, Geometric<T>
         permits Scalar, Vector3, Bivector3, Rotor3, Trivector3, Multivector3 {
 
     // Corresponds to the number of basis of the geometric object.
     byte NUMBER_OF_ELEMENTS = 8;
+    VectorSpecies<Double> vectorSpecies = DoubleVector.SPECIES_256;
+    byte VECTOR_SIZE = 4;
 
     /**
      * @return the basis e0.
@@ -166,21 +171,11 @@ public sealed interface Geometric3<T extends Geometric3<T>>
     double magnitude();
 
     default Geometric3<?> plus(Geometric3<?> other) {
-        return new Multivector3(
-                scalar().plus(other.scalar()),
-                vector().plus(other.vector()),
-                bivector().plus(other.bivector()),
-                trivector().plus(other.trivector())
-        );
+        return multivector().plus(other.multivector());
     }
 
     default Geometric3<?> minus(Geometric3<?> other) {
-        return new Multivector3(
-                scalar().minus(other.scalar()),
-                vector().minus(other.vector()),
-                bivector().minus(other.bivector()),
-                trivector().minus(other.trivector())
-        );
+        return multivector().minus(other.multivector());
     }
 
     /**
@@ -190,9 +185,18 @@ public sealed interface Geometric3<T extends Geometric3<T>>
      * @return the geometric product of the object and the other object.
      */
     default Geometric3<?> times(Geometric3<?> other) {
-        var thisMultivector = multivector();
-        var otherMultivector = other.multivector();
-        return thisMultivector.times(otherMultivector);
+//        var thisMultivector = multivector();
+//        var otherMultivector = other.multivector();
+//        return thisMultivector.times(otherMultivector);
+        return multivector().times(other.multivector());
+    }
+
+    default Geometric3<?> inner(Geometric3<?> other) {
+        return multivector().inner(other.multivector());
+    }
+
+    default Geometric3<?> outer(Geometric3<?> other) {
+        return multivector().outer(other.multivector());
     }
 
     @Override

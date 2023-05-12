@@ -1,6 +1,11 @@
-package juanmanuel.gealma.threedimensional.objects;
+package juanmanuel.gealma.threedimensional;
 
-import juanmanuel.gealma.basis.*;
+import jdk.incubator.vector.DoubleVector;
+import jdk.incubator.vector.VectorOperators;
+import juanmanuel.gealma.basis.Basis3;
+import juanmanuel.gealma.basis.E1;
+import juanmanuel.gealma.basis.E2;
+import juanmanuel.gealma.basis.E3;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -9,13 +14,18 @@ import java.util.Objects;
 public record Vector3(@Override E1 e1, @Override E2 e2, @Override E3 e3) implements Geometric3<Vector3> {
     // Corresponds to the number of basis of the geometric object.
     public static final byte NUMBER_OF_ELEMENTS = 3;
-    public static final Vector3 ZERO = new Vector3(E1.ZERO, E2.ZERO, E3.ZERO);
-    public static final Vector3 ONE = new Vector3(new E1(1), new E2(1), new E3(1));
+    public static final Vector3 ZERO = new Vector3();
+    public static final Vector3 ONE = new Vector3(1, 1, 1);
+
 
     public Vector3 {
         Objects.requireNonNull(e1);
         Objects.requireNonNull(e2);
         Objects.requireNonNull(e3);
+    }
+
+    public Vector3() {
+        this(E1.ZERO, E2.ZERO, E3.ZERO);
     }
 
     public Vector3(double e1, double e2, double e3) {
@@ -96,18 +106,28 @@ public record Vector3(@Override E1 e1, @Override E2 e2, @Override E3 e3) impleme
         return new double[]{this.e1.value(), this.e2.value(), this.e3.value()};
     }
 
+    private DoubleVector toVector() {
+        return DoubleVector.fromArray(vectorSpecies, new double[]{e1.value(), e2.value(), e3.value(), 0}, 0);
+    }
+
     @Override
     public Vector3 plus(Vector3 other) {
-        return new Vector3(
-                this.e1.value() + other.e1.value(),
-                this.e2.value() + other.e2.value(),
-                this.e3.value() + other.e3.value()
-        );
+        double[] resultArray = new double[VECTOR_SIZE];
+        this.toVector().add(other.toVector()).intoArray(resultArray, 0);
+
+        return new Vector3(resultArray[0], resultArray[1], resultArray[2]);
+//        return new Vector3(
+//                this.e1.value() + other.e1.value(),
+//                this.e2.value() + other.e2.value(),
+//                this.e3.value() + other.e3.value()
+//        );
     }
 
     @Override
     public Vector3 minus(Vector3 other) {
-        return plus(other.unaryMinus());
+        double[] resultArray = new double[VECTOR_SIZE];
+        this.toVector().sub(other.toVector()).intoArray(resultArray, 0);
+        return new Vector3(resultArray[0], resultArray[1], resultArray[2]);
     }
 
     public Multivector3 plus(double other) {
@@ -132,7 +152,19 @@ public record Vector3(@Override E1 e1, @Override E2 e2, @Override E3 e3) impleme
     }
 
     public Multivector3 plus(Multivector3 other) {
-        return new Multivector3(other.scalar(), this.plus(other.vector()), other.bivector(), other.trivector());
+        double[] resultArray = new double[4];
+        this.toVector().add(other.vector().toVector()).intoArray(resultArray, 0);
+
+        return new Multivector3(
+                other.e0(),
+                new E1(resultArray[0]),
+                new E2(resultArray[1]),
+                new E3(resultArray[2]),
+                other.e1e2(),
+                other.e2e3(),
+                other.e3e1(),
+                other.e1e2e3()
+        );
     }
 
     public Multivector3 minus(double other) {
@@ -171,19 +203,40 @@ public record Vector3(@Override E1 e1, @Override E2 e2, @Override E3 e3) impleme
 
     @Override
     public Scalar inner(Vector3 other) {
-        return new Scalar(this.e1.times(other.e1)
-                .plus(this.e2.times(other.e2))
-                .plus(this.e3.times(other.e3))
-        );
+        return new Scalar(this.toVector().mul(other.toVector()).reduceLanes(VectorOperators.ADD));
+
+//        return new Scalar(this.e1.times(other.e1)
+//                .plus(this.e2.times(other.e2))
+//                .plus(this.e3.times(other.e3)));
     }
 
     @Override
     public Vector3 inner(Bivector3 other) {
-        return new Vector3(
-                e3.times(other.e3e1()).plus(e2.times(other.e1e2())),
-                e1.times(other.e1e2()).plus(e3.times(other.e2e3())),
-                e2.times(other.e2e3()).plus(e1.times(other.e3e1()))
+        var vv = DoubleVector.fromArray(
+                DoubleVector.SPECIES_512,
+                new double[]{e1.value(), e2.value(), e3.value(), e2.unaryMinus().value(), e3.unaryMinus().value(), e1.unaryMinus().value(), 0, 0},
+                0
         );
+        var vb = DoubleVector.fromArray(
+                DoubleVector.SPECIES_512,
+                new double[]{other.e1e2().value(), other.e2e3().value(), other.e3e1().value(), other.e1e2().value(), other.e2e3().value(), other.e3e1().value(), 0, 0},
+                0
+        );
+        double[] arr = new double[8];
+        vv.mul(vb).intoArray(arr, 0);
+
+        var v1 = DoubleVector.fromArray(vectorSpecies, new double[]{arr[2], arr[0], arr[1], 0}, 0);
+        var v2 = DoubleVector.fromArray(vectorSpecies, arr, 3);
+        double[] resultArray = new double[VECTOR_SIZE];
+        v1.add(v2).intoArray(resultArray, 0);
+        return new Vector3(resultArray[0], resultArray[1], resultArray[2]);
+
+
+//        return new Vector3(
+//                e3.times(other.e3e1()).plus(e2.times(other.e1e2())),
+//                e1.times(other.e1e2()).plus(e3.times(other.e2e3())),
+//                e2.times(other.e2e3()).plus(e1.times(other.e3e1()))
+//        );
     }
 
     @Override

@@ -1,5 +1,5 @@
-package juanmanuel.gealma.nuevo;
+package juanmanuel.gealma.basis;
 
-public sealed interface Basis2<Self extends Basis2<Self>> extends Basis1<Self> permits Basis3, E1E2, E2 {
+public sealed interface Basis2<Self extends Basis2<Self>> extends Basis3<Self> permits Basis1, E1E2, E2 {
 
 }

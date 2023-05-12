@@ -1,6 +1,6 @@
-package juanmanuel.gealma.threedimensional.operations;
+package juanmanuel.gealma.operations;
 
-import juanmanuel.gealma.threedimensional.objects.*;
+import juanmanuel.gealma.threedimensional.*;
 
 public interface Division<Self extends Division<Self, ?>, R> extends MultiplicativeInverse<Self> {
 

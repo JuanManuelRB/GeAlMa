@@ -1,5 +1,6 @@
 package juanmanuel.gealma.threedimensional.objects;
 
+import juanmanuel.gealma.threedimensional.Scalar;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;

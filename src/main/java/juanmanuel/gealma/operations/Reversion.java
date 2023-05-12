@@ -1,7 +1,10 @@
-package juanmanuel.gealma.threedimensional.operations;
+package juanmanuel.gealma.operations;
 
-import juanmanuel.gealma.threedimensional.objects.Geometric3;
-
-public interface Reversion<T> {
+/**
+ * Reversion of an object.
+ *
+ * @param <T> the type of the object.
+ */
+public interface Reversion<T extends Reversion<T>> {
     T reverse();
 }

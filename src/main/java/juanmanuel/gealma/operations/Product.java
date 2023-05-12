@@ -1,10 +1,10 @@
-package juanmanuel.gealma.threedimensional.operations;
+package juanmanuel.gealma.operations;
 
-import juanmanuel.gealma.threedimensional.objects.*;
+import juanmanuel.gealma.threedimensional.*;
 
-public interface GeometricProduct3<T extends GeometricProduct3<T, ?>, R extends GeometricProduct3<?, R>> {
+public interface Product<T extends Product<T, ?>, R extends Product<?, R>> {
 
-    R times(T other);
+    Product<?, ?> times(T other);
 
     R times(double other);
 

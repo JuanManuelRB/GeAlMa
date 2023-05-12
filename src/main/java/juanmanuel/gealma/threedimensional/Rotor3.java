@@ -1,4 +1,4 @@
-package juanmanuel.gealma.threedimensional.objects;
+package juanmanuel.gealma.threedimensional;
 
 import juanmanuel.gealma.basis.*;
 
@@ -289,12 +289,12 @@ public record Rotor3(E0 e0, E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometri
     }
 
     @Override
-    public Geometric3 times(Trivector3 other) {
+    public Multivector3 times(Trivector3 other) {
         return null;
     }
 
     @Override
-    public Geometric3 times(Multivector3 other) {
+    public Multivector3 times(Multivector3 other) {
         return multivector().times(other);
     }
 

@@ -1,6 +1,4 @@
-package juanmanuel.gealma.threedimensional.operations;
-
-import juanmanuel.gealma.threedimensional.objects.*;
+package juanmanuel.gealma.operations;
 
 public interface Subtraction<T extends Subtraction<T>> extends AdditiveInverse<T> {
 

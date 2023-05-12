@@ -1,49 +1,37 @@
 package juanmanuel.gealma.threedimensional
 
-import juanmanuel.gealma.threedimensional.basis.E1
-import juanmanuel.gealma.threedimensional.basis.E2
-import juanmanuel.gealma.threedimensional.basis.E3
-import juanmanuel.gealma.threedimensional.objects.*
+import juanmanuel.gealma.basis.*
 
-infix fun Geometric3.inner(other: Geometric3): Geometric3 {
+infix fun Geometric3<*>.inn(other: Geometric3<*>): Geometric3<*> {
     return this.inner(other)
 }
 
-infix fun Geometric3.outer(other: Geometric3): Geometric3 {
+infix fun Geometric3<*>.out(other: Geometric3<*>): Geometric3<*> {
     return this.outer(other)
 }
 
-val Geometric3.s
+val Geometric3<*>.s
     get() = Scalar(e0())
 
-val Geometric3.x
-    get() = Vector3(e1(), E2(.0), E3(.0))
+val Geometric3<*>.x
+    get() = Vector3(e1(), E2.ZERO, E3.ZERO)
 
-val Geometric3.y
-    get() = Vector3(E1(.0), e2(), E3(.0))
+val Geometric3<*>.y
+    get() = Vector3(E1.ZERO, e2(), E3.ZERO)
 
-val Geometric3.z
-    get() = Vector3(E1(.0), E2(.0), e3())
+val Geometric3<*>.z
+    get() = Vector3(E1.ZERO, E2.ZERO, e3())
 
-//val Geometric3.x_y
-//    get() = Vector3(e1(), e2(), E3(.0))
-//
-//val Geometric3.y_z
-//    get() = Vector3(E1(.0), e2(), e3())
-//
-//val Geometric3.x_z
-//    get() = Vector3(e1(), E2(.0), e3())
+val Geometric3<*>.i
+    get() = Bivector3(this.e1e2(), E2E3.ZERO, E3E1.ZERO)
 
-val Geometric3.i
-    get() = Bivector3(this.e1e2().value(), .0, .0)
+val Geometric3<*>.j
+    get() = Bivector3(E1E2.ZERO, this.e2e3(), E3E1.ZERO)
 
-val Geometric3.j
-    get() = Bivector3(.0, this.e2e3().value(), .0)
+val Geometric3<*>.k
+    get() = Bivector3(E1E2.ZERO, E2E3.ZERO, this.e3e1())
 
-val Geometric3.k
-    get() = Bivector3(.0, .0, this.e3e1().value())
-
-val Geometric3.l
+val Geometric3<*>.l
     get() = Trivector3(this.e1e2e3())
 
-//operator fun Rotor3.not(): Rotor3 = this.reverseConjugation()
+//operator fun Rotor3.not(): Rotor3 = this.reverseConjugation()*/

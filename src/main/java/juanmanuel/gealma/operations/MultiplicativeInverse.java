@@ -1,6 +1,4 @@
-package juanmanuel.gealma.threedimensional.operations;
-
-import juanmanuel.gealma.threedimensional.objects.Geometric3;
+package juanmanuel.gealma.operations;
 
 public interface MultiplicativeInverse<T extends MultiplicativeInverse<T>> {
     T inverse();

@@ -1,6 +1,6 @@
-package juanmanuel.gealma.threedimensional.operations;
+package juanmanuel.gealma.operations;
 
-import juanmanuel.gealma.threedimensional.objects.*;
+import juanmanuel.gealma.threedimensional.*;
 
 public interface OuterProduct<T extends OuterProduct<T, ?>, R extends OuterProduct<?, R>> {
     //    <T extends Geometric3> Geometric3 outer(T other);

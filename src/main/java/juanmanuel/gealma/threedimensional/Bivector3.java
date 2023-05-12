@@ -1,6 +1,10 @@
-package juanmanuel.gealma.threedimensional.objects;
+package juanmanuel.gealma.threedimensional;
 
-import juanmanuel.gealma.basis.*;
+import jdk.incubator.vector.DoubleVector;
+import juanmanuel.gealma.basis.Basis3;
+import juanmanuel.gealma.basis.E1E2;
+import juanmanuel.gealma.basis.E2E3;
+import juanmanuel.gealma.basis.E3E1;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -10,7 +14,11 @@ public record Bivector3(E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometric3<B
     // Corresponds to the number of basis of the geometric object.
     public static final byte NUMBER_OF_ELEMENTS = 3;
 
-    public static final Bivector3 ZERO = new Bivector3(E1E2.ZERO, E2E3.ZERO, E3E1.ZERO);
+    public static final Bivector3 ZERO = new Bivector3();
+
+    public Bivector3() {
+        this(E1E2.ZERO, E2E3.ZERO, E3E1.ZERO);
+    }
 
     public Bivector3 {
         Objects.requireNonNull(e1e2);
@@ -320,5 +328,9 @@ public record Bivector3(E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometric3<B
     @Override
     public Bivector3 reverse() {
         return unaryMinus();
+    }
+
+    public DoubleVector toVector() {
+        return DoubleVector.fromArray(vectorSpecies, new double[]{e1e2.value(), e2e3.value(), e3e1.value(), 0}, 0);
     }
 }

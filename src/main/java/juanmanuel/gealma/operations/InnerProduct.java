@@ -1,6 +1,6 @@
-package juanmanuel.gealma.threedimensional.operations;
+package juanmanuel.gealma.operations;
 
-import juanmanuel.gealma.threedimensional.objects.*;
+import juanmanuel.gealma.threedimensional.*;
 
 public interface InnerProduct<Self extends InnerProduct<Self,?>, Return> {
     //<T extends Geometric3<?>> Geometric3<?> inner(T other);

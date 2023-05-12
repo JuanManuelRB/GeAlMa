@@ -1,7 +1,8 @@
-package juanmanuel.gealma.nuevo;
+package juanmanuel.gealma.basis;
 
-public record E0(double value) implements Basis<E0> {
+public record E0(double value) implements Basis0<E0> {
     public static final E0 ZERO = new E0(0);
+    public static final E0 ONE = new E0(1);
 
     @Override
     public E0 plus(E0 other) {
@@ -14,13 +15,23 @@ public record E0(double value) implements Basis<E0> {
     }
 
     @Override
-    public E0 times(double scalar) {
-        return new E0(this.value * scalar);
+    public E0 unaryMinus() {
+        return new E0(-value);
     }
 
     @Override
-    public E0 unaryMinus() {
-        return new E0(-value);
+    public E0 inc() {
+        return new E0(this.value + 1);
+    }
+
+    @Override
+    public E0 dec() {
+        return new E0(this.value - 1);
+    }
+
+    @Override
+    public E0 times(double scalar) {
+        return new E0(this.value * scalar);
     }
 
     @Override
@@ -38,6 +49,10 @@ public record E0(double value) implements Basis<E0> {
 
     public E3 times(E3 other) {
         return new E3(this.value * other.value());
+    }
+
+    public E4 times(E4 other) {
+        return new E4(this.value * other.value());
     }
 
     public E1E2 times(E1E2 other) {
@@ -82,5 +97,10 @@ public record E0(double value) implements Basis<E0> {
 
     public E1E2E3E4 times(E1E2E3E4 other) {
         return new E1E2E3E4(this.value * other.value());
+    }
+
+    @Override
+    public int compareTo(E0 o) {
+        return Double.compare(this.value, o.value);
     }
 }

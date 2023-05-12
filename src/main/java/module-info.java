@@ -8,8 +8,6 @@ module geometricalgebra {
     requires jdk.incubator.vector;
 
     exports juanmanuel.gealma.threedimensional;
-    exports juanmanuel.gealma.threedimensional.objects;
-    exports juanmanuel.gealma.threedimensional.basis;
-    exports juanmanuel.gealma.threedimensional.operations;
-
+    exports juanmanuel.gealma.operations;
+    exports juanmanuel.gealma.basis;
 }

@@ -1,7 +1,6 @@
 package juanmanuel.gealma.threedimensional
 
-import juanmanuel.gealma.threedimensional.basis.*
-import juanmanuel.gealma.threedimensional.objects.*
+import juanmanuel.gealma.basis.*
 
 val Number.e0
     get() = E0(this.toDouble())
@@ -47,8 +46,8 @@ val Number.e1e2e3
 val Number.l
     get() = Trivector3(this.toDouble())
 
-operator fun Number.plus(other: Geometric3): Geometric3 {
-    return other + this.toDouble()
+operator fun Number.plus(other: Geometric3<*>): Geometric3<*> {
+    return other + Scalar(this.toDouble())
 }
 
 operator fun Number.plus(other: Scalar): Scalar {
@@ -63,8 +62,8 @@ operator fun Number.plus(other: Rotor3): Rotor3 {
     return other + this.toDouble()
 }
 
-operator fun Number.minus(other: Geometric3): Geometric3 {
-    return -other + this.toDouble()
+operator fun Number.minus(other: Geometric3<*>): Geometric3<*> {
+    return -other + Scalar(this.toDouble())
 }
 
 operator fun Number.minus(other: Scalar): Scalar {
@@ -95,6 +94,14 @@ operator fun Number.times(other: Bivector3): Bivector3 {
     return other * this.toDouble()
 }
 
-operator fun Number.div(other: Geometric3): Geometric3 {
-    return other.reciprocal() * this.toDouble()
+operator fun Number.div(other: Geometric3<*>): Geometric3<*> {
+    return other.inverse() * this.toDouble()
+}
+
+infix fun Number.inner(other: Geometric3<*>): Geometric3<*> {
+    return other.inner(this.toDouble())
+}
+
+infix fun Number.outer(other: Geometric3<*>): Geometric3<*> {
+    return other.outer(this.toDouble())
 }

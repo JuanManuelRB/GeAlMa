@@ -1,4 +1,4 @@
-package juanmanuel.gealma.threedimensional.operations;
+package juanmanuel.gealma.operations;
 
 public interface Addition<T extends Addition<T>> {
 

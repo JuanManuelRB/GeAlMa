@@ -1,4 +1,4 @@
-package juanmanuel.gealma.threedimensional.objects;
+package juanmanuel.gealma.threedimensional;
 
 import juanmanuel.gealma.basis.*;
 
@@ -216,44 +216,44 @@ public record Multivector3(E0 e0, E1 e1, E2 e2, E3 e3, E1E2 e1e2, E2E3 e2e3, E3E
     }
 
     @Override
-    public Geometric3 inner(Trivector3 other) {
+    public Multivector3 inner(Trivector3 other) {
         return this.times(other).plus(other.times(this)).div(2);
 
     }
 
     @Override
-    public Geometric3 inner(Multivector3 other) {
+    public Multivector3 inner(Multivector3 other) {
         return this.times(other).plus(other.times(this)).div(2);
     }
 
     @Override
-    public Geometric3 outer(double other) {
-        return this.outer(new Scalar(other));
+    public Multivector3 outer(double other) {
+        return this.times(other);
 
     }
 
     @Override
-    public Geometric3 outer(Scalar other) {
+    public Multivector3 outer(Scalar other) {
+        return this.times(other);
+    }
+
+    @Override
+    public Multivector3 outer(Vector3 other) {
         return this.times(other).minus(other.times(this)).div(2);
     }
 
     @Override
-    public Geometric3 outer(Vector3 other) {
+    public Multivector3 outer(Bivector3 other) {
         return this.times(other).minus(other.times(this)).div(2);
     }
 
     @Override
-    public Geometric3 outer(Bivector3 other) {
+    public Multivector3 outer(Rotor3 other) {
         return this.times(other).minus(other.times(this)).div(2);
     }
 
     @Override
-    public Geometric3 outer(Rotor3 other) {
-        return this.times(other).minus(other.times(this)).div(2);
-    }
-
-    @Override
-    public Geometric3 outer(Trivector3 other) {
+    public Multivector3 outer(Trivector3 other) {
         return this.times(other).minus(other.times(this)).div(2);
     }
 
@@ -264,21 +264,30 @@ public record Multivector3(E0 e0, E1 e1, E2 e2, E3 e3, E1E2 e1e2, E2E3 e2e3, E3E
 
     @Override
     public Multivector3 times(double other) {
+        return new Multivector3(
+                e0.times(other),
+                e1.times(other),
+                e2.times(other),
+                e3.times(other),
+                e1e2.times(other),
+                e2e3.times(other),
+                e3e1.times(other),
+                e1e2e3.times(other)
+        );
+    }
+
+    @Override
+    public Multivector3 times(Scalar other) {
+        return times(other.value());
+    }
+
+    @Override
+    public Multivector3 times(Vector3 other) {
         return null;
     }
 
     @Override
-    public Geometric3 times(Scalar other) {
-        return null;
-    }
-
-    @Override
-    public Geometric3 times(Vector3 other) {
-        return null;
-    }
-
-    @Override
-    public Geometric3 times(Bivector3 other) {
+    public Multivector3 times(Bivector3 other) {
         return null;
     }
 
@@ -288,7 +297,7 @@ public record Multivector3(E0 e0, E1 e1, E2 e2, E3 e3, E1E2 e1e2, E2E3 e2e3, E3E
     }
 
     @Override
-    public Geometric3 times(Trivector3 other) {
+    public Multivector3 times(Trivector3 other) {
         return null;
     }
 
@@ -440,7 +449,7 @@ public record Multivector3(E0 e0, E1 e1, E2 e2, E3 e3, E1E2 e1e2, E2E3 e2e3, E3E
     }
 
     @Override
-    public Iterator<Geometric3Basis> iterator() {
+    public Iterator<Basis3<?>> iterator() {
         return new Iterator<>() {
             private byte actual = 1;
 
@@ -450,7 +459,7 @@ public record Multivector3(E0 e0, E1 e1, E2 e2, E3 e3, E1E2 e1e2, E2E3 e2e3, E3E
             }
 
             @Override
-            public Geometric3Basis next() {
+            public Basis3<?> next() {
                 return switch (actual++) {
                     case 1 -> e0;
                     case 2 -> e1;
