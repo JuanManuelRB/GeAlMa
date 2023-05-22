@@ -1,6 +1,6 @@
 package juanmanuel.gealma.basis;
 
-public record E1E2(double value) implements Basis2<E1E2> {
+public record E1E2(double value) implements Basis2<E1E2>, Blade2<E1E2> {
     public static final E1E2 ZERO = new E1E2(0);
     public static final E1E2 ONE = new E1E2(1);
 
@@ -20,6 +20,11 @@ public record E1E2(double value) implements Basis2<E1E2> {
     }
 
     @Override
+    public E1E2 inverse() {
+        return new E1E2(1 / this.value);
+    }
+
+    @Override
     public E1E2 inc() {
         return new E1E2(this.value + 1);
     }
@@ -30,13 +35,13 @@ public record E1E2(double value) implements Basis2<E1E2> {
     }
 
     @Override
-    public E1E2 times(double scalar) {
-        return new E1E2(this.value * scalar);
+    public E1E2 reverse() {
+        return this.unaryMinus();
     }
 
     @Override
-    public E1E2 times(E0 other) {
-        return new E1E2(this.value * other.value());
+    public E1E2 times(double scalar) {
+        return new E1E2(this.value * scalar);
     }
 
     public E2 times(E1 other) {

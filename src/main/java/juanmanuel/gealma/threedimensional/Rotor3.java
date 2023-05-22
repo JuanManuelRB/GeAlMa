@@ -1,5 +1,6 @@
 package juanmanuel.gealma.threedimensional;
 
+import juanmanuel.gealma.Scalar;
 import juanmanuel.gealma.basis.*;
 
 import java.util.Iterator;
@@ -187,7 +188,6 @@ public record Rotor3(E0 e0, E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometri
      * @param other a 3 dimensional geometric algebra vector.
      * @return a multivector containing a vector and a trivector.
      */
-    @Override
     public Multivector3 inner(Vector3 other) {
 //        new Vector3(e0.times(other.e1()), e0.times(other.e2()), e0.times(other.e3())); scalar().inner(other)
 //        new Trivector3(e1e2.times(other.e3())
@@ -196,7 +196,6 @@ public record Rotor3(E0 e0, E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometri
         return scalar().inner(other).plus(bivector().inner(other));
     }
 
-    @Override
     public Rotor3 inner(Bivector3 other) {
         return scalar().inner(other).plus(bivector().inner(other));
     }
@@ -208,12 +207,10 @@ public record Rotor3(E0 e0, E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometri
         return inner(other.scalar()).plus(inner(other.bivector()));
     }
 
-    @Override
     public Geometric3<?> inner(Trivector3 other) {
         return null;
     }
 
-    @Override
     public Geometric3<?> inner(Multivector3 other) {
         return null;
     }
@@ -235,13 +232,11 @@ public record Rotor3(E0 e0, E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometri
         return Scalar.ZERO;
     }
 
-    @Override
     public Vector3 outer(Vector3 other) {
         // scalar outer product = 0
         return bivector().outer(other);
     }
 
-    @Override
     public Rotor3 outer(Bivector3 other) {
         return scalar().outer(other).plus(bivector().outer(other));
     }
@@ -252,12 +247,10 @@ public record Rotor3(E0 e0, E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometri
         return bivector().outer(other.bivector());
     }
 
-    @Override
     public Geometric3 outer(Trivector3 other) {
         return null;
     }
 
-    @Override
     public Geometric3 outer(Multivector3 other) {
         return null;
     }
@@ -272,13 +265,11 @@ public record Rotor3(E0 e0, E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometri
         return new Rotor3(scalar().times(other), bivector().times(other));
     }
 
-    @Override
     public Multivector3 times(Vector3 other) {
 //        return inner(other).plus(outer(other));
         return scalar().times(other).plus(bivector().times(other));
     }
 
-    @Override
     public Rotor3 times(Bivector3 other) {
         return this.inner(other).plus(this.outer(other));
     }
@@ -288,12 +279,10 @@ public record Rotor3(E0 e0, E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometri
         return this.inner(other).plus(this.outer(other));
     }
 
-    @Override
     public Multivector3 times(Trivector3 other) {
         return null;
     }
 
-    @Override
     public Multivector3 times(Multivector3 other) {
         return multivector().times(other);
     }
@@ -308,12 +297,10 @@ public record Rotor3(E0 e0, E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometri
         return times(other.inverse());
     }
 
-    @Override
     public Geometric3 div(Vector3 other) {
         return times(other.inverse());
     }
 
-    @Override
     public Geometric3 div(Bivector3 other) {
         return times(other.inverse());
     }
@@ -323,12 +310,10 @@ public record Rotor3(E0 e0, E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometri
         return times(other.inverse());
     }
 
-    @Override
     public Geometric3 div(Trivector3 other) {
         return times(other.inverse());
     }
 
-    @Override
     public Geometric3 div(Multivector3 other) {
         return times(other.inverse());
     }

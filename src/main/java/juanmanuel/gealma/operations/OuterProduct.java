@@ -1,24 +1,24 @@
 package juanmanuel.gealma.operations;
 
-import juanmanuel.gealma.threedimensional.*;
+import juanmanuel.gealma.Scalar;
 
-public interface OuterProduct<T extends OuterProduct<T, ?>, R extends OuterProduct<?, R>> {
+public interface OuterProduct<T extends OuterProduct<T>> {
     //    <T extends Geometric3> Geometric3 outer(T other);
 
-    R outer(T other);
+    OuterProduct<?> outer(T other);
 
-    R outer(double other);
+    OuterProduct<?> outer(double other);
 
-    R outer(Scalar other);
+    OuterProduct<?> outer(Scalar other);
 
-    R outer(Vector3 other);
-
-    R outer(Bivector3 other);
-
-    R outer(Rotor3 other);
-
-    R outer(Trivector3 other);
-
-    R outer(Multivector3 other);
+//    R outer(Vector3 other);
+//
+//    R outer(Bivector3 other);
+//
+//    R outer(Rotor3 other);
+//
+//    R outer(Trivector3 other);
+//
+//    R outer(Multivector3 other);
 
 }

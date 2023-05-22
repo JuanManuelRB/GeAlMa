@@ -1,16 +1,15 @@
-package juanmanuel.gealma.threedimensional;
+package juanmanuel.gealma;
 
-import juanmanuel.gealma.basis.Basis3;
-import juanmanuel.gealma.basis.E0;
+import juanmanuel.gealma.basis.*;
+import juanmanuel.gealma.threedimensional.*;
+import juanmanuel.gealma.twodimensional.Bivector2;
+import juanmanuel.gealma.twodimensional.Multivector2;
+import juanmanuel.gealma.twodimensional.Rotor2;
+import juanmanuel.gealma.twodimensional.Vector2;
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public record Scalar(@Override E0 e0) implements Geometric3<Scalar>, Comparable<Scalar> {
-    // Corresponds to the number of basis of the geometric object.
-    public static final byte NUMBER_OF_ELEMENTS = 1;
-
+public record Scalar(E0 e0) implements Geometric<Scalar> {
     public static final Scalar ZERO = new Scalar(E0.ZERO);
     public static final Scalar ONE = new Scalar(1);
 
@@ -22,71 +21,110 @@ public record Scalar(@Override E0 e0) implements Geometric3<Scalar>, Comparable<
         this(new E0(e0));
     }
 
-    @Override
-    public double magnitudeSquared() {
-        return inner(this).value();
+    public double value() {
+        return e0.value();
     }
 
-    @Override
     public double magnitude() {
-        return e0.value();
+        return Math.abs(value());
     }
 
-    double value() {
-        return e0.value();
+    public double magnitudeSquared() {
+        return value() * value();
+    }
+
+    public Scalar inc() {
+        return new Scalar(e0.inc());
+    }
+
+    public Scalar dec() {
+        return new Scalar(e0.dec());
+    }
+
+    @Override
+    public Scalar reverse() {
+        return this;
     }
 
     @Override
     public Scalar normalized() {
-        return ONE;
-    }
-
-    @Override
-    public Scalar inverse() {
-        return new Scalar(1 / value());
+        return new Scalar(1);
     }
 
     @Override
     public Scalar unaryMinus() {
-        return new Scalar(-value());
+        return new Scalar(e0.unaryMinus());
+    }
+
+    public Scalar plus(double other) {
+        return new Scalar(e0.value() + other);
     }
 
     @Override
     public Scalar plus(Scalar other) {
-        return new Scalar(this.value() + other.value());
+        return new Scalar(e0.plus(other.e0()));
     }
 
     @Override
     public Scalar minus(Scalar other) {
-        return new Scalar(this.value() - other.value());
+        return new Scalar(e0.minus(other.e0()));
     }
 
-    public Scalar plus(double other) {
-        return plus(new Scalar(other));
+    @Override
+    public Scalar inverse() {
+        return new Scalar(e0.inverse());
+    }
+
+    public Multivector2 plus(Vector2 other) {
+        return new Multivector2(e0, other.e1(), other.e2(), E1E2.ZERO);
+    }
+
+    public Rotor2 plus(Bivector2 other) {
+        return new Rotor2(e0.plus(other.e0()), other.e1e2());
+    }
+
+    public Multivector2 plus(Multivector2 other) {
+        return new Multivector2(e0.plus(other.e0()), other.e1(), other.e2(), other.e1e2());
+    }
+
+    public Rotor2 plus(Rotor2 other) {
+        return new Rotor2(e0.plus(other.e0()), other.e1e2());
     }
 
     public Multivector3 plus(Vector3 other) {
-        return new Multivector3(this, other, Bivector3.ZERO, Trivector3.ZERO);
+        return new Multivector3(e0, other.e1(), other.e2(), other.e3(), E1E2.ZERO, E2E3.ZERO, E3E1.ZERO, E1E2E3.ZERO);
     }
 
     public Rotor3 plus(Bivector3 other) {
-        return new Rotor3(this, other);
+        return new Rotor3(e0, other.e1e2(), other.e2e3(), other.e3e1());
     }
 
     public Rotor3 plus(Rotor3 other) {
-        return new Rotor3(this.plus(other.scalar()), other.bivector());
+        return new Rotor3(e0.plus(other.e0()), other.e1e2(), other.e2e3(), other.e3e1());
     }
 
     public Multivector3 plus(Trivector3 other) {
-        return new Multivector3(this, Vector3.ZERO, Bivector3.ZERO, other);
+        return new Multivector3(e0, E1.ZERO, E2.ZERO, E3.ZERO, E1E2.ZERO, E2E3.ZERO, E3E1.ZERO, other.e1e2e3());
     }
 
     public Multivector3 plus(Multivector3 other) {
-        return new Multivector3(this.plus(other.scalar()), other.vector(), other.bivector(), other.trivector());
+        return new Multivector3(e0.plus(other.e0()), other.e1(), other.e2(), other.e3(), other.e1e2(), other.e2e3(), other.e3e1(), other.e1e2e3());
     }
 
-    public Scalar minus(double other) {
-        return minus(new Scalar(other));
+    public Multivector2 minus(Vector2 other) {
+        return this.plus(other.unaryMinus());
+    }
+
+    public Rotor2 minus(Bivector2 other) {
+        return this.plus(other.unaryMinus());
+    }
+
+    public Rotor2 minus(Rotor2 other) {
+        return this.plus(other.unaryMinus());
+    }
+
+    public Multivector2 minus(Multivector2 other) {
+        return this.plus(other.unaryMinus());
     }
 
     public Multivector3 minus(Vector3 other) {
@@ -105,10 +143,6 @@ public record Scalar(@Override E0 e0) implements Geometric3<Scalar>, Comparable<
         return this.plus(other.unaryMinus());
     }
 
-    public Multivector3 minus(Multivector3 other) {
-        return this.plus(other.unaryMinus());
-    }
-
     @Override
     public Scalar inner(double other) {
         return inner(new Scalar(other));
@@ -119,27 +153,22 @@ public record Scalar(@Override E0 e0) implements Geometric3<Scalar>, Comparable<
         return new Scalar(this.e0.times(other.e0));
     }
 
-    @Override
     public Vector3 inner(Vector3 other) {
         return new Vector3(e0.times(other.e1()), e0.times(other.e2()), e0.times(other.e3()));
     }
 
-    @Override
     public Bivector3 inner(Bivector3 other) {
         return new Bivector3(e0.times(other.e1e2()), e0.times(other.e2e3()), e0.times(other.e3e1()));
     }
 
-    @Override
     public Rotor3 inner(Rotor3 other) {
         return inner(other.scalar()).plus(inner(other.bivector()));
     }
 
-    @Override
     public Trivector3 inner(Trivector3 other) {
         return new Trivector3(e0.times(other.e1e2e3()));
     }
 
-    @Override
     public Multivector3 inner(Multivector3 other) {
         return inner(other.scalar())
                 .plus(inner(other.vector()))
@@ -157,29 +186,24 @@ public record Scalar(@Override E0 e0) implements Geometric3<Scalar>, Comparable<
         return ZERO;
     }
 
-    @Override
     public Scalar outer(Vector3 other) {
         return ZERO;
     }
 
-    @Override
     public Scalar outer(Bivector3 other) {
         return ZERO;
     }
 
-    @Override
     public Scalar outer(Rotor3 other) {
         return ZERO;
     }
 
-    @Override
     public Scalar outer(Trivector3 other) {
         return ZERO;
     }
 
-    @Override
-    public Scalar outer(Multivector3 other) {
-        return ZERO;
+    public Multivector3 outer(Multivector3 other) {
+        return Multivector3.ZERO; // TODO: implement
     }
 
     @Override
@@ -192,27 +216,22 @@ public record Scalar(@Override E0 e0) implements Geometric3<Scalar>, Comparable<
         return new Scalar(this.e0.times(other.e0));
     }
 
-    @Override
     public Vector3 times(Vector3 other) {
         return new Vector3(e0.times(other.e1()), e0.times(other.e2()), e0.times(other.e3()));
     }
 
-    @Override
     public Bivector3 times(Bivector3 other) {
         return new Bivector3(e0.times(other.e1e2()), e0.times(other.e2e3()), e0.times(other.e3e1()));
     }
 
-    @Override
     public Rotor3 times(Rotor3 other) {
         return new Rotor3(this.times(other.scalar()), this.times(other.bivector()));
     }
 
-    @Override
     public Trivector3 times(Trivector3 other) {
         return new Trivector3(e0.times(other.e1e2e3()));
     }
 
-    @Override
     public Multivector3 times(Multivector3 other) {
         return new Multivector3(
                 this.times(other.scalar()),
@@ -232,64 +251,99 @@ public record Scalar(@Override E0 e0) implements Geometric3<Scalar>, Comparable<
         return new Scalar(this.value() / other.value());
     }
 
-    @Override
     public Vector3 div(Vector3 other) {
         return this.times(other.inverse());
     }
 
-    @Override
     public Bivector3 div(Bivector3 other) {
         return this.times(other.inverse());
     }
 
-    @Override
     public Rotor3 div(Rotor3 other) {
         return this.times(other.inverse());
     }
 
-    @Override
     public Trivector3 div(Trivector3 other) {
         return this.times(other.inverse());
     }
 
-    @Override
-    public Geometric3 div(Multivector3 other) {
+    public Multivector3 div(Multivector3 other) {
         return this.times(other.inverse());
     }
 
-    @Override
-    public int compareTo(Scalar other) {
-        return Double.compare(e0.value(), other.e0.value());
+    public Scalar pow(int exponent) {
+        return new Scalar(Math.pow(e0.value(), exponent));
     }
 
-    @Override
-    public Iterator<Basis3<?>> iterator() {
-        return new Iterator<>() {
-            private byte actual = 1;
-
-            @Override
-            public boolean hasNext() {
-                return actual <= NUMBER_OF_ELEMENTS;
-            }
-
-            @Override
-            public E0 next() {
-                if (actual != 1)
-                    throw new NoSuchElementException("The element " + actual + " does not correspond to any element of vectors in three dimensions");
-
-                actual++;
-                return e0;
-            }
-        };
+    public Scalar pow(double exponent) {
+        return new Scalar(Math.pow(e0.value(), exponent));
     }
 
-    @Override
-    public String toString() {
-        return "(" + e0.value() + ")e0";
+    public Scalar pow(Scalar exponent) {
+        return new Scalar(Math.pow(e0.value(), exponent.value()));
     }
 
-    @Override
-    public Scalar reverse() {
-        return this;
+    public Scalar sqrt() {
+        return new Scalar(Math.sqrt(e0.value()));
+    }
+
+    public Scalar cbrt() {
+        return new Scalar(Math.cbrt(e0.value()));
+    }
+
+    public Scalar exp() {
+        return new Scalar(Math.exp(e0.value()));
+    }
+
+    public Scalar log() {
+        return new Scalar(Math.log(e0.value()));
+    }
+
+    public Scalar log10() {
+        return new Scalar(Math.log10(e0.value()));
+    }
+
+    public Scalar log1p() {
+        return new Scalar(Math.log1p(e0.value()));
+    }
+
+    public Scalar log2() {
+        return new Scalar(Math.log(e0.value()) / Math.log(2));
+    }
+
+    public Scalar sin() {
+        return new Scalar(Math.sin(e0.value()));
+    }
+
+    public Scalar cos() {
+        return new Scalar(Math.cos(e0.value()));
+    }
+
+    public Scalar tan() {
+        return new Scalar(Math.tan(e0.value()));
+    }
+
+    public Scalar asin() {
+        return new Scalar(Math.asin(e0.value()));
+    }
+
+    public Scalar acos() {
+        return new Scalar(Math.acos(e0.value()));
+    }
+
+    public Scalar atan() {
+        return new Scalar(Math.atan(e0.value()));
+    }
+
+    public Scalar sinh() {
+        return new Scalar(Math.sinh(e0.value()));
+    }
+
+    public Scalar cosh() {
+        return new Scalar(Math.cosh(e0.value()));
+    }
+
+    public Scalar tanh() {
+        return new Scalar(Math.tanh(e0.value()));
     }
 }

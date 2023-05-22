@@ -1,4 +1,7 @@
 package juanmanuel.gealma;
 
-public interface Geometric<T extends Geometric<T>> {
+import juanmanuel.gealma.operations.*;
+
+public interface Geometric<T extends Geometric<T>> extends Addition<T>, Subtraction<T>, Reversion<T>, Normalization<T>,
+        InnerProduct<T>, OuterProduct<T>, Product<T>, Division<T> {
 }

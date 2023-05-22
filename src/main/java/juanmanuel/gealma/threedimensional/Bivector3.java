@@ -1,6 +1,7 @@
 package juanmanuel.gealma.threedimensional;
 
 import jdk.incubator.vector.DoubleVector;
+import juanmanuel.gealma.Scalar;
 import juanmanuel.gealma.basis.Basis3;
 import juanmanuel.gealma.basis.E1E2;
 import juanmanuel.gealma.basis.E2E3;
@@ -135,7 +136,6 @@ public record Bivector3(E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometric3<B
         );
     }
 
-    @Override
     public Trivector3 inner(Vector3 other) {
         return new Trivector3(e1e2.times(other.e3())
                 .plus(e2e3.times(other.e1()))
@@ -148,12 +148,10 @@ public record Bivector3(E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometric3<B
         return new Scalar(e1e2.times(other.e1e2).plus(e2e3.times(other.e2e3)).plus(e3e1.times(other.e3e1)));
     }
 
-    @Override
     public Rotor3 inner(Rotor3 other) {
         return this.inner(other.scalar()).plus(this.inner(other.bivector()));
     }
 
-    @Override
     public Vector3 inner(Trivector3 other) {
         return new Vector3(
                 e2e3.times(other.e1e2e3()),
@@ -162,7 +160,6 @@ public record Bivector3(E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometric3<B
         );
     }
 
-    @Override
     public Multivector3 inner(Multivector3 other) {
         return this.inner(other.scalar())
                 .plus(this.inner(other.vector()))
@@ -180,7 +177,6 @@ public record Bivector3(E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometric3<B
         return Scalar.ZERO;
     }
 
-    @Override
     public Vector3 outer(Vector3 other) {
         return new Vector3(
                 e1e2.times(other.e2()).plus(e3e1.times(other.e3())),
@@ -198,17 +194,14 @@ public record Bivector3(E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometric3<B
         );
     }
 
-    @Override
     public Rotor3 outer(Rotor3 other) {
         return this.outer(other.scalar()).plus(this.outer(other.bivector()));
     }
 
-    @Override
     public Scalar outer(Trivector3 other) {
         return Scalar.ZERO;
     }
 
-    @Override
     public Multivector3 outer(Multivector3 other) {
         return outer(other.scalar())
                 .plus(outer(other.vector()))
@@ -227,7 +220,6 @@ public record Bivector3(E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometric3<B
         return inner(other);
     }
 
-    @Override
     public Multivector3 times(Vector3 other) {
         return this.inner(other).plus(this.outer(other));
     }
@@ -237,18 +229,15 @@ public record Bivector3(E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometric3<B
         return this.inner(other).plus(this.outer(other));
     }
 
-    @Override
     public Rotor3 times(Rotor3 other) {
         return this.inner(other).plus(this.outer(other));
     }
 
-    @Override
     public Vector3 times(Trivector3 other) {
         // outer product = 0
         return this.inner(other);
     }
 
-    @Override
     public Multivector3 times(Multivector3 other) {
         return this.inner(other).plus(this.outer(other));
     }
@@ -263,7 +252,6 @@ public record Bivector3(E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometric3<B
         return this.times(other.inverse());
     }
 
-    @Override
     public Multivector3 div(Vector3 other) {
         return this.times(other.inverse());
     }
@@ -273,17 +261,14 @@ public record Bivector3(E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometric3<B
         return this.times(other.inverse());
     }
 
-    @Override
     public Rotor3 div(Rotor3 other) {
         return this.times(other.inverse());
     }
 
-    @Override
     public Vector3 div(Trivector3 other) {
         return this.times(other.inverse());
     }
 
-    @Override
     public Multivector3 div(Multivector3 other) {
         return this.times(other.inverse());
     }
@@ -330,7 +315,15 @@ public record Bivector3(E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometric3<B
         return unaryMinus();
     }
 
-    public DoubleVector toVector() {
-        return DoubleVector.fromArray(vectorSpecies, new double[]{e1e2.value(), e2e3.value(), e3e1.value(), 0}, 0);
+    private DoubleVector toVector() {
+        return vectorFrom(e1e2, e2e3, e3e1);
+    }
+
+    private static DoubleVector vectorFrom(Basis3<?> b1, Basis3<?> b2, Basis3<?> b3) {
+        return DoubleVector.fromArray(
+                vectorSpecies,
+                new double[]{b1.value(), b2.value(), b3.value(), 0},
+                0
+        );
     }
 }

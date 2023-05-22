@@ -1,7 +1,5 @@
-package juanmanuel.gealma.threedimensional.basis;
+package juanmanuel.gealma.basis;
 
-import juanmanuel.gealma.basis.E0;
-import juanmanuel.gealma.basis.E1;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

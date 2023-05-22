@@ -1,5 +1,6 @@
 package juanmanuel.gealma.threedimensional;
 
+import juanmanuel.gealma.Scalar;
 import juanmanuel.gealma.basis.*;
 
 import java.util.Iterator;
@@ -198,24 +199,20 @@ public record Multivector3(E0 e0, E1 e1, E2 e2, E3 e3, E1E2 e1e2, E2E3 e2e3, E3E
 
     }
 
-    @Override
     public Geometric3<?> inner(Vector3 other) {
         return this.times(other).plus(other.times(this)).div(2);
 
     }
 
-    @Override
     public Geometric3<?> inner(Bivector3 other) {
         return this.times(other).plus(other.times(this)).div(2);
 
     }
 
-    @Override
     public Geometric3<?> inner(Rotor3 other) {
         return this.times(other).plus(other.times(this)).div(2);
     }
 
-    @Override
     public Multivector3 inner(Trivector3 other) {
         return this.times(other).plus(other.times(this)).div(2);
 
@@ -237,22 +234,18 @@ public record Multivector3(E0 e0, E1 e1, E2 e2, E3 e3, E1E2 e1e2, E2E3 e2e3, E3E
         return this.times(other);
     }
 
-    @Override
     public Multivector3 outer(Vector3 other) {
         return this.times(other).minus(other.times(this)).div(2);
     }
 
-    @Override
     public Multivector3 outer(Bivector3 other) {
         return this.times(other).minus(other.times(this)).div(2);
     }
 
-    @Override
     public Multivector3 outer(Rotor3 other) {
         return this.times(other).minus(other.times(this)).div(2);
     }
 
-    @Override
     public Multivector3 outer(Trivector3 other) {
         return this.times(other).minus(other.times(this)).div(2);
     }
@@ -281,22 +274,18 @@ public record Multivector3(E0 e0, E1 e1, E2 e2, E3 e3, E1E2 e1e2, E2E3 e2e3, E3E
         return times(other.value());
     }
 
-    @Override
     public Multivector3 times(Vector3 other) {
         return null;
     }
 
-    @Override
     public Multivector3 times(Bivector3 other) {
         return null;
     }
 
-    @Override
     public Multivector3 times(Rotor3 other) {
         return null;
     }
 
-    @Override
     public Multivector3 times(Trivector3 other) {
         return null;
     }
@@ -423,22 +412,18 @@ public record Multivector3(E0 e0, E1 e1, E2 e2, E3 e3, E1E2 e1e2, E2E3 e2e3, E3E
         );
     }
 
-    @Override
     public Geometric3 div(Vector3 other) {
         return null;
     }
 
-    @Override
     public Geometric3 div(Bivector3 other) {
         return null;
     }
 
-    @Override
     public Geometric3 div(Rotor3 other) {
         return null;
     }
 
-    @Override
     public Geometric3 div(Trivector3 other) {
         return null;
     }

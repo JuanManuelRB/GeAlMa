@@ -1,6 +1,6 @@
 package juanmanuel.gealma.basis;
 
-public record E1(double value) implements Basis1<E1> {
+public record E1(double value) implements Basis1<E1>, Blade1<E1> {
     public static final E1 ZERO = new E1(0);
     public static final E1 ONE = new E1(1);
 
@@ -10,13 +10,13 @@ public record E1(double value) implements Basis1<E1> {
     }
 
     @Override
-    public E1 minus(E1 other) {
-        return new E1(value - other.value);
+    public E1 unaryMinus() {
+        return new E1(-value);
     }
 
     @Override
-    public E1 unaryMinus() {
-        return new E1(-value);
+    public E1 minus(E1 other) {
+        return new E1(value - other.value);
     }
 
     @Override
@@ -25,8 +25,23 @@ public record E1(double value) implements Basis1<E1> {
     }
 
     @Override
-    public E1 times(E0 other) {
+    public E1 times(Blade0<?> other) {
         return new E1(value * other.value());
+    }
+
+    @Override
+    public E1 inverse() {
+        return new E1(1 / value);
+    }
+
+    @Override
+    public E1 div(double scalar) {
+        return new E1(value / scalar);
+    }
+
+    @Override
+    public E1 div(Blade0<?> other) {
+        return new E1(value / other.value());
     }
 
     @Override
@@ -40,8 +55,18 @@ public record E1(double value) implements Basis1<E1> {
     }
 
     @Override
+    public E1 reverse() {
+        return this;
+    }
+
+    @Override
     public E0 times(E1 other) {
         return new E0(value * other.value);
+    }
+
+    @Override
+    public E0 div(E1 other) {
+        return this.times(other.inverse());
     }
 
     public E1E2 times(E2 other) {

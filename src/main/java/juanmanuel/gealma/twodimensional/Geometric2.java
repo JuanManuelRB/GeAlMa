@@ -1,10 +1,15 @@
-package juanmanuel.gealma.threedimensional;
+package juanmanuel.gealma.twodimensional;
 
 import jdk.incubator.vector.DoubleVector;
 import jdk.incubator.vector.VectorSpecies;
 import juanmanuel.gealma.Geometric;
 import juanmanuel.gealma.Scalar;
 import juanmanuel.gealma.basis.*;
+import juanmanuel.gealma.operations.*;
+import juanmanuel.gealma.threedimensional.Bivector3;
+import juanmanuel.gealma.threedimensional.Rotor3;
+import juanmanuel.gealma.threedimensional.Trivector3;
+import juanmanuel.gealma.threedimensional.Vector3;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -23,14 +28,15 @@ import java.util.NoSuchElementException;
  *     Additionally, a rotor which is a geometric object that represents a rotation is represented by the {@link Rotor3} class.
  * </p>
  */
-public sealed interface Geometric3<T extends Geometric3<T>>
-        extends Iterable<Basis3<?>>, Geometric<T>
-        permits Vector3, Bivector3, Rotor3, Trivector3, Multivector3 {
+public sealed interface Geometric2<T extends Geometric2<T>>
+        extends Iterable<Basis3<?>>, Addition<T>, Subtraction<T>, Reversion<T>, Normalization<T>,
+        InnerProduct<T>, OuterProduct<T>, Product<T>, Division<T>, Geometric<T>
+        permits Bivector2, Multivector2, Rotor2, Vector2 {
 
     // Corresponds to the number of basis of the geometric object.
-    byte NUMBER_OF_ELEMENTS = 8;
-    VectorSpecies<Double> vectorSpecies = DoubleVector.SPECIES_256;
-    byte VECTOR_SIZE = 4;
+    byte NUMBER_OF_ELEMENTS = 4;
+    VectorSpecies<Double> vectorSpecies = DoubleVector.SPECIES_128;
+    byte VECTOR_SIZE = 2;
 
     /**
      * @return the basis e0.
@@ -54,38 +60,10 @@ public sealed interface Geometric3<T extends Geometric3<T>>
     }
 
     /**
-     * @return the basis e3.
-     */
-    default E3 e3() {
-        return E3.ZERO;
-    }
-
-    /**
      * @return the basis e1e2.
      */
     default E1E2 e1e2() {
         return E1E2.ZERO;
-    }
-
-    /**
-     * @return the basis e2e3.
-     */
-    default E2E3 e2e3() {
-        return E2E3.ZERO;
-    }
-
-    /**
-     * @return the basis e3e1.
-     */
-    default E3E1 e3e1() {
-        return E3E1.ZERO;
-    }
-
-    /**
-     * @return the basis e1e2e3.
-     */
-    default E1E2E3 e1e2e3() {
-        return E1E2E3.ZERO;
     }
 
     /**
@@ -98,63 +76,36 @@ public sealed interface Geometric3<T extends Geometric3<T>>
     /**
      * @return the vector part of the object.
      */
-    default Vector3 vector() {
-        return new Vector3(this.e1(), this.e2(), this.e3());
+    default Vector2 vector() {
+        return new Vector2(this.e1(), this.e2());
     }
 
     /**
      * @return the bivector part of the object.
      */
-    default Bivector3 bivector() {
-        return new Bivector3(this.e1e2(), this.e2e3(), this.e3e1());
-    }
-
-    /**
-     * @return the trivector part of the object.
-     */
-    default Trivector3 trivector() {
-        return new Trivector3(this.e1e2e3());
+    default Bivector2 bivector() {
+        return new Bivector2(this.e1e2());
     }
 
     /**
      * @return the multivector composed of the scalar, vector, bivector and trivector of the object.
      */
-    default Multivector3 multivector() {
-        return new Multivector3(e0(), e1(), e2(), e3(), e1e2(), e2e3(), e3e1(), e1e2e3());
+    default Multivector2 multivector() {
+        return new Multivector2(e0(), e1(), e2(), e1e2());
     }
 
-    /**
-     * @return the scalar subspace of the object.
-     */
-    default Geometric3<?> scalarSubspace() {
-        return scalar().plus(trivector());
-    }
-
-    /**
-     * @return the vector subspace of the object.
-     */
-    default Geometric3<?> vectorSubspace() {
-        return vector().plus(bivector());
-    }
-
-    /**
-     * @return the real subspace of the object.
-     */
-    default Geometric3<?> realSubspace() {
-        return scalar().plus(vector());
-    }
 
     /**
      * @return the imaginary subspace of the object.
      */
-    default Geometric3<?> imaginarySubspace() {
-        return bivector().plus(trivector());
+    default Geometric2<?> imaginarySubspace() {
+        return bivector().plus(bivector());
     }
 
     /**
      * @return a Rotor composed of the scalar and bivector of the element.
      */
-    default Rotor3 toRotor() {
+    default Rotor2 toRotor() {
         return bivector().plus(scalar()).normalized();
     }
 
@@ -168,35 +119,11 @@ public sealed interface Geometric3<T extends Geometric3<T>>
      */
     double magnitude();
 
-    default Geometric3<?> plus(Scalar other) {
-        return multivector().plus(other);
-    }
-
-    default Geometric3<?> minus(Scalar other) {
-        return multivector().minus(other);
-    }
-
-    default Geometric3<?> times(Scalar other) {
-        return multivector().times(other);
-    }
-
-    default Geometric3<?> div(Scalar other) {
-        return multivector().div(other);
-    }
-
-    default Geometric3<?> inner(Scalar other) {
-        return multivector().inner(other);
-    }
-
-    default Geometric3<?> outer(Scalar other) {
-        return multivector().outer(other);
-    }
-
-    default Geometric3<?> plus(Geometric3<?> other) {
+    default Geometric2<?> plus(Geometric2<?> other) {
         return multivector().plus(other.multivector());
     }
 
-    default Geometric3<?> minus(Geometric3<?> other) {
+    default Geometric2<?> minus(Geometric2<?> other) {
         return multivector().minus(other.multivector());
     }
 
@@ -206,25 +133,25 @@ public sealed interface Geometric3<T extends Geometric3<T>>
      * @param other the other object to be multiplied.
      * @return the geometric product of the object and the other object.
      */
-    default Geometric3<?> times(Geometric3<?> other) {
+    default Geometric2<?> times(Geometric2<?> other) {
 //        var thisMultivector = multivector();
 //        var otherMultivector = other.multivector();
 //        return thisMultivector.times(otherMultivector);
         return multivector().times(other.multivector());
     }
 
-    default Geometric3<?> inner(Geometric3<?> other) {
+    default Geometric2<?> inner(Geometric2<?> other) {
         return multivector().inner(other.multivector());
     }
 
-    default Geometric3<?> outer(Geometric3<?> other) {
+    default Geometric2<?> outer(Geometric2<?> other) {
         return multivector().outer(other.multivector());
     }
 
     @Override
     default Iterator<Basis3<?>> iterator() {
         return new Iterator<>() {
-            private byte actual = 1;
+            private byte actual = 0;
 
             @Override
             public boolean hasNext() {
@@ -234,37 +161,21 @@ public sealed interface Geometric3<T extends Geometric3<T>>
             @Override
             public Basis3<?> next() {
                 return switch (actual) {
-                    case 1 -> {
+                    case 0 -> {
                         actual++;
                         yield e0();
                     }
-                    case 2 -> {
+                    case 1 -> {
                         actual++;
                         yield e1();
                     }
-                    case 3 -> {
+                    case 2 -> {
                         actual++;
                         yield e2();
                     }
-                    case 4 -> {
-                        actual++;
-                        yield e3();
-                    }
-                    case 5 -> {
+                    case 3 -> {
                         actual++;
                         yield e1e2();
-                    }
-                    case 6 -> {
-                        actual++;
-                        yield e2e3();
-                    }
-                    case 7 -> {
-                        actual++;
-                        yield e3e1();
-                    }
-                    case 8 -> {
-                        actual++;
-                        yield e1e2e3();
                     }
                     default ->
                             throw new NoSuchElementException("The element " + actual + " does not correspond to any element of geometric algebra in three dimensions");

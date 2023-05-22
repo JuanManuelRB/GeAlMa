@@ -1,6 +1,6 @@
 package juanmanuel.gealma.basis;
 
-public record E3E1(double value) implements Basis3<E3E1> {
+public record E3E1(double value) implements Basis3<E3E1>, Blade2<E3E1> {
     public static final E3E1 ZERO = new E3E1(0);
     public static final E3E1 ONE = new E3E1(1);
 
@@ -19,15 +19,14 @@ public record E3E1(double value) implements Basis3<E3E1> {
         return new E3E1(-this.value);
     }
 
+    @Override
+    public E3E1 inverse() {
+        return new E3E1(1 / this.value);
+    }
 
     @Override
     public E3E1 times(double scalar) {
         return new E3E1(this.value * scalar);
-    }
-
-    @Override
-    public E3E1 times(E0 other) {
-        return new E3E1(this.value * other.value());
     }
 
     @Override
@@ -38,6 +37,11 @@ public record E3E1(double value) implements Basis3<E3E1> {
     @Override
     public E3E1 dec() {
         return new E3E1(this.value - 1);
+    }
+
+    @Override
+    public E3E1 reverse() {
+        return this.unaryMinus();
     }
 
     @Override

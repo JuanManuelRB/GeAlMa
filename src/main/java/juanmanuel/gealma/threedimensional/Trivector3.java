@@ -1,5 +1,6 @@
 package juanmanuel.gealma.threedimensional;
 
+import juanmanuel.gealma.Scalar;
 import juanmanuel.gealma.basis.Basis3;
 import juanmanuel.gealma.basis.E0;
 import juanmanuel.gealma.basis.E1E2E3;
@@ -248,7 +249,6 @@ public record Trivector3(@Override E1E2E3 e1e2e3) implements Geometric3<Trivecto
      * @param other a vector
      * @return a scalar with value 0.
      */
-    @Override
     public Scalar outer(Vector3 other) {
         return Scalar.ZERO;
     }
@@ -259,7 +259,6 @@ public record Trivector3(@Override E1E2E3 e1e2e3) implements Geometric3<Trivecto
      * @param other a bivector
      * @return a scalar with value 0.
      */
-    @Override
     public Scalar outer(Bivector3 other) {
         return Scalar.ZERO;
     }
@@ -270,18 +269,15 @@ public record Trivector3(@Override E1E2E3 e1e2e3) implements Geometric3<Trivecto
      * @param other a rotor
      * @return a scalar with value 0.
      */
-    @Override
     public Scalar outer(Rotor3 other) {
         // outer product = 0
         return Scalar.ZERO;
     }
 
-    @Override
     public Scalar outer(Trivector3 other) {
         return Scalar.ZERO;
     }
 
-    @Override
     public Trivector3 outer(Multivector3 other) {
         return outer(other.scalar());
     }

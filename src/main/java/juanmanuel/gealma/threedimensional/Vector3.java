@@ -2,6 +2,7 @@ package juanmanuel.gealma.threedimensional;
 
 import jdk.incubator.vector.DoubleVector;
 import jdk.incubator.vector.VectorOperators;
+import juanmanuel.gealma.Scalar;
 import juanmanuel.gealma.basis.Basis3;
 import juanmanuel.gealma.basis.E1;
 import juanmanuel.gealma.basis.E2;
@@ -16,7 +17,6 @@ public record Vector3(@Override E1 e1, @Override E2 e2, @Override E3 e3) impleme
     public static final byte NUMBER_OF_ELEMENTS = 3;
     public static final Vector3 ZERO = new Vector3();
     public static final Vector3 ONE = new Vector3(1, 1, 1);
-
 
     public Vector3 {
         Objects.requireNonNull(e1);
@@ -98,6 +98,10 @@ public record Vector3(@Override E1 e1, @Override E2 e2, @Override E3 e3) impleme
 //        return vector.reciprocal().times(this).times(vector);
     }
 
+    public double angleWith(Vector3 other) {
+        return this.normalized().inner(other.normalized()).value();
+    }
+
     /**
      * Returns an array of doubles with the values of the vector's basis. The order of the basis is the same as the order
      * of the basis in the {@link Basis3}.
@@ -107,7 +111,15 @@ public record Vector3(@Override E1 e1, @Override E2 e2, @Override E3 e3) impleme
     }
 
     private DoubleVector toVector() {
-        return DoubleVector.fromArray(vectorSpecies, new double[]{e1.value(), e2.value(), e3.value(), 0}, 0);
+        return vectorFrom(e1, e2, e3);
+    }
+
+    private static DoubleVector vectorFrom(Basis3<?> b1, Basis3<?> b2, Basis3<?> b3) {
+        return DoubleVector.fromArray(
+                vectorSpecies,
+                new double[]{b1.value(), b2.value(), b3.value(), 0},
+                0
+        );
     }
 
     @Override
@@ -193,12 +205,12 @@ public record Vector3(@Override E1 e1, @Override E2 e2, @Override E3 e3) impleme
 
     @Override
     public Vector3 inner(double other) {
-        return inner(new Scalar(other));
+        return this.times(other);
     }
 
     @Override
     public Vector3 inner(Scalar other) {
-        return other.inner(this);
+        return this.times(other);
     }
 
     @Override
@@ -210,7 +222,6 @@ public record Vector3(@Override E1 e1, @Override E2 e2, @Override E3 e3) impleme
 //                .plus(this.e3.times(other.e3)));
     }
 
-    @Override
     public Vector3 inner(Bivector3 other) {
         var vv = DoubleVector.fromArray(
                 DoubleVector.SPECIES_512,
@@ -239,21 +250,22 @@ public record Vector3(@Override E1 e1, @Override E2 e2, @Override E3 e3) impleme
 //        );
     }
 
-    @Override
     public Vector3 inner(Rotor3 other) {
         return this.inner(other.scalar()).plus(this.inner(other.bivector()));
     }
 
-    @Override
     public Bivector3 inner(Trivector3 other) {
-        return new Bivector3(
-                e3.times(other.e1e2e3()),
-                e1.times(other.e1e2e3()),
-                e2.times(other.e1e2e3())
-        );
+        var result = new double[VECTOR_SIZE];
+        toVector().mul(other.volume()).intoArray(result, 0);
+        return new Bivector3(result[0], result[1], result[2]);
+
+//        return new Bivector3(
+//                e3.times(other.e1e2e3()),
+//                e1.times(other.e1e2e3()),
+//                e2.times(other.e1e2e3())
+//        );
     }
 
-    @Override
     public Multivector3 inner(Multivector3 other) {
         return inner(other.scalar())
                 .plus(inner(other.vector()))
@@ -262,43 +274,55 @@ public record Vector3(@Override E1 e1, @Override E2 e2, @Override E3 e3) impleme
     }
 
     @Override
-    public Scalar outer(double other) {
-        return Scalar.ZERO;
+    public Vector3 outer(double other) {
+        return this.times(other);
     }
 
     @Override
-    public Scalar outer(Scalar other) {
-        return Scalar.ZERO;
+    public Vector3 outer(Scalar other) {
+        return this.times(other);
     }
 
     @Override
     public Bivector3 outer(Vector3 other) {
-        return new Bivector3(
-                this.e1.times(e2).plus(other.e1.times(this.e2)),
-                this.e2.times(e3).plus(other.e2.times(this.e3)),
-                this.e3.times(e1).plus(other.e3.times(this.e1))
-        );
+        double[] result = new double[VECTOR_SIZE];
+
+        var vt_1 = this.toVector();
+        var vo_1 = vectorFrom(other.e2, other.e3, other.e1);
+        var vo_2 = other.toVector();
+        var vt_2 = vectorFrom(this.e2, this.e3, this.e1);
+
+        vt_1.mul(vo_1).sub(vt_2.mul(vo_2)).intoArray(result, 0);
+
+        return new Bivector3(result[0], result[1], result[2]);
+
+//        return new Bivector3(
+//                this.e1.times(other.e2).plus(other.e1.times(this.e2)),
+//                this.e2.times(other.e3).plus(other.e2.times(this.e3)),
+//                this.e3.times(other.e1).plus(other.e3.times(this.e1))
+//        );
     }
 
-    @Override
     public Trivector3 outer(Bivector3 other) {
-        return new Trivector3(this.e1.times(other.e2e3())
-                .plus(this.e2.times(other.e3e1()))
-                .plus(this.e3.times(other.e1e2()))
-        );
+        var vv = toVector();
+        var vb = vectorFrom(other.e2e3(), other.e3e1(), other.e1e2());
+        return new Trivector3(vv.mul(vb).reduceLanes(VectorOperators.ADD));
+
+//        return new Trivector3(this.e1.times(other.e2e3())
+//                .plus(this.e2.times(other.e3e1()))
+//                .plus(this.e3.times(other.e1e2()))
+//        );
     }
 
-    public Trivector3 outer(Rotor3 other) {
-        return this.outer(other.bivector());
+    public Multivector3 outer(Rotor3 other) {
+        return this.outer(other.scalar()).plus(this.outer(other.bivector()));
     }
 
-    @Override
     public Scalar outer(Trivector3 other) {
         return Scalar.ZERO;
     }
 
-    @Override
-    public Geometric3<?> outer(Multivector3 other) {
+    public Multivector3 outer(Multivector3 other) {
         return this.outer(other.scalar())
                 .plus(this.outer(other.vector()))
                 .plus(this.outer(other.bivector()))
@@ -307,13 +331,14 @@ public record Vector3(@Override E1 e1, @Override E2 e2, @Override E3 e3) impleme
 
     @Override
     public Vector3 times(double other) {
-        return times(new Scalar(other));
+        double[] result = new double[VECTOR_SIZE];
+        toVector().mul(other).intoArray(result, 0);
+        return new Vector3(result[0], result[1], result[2]);
     }
 
     @Override
     public Vector3 times(Scalar other) {
-        // outer product = 0
-        return this.inner(other);
+        return this.times(other.value());
     }
 
     @Override
@@ -321,23 +346,19 @@ public record Vector3(@Override E1 e1, @Override E2 e2, @Override E3 e3) impleme
         return this.inner(other).plus(this.outer(other));
     }
 
-    @Override
     public Multivector3 times(Bivector3 other) {
         return this.inner(other).plus(this.outer(other));
     }
 
-    @Override
     public Multivector3 times(Rotor3 other) {
         return this.times(other.scalar()).plus(this.times(other.bivector()));
     }
 
-    @Override
     public Bivector3 times(Trivector3 other) {
         // outer product = 0
         return this.inner(other);
     }
 
-    @Override
     public Multivector3 times(Multivector3 other) {
         return this.times(other.scalar())
                 .plus(this.times(other.vector()))
