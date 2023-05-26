@@ -18,19 +18,19 @@ public sealed interface Blade<Self extends Blade<Self>> permits Blade0, Blade1, 
         return this.times(other.value());
     }
 
-    default Blade0<?> times(Self other) {
-        return new E0(this.value() * other.reverse().value());
-    }
-    default Self div(double scalar) {
-        return this.times(1 / scalar);
-    }
+//    default Blade0<?> times(Self other) {
+//        return new E0(this.value() * other.reverse().value());
+//    }
+//    default Self div(double scalar) {
+//        return this.times(1 / scalar);
+//    }
 
-    default Self div(Blade0<?> other) {
-        return this.times(other.inverse());
-    }
-    default Blade0<?> div(Self other) {
-        return this.times(other.inverse());
-    }
+//    default Self div(Blade0<?> other) {
+//        return this.times(other.inverse());
+//    }
+//    default Blade0<?> div(Self other) {
+//        return this.times(other.inverse());
+//    }
 
     Self inc();
     Self dec();

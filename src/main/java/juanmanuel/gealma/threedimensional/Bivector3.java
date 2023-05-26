@@ -173,8 +173,8 @@ public record Bivector3(E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometric3<B
     }
 
     @Override
-    public Scalar outer(Scalar other) {
-        return Scalar.ZERO;
+    public Bivector3 outer(Scalar other) {
+        return this.times(other);
     }
 
     public Vector3 outer(Vector3 other) {
@@ -194,7 +194,7 @@ public record Bivector3(E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometric3<B
         );
     }
 
-    public Rotor3 outer(Rotor3 other) {
+    public Bivector3 outer(Rotor3 other) {
         return this.outer(other.scalar()).plus(this.outer(other.bivector()));
     }
 
@@ -216,8 +216,11 @@ public record Bivector3(E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometric3<B
 
     @Override
     public Bivector3 times(Scalar other) {
-        // outer product = 0
-        return inner(other);
+        return new Bivector3(
+                e1e2.times(other.e0()),
+                e2e3.times(other.e0()),
+                e3e1.times(other.e0())
+        );
     }
 
     public Multivector3 times(Vector3 other) {

@@ -2,7 +2,7 @@
  * Geometric Algebra module.
  * Allows the manipulation of geometric objects in 2D, 3D and 4D.
  */
-module geometricalgebra {
+module gealma {
     requires jdk.incubator.vector;
 
     exports juanmanuel.gealma.threedimensional;
