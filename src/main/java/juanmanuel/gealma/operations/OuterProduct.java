@@ -1,6 +1,6 @@
 package juanmanuel.gealma.operations;
 
-import juanmanuel.gealma.Scalar;
+import juanmanuel.gealma.vga.Scalar;
 
 public interface OuterProduct<T extends OuterProduct<T>> {
     //    <T extends Geometric3> Geometric3 outer(T other);

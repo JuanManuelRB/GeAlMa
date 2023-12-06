@@ -5,9 +5,11 @@
 module gealma {
     requires jdk.incubator.vector;
 
-    exports juanmanuel.gealma.threedimensional;
-    exports juanmanuel.gealma.twodimensional;
+    exports juanmanuel.gealma.vga.vga3;
+    exports juanmanuel.gealma.vga.vga2;
     exports juanmanuel.gealma.operations;
-    exports juanmanuel.gealma.basis;
+    exports juanmanuel.gealma.vga.basis;
     exports juanmanuel.gealma;
+    exports juanmanuel.gealma.vga.basis.vga;
+    exports juanmanuel.gealma.vga;
 }

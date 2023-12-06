@@ -1,6 +1,6 @@
 package juanmanuel.gealma.operations;
 
-import juanmanuel.gealma.Scalar;
+import juanmanuel.gealma.vga.Scalar;
 
 public interface InnerProduct<Self extends InnerProduct<Self>> {
     //<T extends Geometric3<?>> Geometric3<?> inner(T other);

@@ -10,10 +10,73 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1dd672b6-0dc7-4794-94cf-24075b421c45" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/Niam.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/math/GeometricMath.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/Scalar.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/Basis1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/Basis2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/Basis3.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/Basis4.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/Blade1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/Blade3.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/juanmanuel/gealma/ScalarTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Bivector3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Bivector3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Vector3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Vector3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/juanmanuel/gealma/threedimensional/Vector3Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/juanmanuel/gealma/threedimensional/Vector3Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/Geometric.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/Geometric.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/Scalar.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/Basis.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/Basis.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/Basis0.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/Basis0.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/Basis1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/Basis2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/Basis3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/Basis4.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/Blade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/Blade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/Blade0.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/Blade0.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/Blade1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/Blade2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/Blade2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/Blade3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/Blade4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/Blade4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/E0.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/vga/E0.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/E1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/vga/E1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/E1E2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/vga/E1E2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/E1E2E3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/vga/E1E2E3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/E1E2E3E4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/vga/E1E2E3E4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/E1E4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/vga/E1E4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/E2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/vga/E2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/E2E3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/vga/E2E3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/E2E3E4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/vga/E2E3E4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/E2E4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/vga/E2E4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/E3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/vga/E3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/E3E1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/vga/E3E1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/E3E4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/vga/E3E4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/E3E4E1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/vga/E3E4E1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/E4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/vga/E4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/basis/E4E1E2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/basis/vga/E4E1E2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/operations/Division.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/operations/Division.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/operations/InnerProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/operations/InnerProduct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/operations/OuterProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/operations/OuterProduct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/operations/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/operations/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Bivector3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/vga3/Bivector3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Geometric3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/vga3/Geometric3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/MathGeometric3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/vga3/MathGeometric3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Multivector3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/vga3/Multivector3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Rotor3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/vga3/Rotor3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Translator3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/vga3/Translator3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Trivector3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/vga3/Trivector3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/Vector3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/vga3/Vector3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/threedimensional/package-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/vga3/package-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/twodimensional/Bivector2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/vga2/Bivector2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/twodimensional/Geometric2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/vga2/Geometric2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/twodimensional/Multivector2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/vga2/Multivector2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/twodimensional/Rotor2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/vga2/Rotor2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/twodimensional/Vector2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/juanmanuel/gealma/vga/vga2/Vector2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/juanmanuel/gealma/ScalarTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/juanmanuel/gealma/basis/BasisTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/juanmanuel/gealma/basis/BasisTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/juanmanuel/gealma/basis/E0Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/juanmanuel/gealma/basis/E0Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/juanmanuel/gealma/basis/E1Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/juanmanuel/gealma/basis/E1Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/juanmanuel/gealma/threedimensional/objects/Vector3Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/juanmanuel/gealma/vga/vga3/Vector3Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,9 +95,9 @@
         <option value="Kotlin Class" />
         <option value="Record" />
         <option value="Kotlin File" />
-        <option value="Class" />
         <option value="Interface" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -55,6 +118,10 @@
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2Ic9Mz3yX9yMREMHFSjV96afgQj" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -70,8 +137,8 @@
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
     &quot;git-widget-placeholder&quot;: &quot;vectorization&quot;,
     &quot;ignore.preview.features.used&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/juanmanuel/Documentos/IdeaProjects/GeAlMa/src/main/java/juanmanuel/gealma/twodimensional&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/juanmanuel/Documentos/IdeaProjects/GeAlMa&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;software.aws.toolkits.jetbrains.settings.DynamicResourcesConfigurable&quot;
@@ -92,6 +159,7 @@
       <recent name="juanmanuel.gealma" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="juanmanuel.gealma.vga" />
       <recent name="juanmanuel.gealma" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
@@ -103,34 +171,63 @@
       <recent name="juanmanuel.gealma.twodimensional.objects" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.Vector3Test.inner">
-    <configuration name="E0Test.unaryMinus" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.Vector3Test.plus">
+    <configuration name="Niam" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="juanmanuel.gealma.Niam" />
       <module name="GeAlMa" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="juanmanuel.gealma.threedimensional.basis.*" />
+          <option name="PATTERN" value="juanmanuel.gealma.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="juanmanuel.gealma.threedimensional.basis" />
-      <option name="MAIN_CLASS_NAME" value="juanmanuel.gealma.threedimensional.basis.E0Test" />
-      <option name="METHOD_NAME" value="unaryMinus" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Vector3Test.inverse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GeAlMa" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="juanmanuel.gealma.vga.vga3.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="juanmanuel.gealma.vga.vga3" />
+      <option name="MAIN_CLASS_NAME" value="juanmanuel.gealma.vga.vga3.Vector3Test" />
+      <option name="METHOD_NAME" value="inverse" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Vector3Test.inner" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Vector3Test.magnitude" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GeAlMa" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="juanmanuel.gealma.threedimensional.*" />
+          <option name="PATTERN" value="juanmanuel.gealma.vga.vga3.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="juanmanuel.gealma.threedimensional" />
-      <option name="MAIN_CLASS_NAME" value="juanmanuel.gealma.threedimensional.Vector3Test" />
-      <option name="METHOD_NAME" value="inner" />
+      <option name="PACKAGE_NAME" value="juanmanuel.gealma.vga.vga3" />
+      <option name="MAIN_CLASS_NAME" value="juanmanuel.gealma.vga.vga3.Vector3Test" />
+      <option name="METHOD_NAME" value="magnitude" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Vector3Test.normalized" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GeAlMa" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="juanmanuel.gealma.vga.vga3.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="juanmanuel.gealma.vga.vga3" />
+      <option name="MAIN_CLASS_NAME" value="juanmanuel.gealma.vga.vga3.Vector3Test" />
+      <option name="METHOD_NAME" value="normalized" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -140,39 +237,25 @@
       <module name="GeAlMa" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="juanmanuel.gealma.threedimensional.*" />
+          <option name="PATTERN" value="juanmanuel.gealma.vga.vga3.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="juanmanuel.gealma.threedimensional" />
-      <option name="MAIN_CLASS_NAME" value="juanmanuel.gealma.threedimensional.Vector3Test" />
+      <option name="PACKAGE_NAME" value="juanmanuel.gealma.vga.vga3" />
+      <option name="MAIN_CLASS_NAME" value="juanmanuel.gealma.vga.vga3.Vector3Test" />
       <option name="METHOD_NAME" value="plus" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Geometric3NumbersKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="juanmanuel.gealma.oldthreedimensional.Geometric3NumbersKt" />
-      <module name="GeAlMa" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MainKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="juanmanuel.gealma.MainKt" />
-      <module name="GeAlMa" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Kotlin.MainKt" />
-        <item itemvalue="Kotlin.Geometric3NumbersKt" />
         <item itemvalue="JUnit.Vector3Test.plus" />
-        <item itemvalue="JUnit.Vector3Test.inner" />
-        <item itemvalue="JUnit.E0Test.unaryMinus" />
+        <item itemvalue="JUnit.Vector3Test.normalized" />
+        <item itemvalue="JUnit.Vector3Test.inverse" />
+        <item itemvalue="Application.Niam" />
+        <item itemvalue="JUnit.Vector3Test.magnitude" />
       </list>
     </recent_temporary>
   </component>

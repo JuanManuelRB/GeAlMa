@@ -1,6 +1,6 @@
 package juanmanuel.gealma.operations;
 
-import juanmanuel.gealma.Scalar;
+import juanmanuel.gealma.vga.Scalar;
 
 public interface Division<Self extends Division<Self>> extends MultiplicativeInverse<Self> {
 

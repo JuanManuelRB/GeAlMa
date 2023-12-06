@@ -1,6 +1,6 @@
 package juanmanuel.gealma.operations;
 
-import juanmanuel.gealma.Scalar;
+import juanmanuel.gealma.vga.Scalar;
 
 public interface Product<T extends Product<T>> {
 
