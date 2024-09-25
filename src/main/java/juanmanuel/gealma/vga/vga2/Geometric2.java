@@ -5,11 +5,7 @@ import jdk.incubator.vector.VectorSpecies;
 import juanmanuel.gealma.Geometric;
 import juanmanuel.gealma.operations.*;
 import juanmanuel.gealma.vga.Scalar;
-import juanmanuel.gealma.vga.basis.Basis3;
-import juanmanuel.gealma.vga.basis.vga.E0;
-import juanmanuel.gealma.vga.basis.vga.E1;
-import juanmanuel.gealma.vga.basis.vga.E1E2;
-import juanmanuel.gealma.vga.basis.vga.E2;
+import juanmanuel.gealma.vga.basis.*;
 import juanmanuel.gealma.vga.vga3.Bivector3;
 import juanmanuel.gealma.vga.vga3.Rotor3;
 import juanmanuel.gealma.vga.vga3.Trivector3;
@@ -33,7 +29,7 @@ import java.util.NoSuchElementException;
  * </p>
  */
 public sealed interface Geometric2<T extends Geometric2<T>>
-        extends Iterable<Basis3<?>>, Addition<T>, Subtraction<T>, Reversion<T>, Normalization<T>,
+        extends Iterable<BladeDimension3<?>>, Addition<T>, Subtraction<T>, Reversion<T>, Normalization<T>,
         InnerProduct<T>, OuterProduct<T>, Product<T>, Division<T>, Geometric<T>
         permits Bivector2, Multivector2, Rotor2, Vector2 {
 
@@ -123,13 +119,13 @@ public sealed interface Geometric2<T extends Geometric2<T>>
      */
     double magnitude();
 
-    default Geometric2<?> plus(Geometric2<?> other) {
-        return multivector().plus(other.multivector());
-    }
-
-    default Geometric2<?> minus(Geometric2<?> other) {
-        return multivector().minus(other.multivector());
-    }
+//    default <E extends Geometric2<E>> E plus(Geometric2<?> other) {
+//        return (E) new Multivector2(e0().plus(other.e0()), e1().plus(other.e1()), e2().plus(other.e2()), e1e2().plus(other.e1e2()));
+//    }
+//
+//    default Geometric2<?> minus(Geometric2<?> other) {
+//        return plus(other.unaryMinus());
+//    }
 
     /**
      * The geometric product of two geometric objects. The geometric product is the distributive product of each basis with each other basis.
@@ -144,16 +140,16 @@ public sealed interface Geometric2<T extends Geometric2<T>>
         return multivector().times(other.multivector());
     }
 
-    default Geometric2<?> inner(Geometric2<?> other) {
-        return multivector().inner(other.multivector());
-    }
-
-    default Geometric2<?> outer(Geometric2<?> other) {
-        return multivector().outer(other.multivector());
-    }
+//    default Geometric2<?> inner(Geometric2<?> other) {
+//        return multivector().inner(other.multivector());
+//    }
+//
+//    default Geometric2<?> outer(Geometric2<?> other) {
+//        return multivector().outer(other.multivector());
+//    }
 
     @Override
-    default Iterator<Basis3<?>> iterator() {
+    default Iterator<BladeDimension3<?>> iterator() {
         return new Iterator<>() {
             private byte actual = 0;
 
@@ -163,7 +159,7 @@ public sealed interface Geometric2<T extends Geometric2<T>>
             }
 
             @Override
-            public Basis3<?> next() {
+            public BladeDimension3<?> next() {
                 return switch (actual) {
                     case 0 -> {
                         actual++;

@@ -1,6 +1,6 @@
 package juanmanuel.gealma.basis;
 
-import juanmanuel.gealma.vga.basis.vga.*;
+import juanmanuel.gealma.vga.basis.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

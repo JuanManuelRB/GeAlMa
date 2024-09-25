@@ -1,9 +1,9 @@
 package juanmanuel.gealma.vga.vga3;
 
 import juanmanuel.gealma.vga.Scalar;
-import juanmanuel.gealma.vga.basis.Basis3;
-import juanmanuel.gealma.vga.basis.vga.E0;
-import juanmanuel.gealma.vga.basis.vga.E1E2E3;
+import juanmanuel.gealma.vga.basis.BladeDimension3;
+import juanmanuel.gealma.vga.basis.E0;
+import juanmanuel.gealma.vga.basis.E1E2E3;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -302,7 +302,7 @@ public record Trivector3(@Override E1E2E3 e1e2e3) implements Geometric3<Trivecto
     }
 
     @Override
-    public Iterator<Basis3<?>> iterator() {
+    public Iterator<BladeDimension3<?>> iterator() {
         return new Iterator<>() {
             private byte actual = 1;
 

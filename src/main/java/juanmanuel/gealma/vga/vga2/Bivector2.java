@@ -1,12 +1,8 @@
 package juanmanuel.gealma.vga.vga2;
 
-import juanmanuel.gealma.operations.Division;
-import juanmanuel.gealma.operations.InnerProduct;
-import juanmanuel.gealma.operations.OuterProduct;
-import juanmanuel.gealma.operations.Product;
 import juanmanuel.gealma.vga.Scalar;
-import juanmanuel.gealma.vga.basis.vga.E0;
-import juanmanuel.gealma.vga.basis.vga.E1E2;
+import juanmanuel.gealma.vga.basis.E0;
+import juanmanuel.gealma.vga.basis.E1E2;
 
 import java.util.Objects;
 
@@ -24,7 +20,7 @@ public record Bivector2(E1E2 e1e2) implements Geometric2<Bivector2> {
 
     @Override
     public Bivector2 plus(Bivector2 other) {
-        return null;
+        return new Bivector2(e1e2.plus(other.e1e2));
     }
 
     @Override
@@ -34,92 +30,92 @@ public record Bivector2(E1E2 e1e2) implements Geometric2<Bivector2> {
 
     @Override
     public Bivector2 minus(Bivector2 other) {
-        return null;
+        return new Bivector2(e1e2.minus(other.e1e2));
     }
 
     @Override
-    public InnerProduct<?> inner(Bivector2 other) {
-        return null;
+    public Scalar inner(Bivector2 other) {
+        return new Scalar(e1e2.times(other.e1e2));
     }
 
     @Override
-    public InnerProduct<?> inner(double other) {
-        return null;
+    public Bivector2 inner(double other) {
+        return new Bivector2(e1e2.times(other));
     }
 
     @Override
-    public InnerProduct<?> inner(Scalar other) {
-        return null;
+    public Bivector2 inner(Scalar other) {
+        return inner(other.value());
     }
 
     @Override
-    public OuterProduct<?> outer(Bivector2 other) {
-        return null;
+    public Scalar outer(Bivector2 other) {
+        return new Scalar(e1e2.times(other.e1e2));
     }
 
     @Override
-    public OuterProduct<?> outer(double other) {
-        return null;
+    public Bivector2 outer(double other) {
+        return new Bivector2(e1e2.times(other));
     }
 
     @Override
-    public OuterProduct<?> outer(Scalar other) {
-        return null;
+    public Bivector2 outer(Scalar other) {
+        return outer(other.value());
     }
 
     @Override
-    public Product<?> times(Bivector2 other) {
-        return null;
+    public Scalar times(Bivector2 other) {
+        return new Scalar(e1e2.times(other.e1e2));
     }
 
     @Override
-    public Product<?> times(double other) {
-        return null;
+    public Bivector2 times(double other) {
+        return new Bivector2(e1e2.times(other));
     }
 
     @Override
-    public Product<?> times(Scalar other) {
-        return null;
+    public Bivector2 times(Scalar other) {
+        return times(other.value());
     }
 
     @Override
     public Bivector2 inverse() {
-        return null;
+        return new Bivector2(e1e2.inverse());
     }
 
     @Override
-    public Division<?> div(Bivector2 other) throws ArithmeticException {
-        return null;
+    public Scalar div(Bivector2 other) throws ArithmeticException {
+        return this.times(other.inverse());
     }
 
     @Override
-    public Division<?> div(double other) {
-        return null;
+    public Bivector2 div(double other) {
+        return new Bivector2(e1e2.div(other));
     }
 
     @Override
-    public Division<?> div(Scalar other) {
-        return null;
+    public Bivector2 div(Scalar other) {
+        return div(other.value());
     }
 
     @Override
     public Bivector2 normalized() {
-        return null;
+        return Bivector2.ONE;
     }
 
     @Override
     public Bivector2 reverse() {
-        return null;
+        return this.unaryMinus();
     }
 
     @Override
     public double magnitudeSquared() {
-        return 0;
+        return times(this).value();
     }
 
     @Override
     public double magnitude() {
-        return 0;
+        return e1e2.value();
     }
 
     public Rotor2 plus(double scalar) {

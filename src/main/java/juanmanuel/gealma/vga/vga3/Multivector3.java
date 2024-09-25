@@ -3,8 +3,7 @@ package juanmanuel.gealma.vga.vga3;
 import jdk.incubator.vector.DoubleVector;
 import jdk.incubator.vector.VectorSpecies;
 import juanmanuel.gealma.vga.Scalar;
-import juanmanuel.gealma.vga.basis.Basis3;
-import juanmanuel.gealma.vga.basis.vga.*;
+import juanmanuel.gealma.vga.basis.*;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -438,7 +437,7 @@ public record Multivector3(E0 e0, E1 e1, E2 e2, E3 e3, E1E2 e1e2, E2E3 e2e3, E3E
     }
 
     @Override
-    public Iterator<Basis3<?>> iterator() {
+    public Iterator<BladeDimension3<?>> iterator() {
         return new Iterator<>() {
             private byte actual = 1;
 
@@ -448,7 +447,7 @@ public record Multivector3(E0 e0, E1 e1, E2 e2, E3 e3, E1E2 e1e2, E2E3 e2e3, E3E
             }
 
             @Override
-            public Basis3<?> next() {
+            public BladeDimension3<?> next() {
                 return switch (actual++) {
                     case 1 -> e0;
                     case 2 -> e1;

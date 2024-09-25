@@ -4,10 +4,10 @@ import jdk.incubator.vector.DoubleVector;
 import jdk.incubator.vector.VectorOperators;
 import jdk.incubator.vector.VectorSpecies;
 import juanmanuel.gealma.vga.Scalar;
-import juanmanuel.gealma.vga.basis.Basis3;
-import juanmanuel.gealma.vga.basis.vga.E1;
-import juanmanuel.gealma.vga.basis.vga.E2;
-import juanmanuel.gealma.vga.basis.vga.E3;
+import juanmanuel.gealma.vga.basis.BladeDimension3;
+import juanmanuel.gealma.vga.basis.E1;
+import juanmanuel.gealma.vga.basis.E2;
+import juanmanuel.gealma.vga.basis.E3;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -213,7 +213,7 @@ public record Vector3(@Override E1 e1, @Override E2 e2, @Override E3 e3) impleme
 
     /**
      * Returns an array of doubles with the values of the vector's basis. The order of the basis is the same as the order
-     * of the basis in the {@link Basis3}.
+     * of the basis in the {@link BladeDimension3}.
      */
     public double[] toArray() {
         return new double[]{this.e1.value(), this.e2.value(), this.e3.value()};
@@ -223,7 +223,7 @@ public record Vector3(@Override E1 e1, @Override E2 e2, @Override E3 e3) impleme
         return vectorFrom(e1, e2, e3);
     }
 
-    private static DoubleVector vectorFrom(Basis3<?> b1, Basis3<?> b2, Basis3<?> b3) {
+    private static DoubleVector vectorFrom(BladeDimension3<?> b1, BladeDimension3<?> b2, BladeDimension3<?> b3) {
         return DoubleVector.fromArray(
                 vectorSpecies,
                 new double[]{b1.value(), b2.value(), b3.value(), 0},
@@ -418,7 +418,7 @@ public record Vector3(@Override E1 e1, @Override E2 e2, @Override E3 e3) impleme
     }
 
     @Override
-    public Iterator<Basis3<?>> iterator() {
+    public Iterator<BladeDimension3<?>> iterator() {
         return new Iterator<>() {
             private byte actual = 1;
 
@@ -428,7 +428,7 @@ public record Vector3(@Override E1 e1, @Override E2 e2, @Override E3 e3) impleme
             }
 
             @Override
-            public Basis3<?> next() {
+            public BladeDimension3<?> next() {
                 return switch (actual) {
                     case 1 -> {
                         actual++;

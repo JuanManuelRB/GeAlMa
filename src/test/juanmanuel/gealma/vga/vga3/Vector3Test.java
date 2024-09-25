@@ -1,10 +1,7 @@
 package juanmanuel.gealma.vga.vga3;
 
 import juanmanuel.gealma.vga.Scalar;
-import juanmanuel.gealma.vga.basis.vga.*;
-import juanmanuel.gealma.vga.vga3.Bivector3;
-import juanmanuel.gealma.vga.vga3.Trivector3;
-import juanmanuel.gealma.vga.vga3.Vector3;
+import juanmanuel.gealma.vga.basis.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

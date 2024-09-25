@@ -2,11 +2,7 @@ package juanmanuel.gealma.vga.vga3;
 
 import jdk.incubator.vector.DoubleVector;
 import juanmanuel.gealma.vga.Scalar;
-import juanmanuel.gealma.vga.basis.Basis3;
-import juanmanuel.gealma.vga.basis.vga.E0;
-import juanmanuel.gealma.vga.basis.vga.E1E2;
-import juanmanuel.gealma.vga.basis.vga.E2E3;
-import juanmanuel.gealma.vga.basis.vga.E3E1;
+import juanmanuel.gealma.vga.basis.*;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -322,7 +318,7 @@ public record Rotor3(E0 e0, E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometri
     }
 
     @Override
-    public Iterator<Basis3<?>> iterator() {
+    public Iterator<BladeDimension3<?>> iterator() {
         return new Iterator<>() {
             private byte actual = 1;
 
@@ -332,7 +328,7 @@ public record Rotor3(E0 e0, E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometri
             }
 
             @Override
-            public Basis3<?> next() {
+            public BladeDimension3<?> next() {
                 return switch (actual) {
                     case 1 -> {
                         actual++;

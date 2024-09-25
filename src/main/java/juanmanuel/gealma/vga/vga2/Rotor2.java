@@ -5,8 +5,8 @@ import juanmanuel.gealma.operations.InnerProduct;
 import juanmanuel.gealma.operations.OuterProduct;
 import juanmanuel.gealma.operations.Product;
 import juanmanuel.gealma.vga.Scalar;
-import juanmanuel.gealma.vga.basis.vga.E0;
-import juanmanuel.gealma.vga.basis.vga.E1E2;
+import juanmanuel.gealma.vga.basis.E0;
+import juanmanuel.gealma.vga.basis.E1E2;
 
 public record Rotor2(E0 e0, E1E2 e1e2) implements Geometric2<Rotor2>{
     @Override

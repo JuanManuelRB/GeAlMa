@@ -2,10 +2,10 @@ package juanmanuel.gealma.vga.vga3;
 
 import jdk.incubator.vector.DoubleVector;
 import juanmanuel.gealma.vga.Scalar;
-import juanmanuel.gealma.vga.basis.Basis3;
-import juanmanuel.gealma.vga.basis.vga.E1E2;
-import juanmanuel.gealma.vga.basis.vga.E2E3;
-import juanmanuel.gealma.vga.basis.vga.E3E1;
+import juanmanuel.gealma.vga.basis.BladeDimension3;
+import juanmanuel.gealma.vga.basis.E1E2;
+import juanmanuel.gealma.vga.basis.E2E3;
+import juanmanuel.gealma.vga.basis.E3E1;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -277,7 +277,7 @@ public record Bivector3(E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometric3<B
     }
 
     @Override
-    public Iterator<Basis3<?>> iterator() {
+    public Iterator<BladeDimension3<?>> iterator() {
         return new Iterator<>() {
             private byte actual = 1;
 
@@ -287,7 +287,7 @@ public record Bivector3(E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometric3<B
             }
 
             @Override
-            public Basis3<?> next() {
+            public BladeDimension3<?> next() {
                 return switch (actual) {
                     case 1 -> {
                         actual++;
@@ -322,7 +322,7 @@ public record Bivector3(E1E2 e1e2, E2E3 e2e3, E3E1 e3e1) implements Geometric3<B
         return vectorFrom(e1e2, e2e3, e3e1);
     }
 
-    private static DoubleVector vectorFrom(Basis3<?> b1, Basis3<?> b2, Basis3<?> b3) {
+    private static DoubleVector vectorFrom(BladeDimension3<?> b1, BladeDimension3<?> b2, BladeDimension3<?> b3) {
         return DoubleVector.fromArray(
                 vectorSpecies,
                 new double[]{b1.value(), b2.value(), b3.value(), 0},

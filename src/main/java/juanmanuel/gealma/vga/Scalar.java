@@ -1,7 +1,7 @@
 package juanmanuel.gealma.vga;
 
 import juanmanuel.gealma.Geometric;
-import juanmanuel.gealma.vga.basis.vga.*;
+import juanmanuel.gealma.vga.basis.*;
 import juanmanuel.gealma.vga.vga2.*;
 import juanmanuel.gealma.vga.vga3.*;
 
@@ -178,7 +178,7 @@ public record Scalar(E0 e0) implements Geometric<Scalar> {
         return this.plus(other.unaryMinus());
     }
 
-    public <T extends Geometric2<?>> T times(T other) {
+    public <T extends Geometric2<T>> T times(T other) {
         return (T) switch (other) {
             case Vector2 v -> new Vector2(e0.times(v.e1()), e0.times(v.e2()));
             case Bivector2 b -> new Bivector2(e0.times(b.e1e2()));
@@ -187,7 +187,7 @@ public record Scalar(E0 e0) implements Geometric<Scalar> {
         };
     }
 
-    public <T extends Geometric3<?>> T times(T other) {
+    public <T extends Geometric3<T>> T times(T other) {
         return (T) switch (other) {
             case Vector3 v -> new Vector3(e0.times(v.e1()), e0.times(v.e2()), e0.times(v.e3()));
             case Bivector3 b -> new Bivector3(e0.times(b.e1e2()), e0.times(b.e2e3()), e0.times(b.e3e1()));
@@ -197,19 +197,19 @@ public record Scalar(E0 e0) implements Geometric<Scalar> {
         };
     }
 
-    public <T extends Geometric2<?>> T inner(T other) {
+    public <T extends Geometric2<T>> T inner(T other) {
         return this.times(other);
     }
 
-    public <T extends Geometric3<?>> T inner(T other) {
+    public <T extends Geometric3<T>> T inner(T other) {
         return this.times(other);
     }
 
-    public <T extends Geometric2<?>> T outer(T other) {
+    public <T extends Geometric2<T>> T outer(T other) {
         return this.times(other);
     }
 
-    public <T extends Geometric3<?>> T outer(T other) {
+    public <T extends Geometric3<T>> T outer(T other) {
         return this.times(other);
     }
 
@@ -330,10 +330,18 @@ public record Scalar(E0 e0) implements Geometric<Scalar> {
         return new Trivector3(e0.times(other.e1e2e3()));
     }
 
+    public Multivector2 times(Multivector2 other) {
+        return new Multivector2(other.e0().times(e0), other.e1().times(e0), other.e2().times(e0), other.e1e2().times(e0));
+    }
+
     public Multivector3 times(Multivector3 other) {
         var result = new double[Trivector3.vectorSpecies.length()];
         other.toVector().mul(e0.value()).intoArray(result, 0);
         return new Multivector3(result[0], result[1], result[2], result[3], result[4], result[5], result[6], result[7]);
+    }
+
+    public Vector2 div(Vector2 other) {
+        return this.times(other.inverse());
     }
 
     public Vector3 div(Vector3 other) {

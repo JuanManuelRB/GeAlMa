@@ -4,15 +4,17 @@ import jdk.incubator.vector.DoubleVector;
 import jdk.incubator.vector.VectorOperators;
 import juanmanuel.gealma.operations.Division;
 import juanmanuel.gealma.vga.Scalar;
-import juanmanuel.gealma.vga.basis.Basis2;
-import juanmanuel.gealma.vga.basis.vga.E1;
-import juanmanuel.gealma.vga.basis.vga.E2;
+import juanmanuel.gealma.vga.basis.BladeDimension2;
+import juanmanuel.gealma.vga.basis.E1;
+import juanmanuel.gealma.vga.basis.E2;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Objects;
 
-public record Vector2(E1 e1, E2 e2) implements Geometric2<Vector2> {
-    public final static Vector2 ZERO = new Vector2(0, 0);
-    public final static Vector2 ONE = new Vector2(1, 1);
+@NullMarked
+public record Vector2(@Override E1 e1, @Override E2 e2) implements Geometric2<Vector2> {
+    public final static Vector2 zero = new Vector2(0, 0);
+    public final static Vector2 one = new Vector2(1, 1);
 
     public Vector2 {
         Objects.requireNonNull(e1);
@@ -27,7 +29,7 @@ public record Vector2(E1 e1, E2 e2) implements Geometric2<Vector2> {
         return vectorFrom(e1, e2);
     }
 
-    private static DoubleVector vectorFrom(Basis2<?> b1, Basis2<?> b2) {
+    private static DoubleVector vectorFrom(BladeDimension2<?> b1, BladeDimension2<?> b2) {
         return DoubleVector.fromArray(
                 vectorSpecies,
                 new double[]{b1.value(), b2.value()},
@@ -42,7 +44,7 @@ public record Vector2(E1 e1, E2 e2) implements Geometric2<Vector2> {
 
     @Override
     public Vector2 unaryMinus() {
-        return new Vector2(-e1.value(), -e2.value());
+        return new Vector2(e1.unaryMinus(), e2.unaryMinus());
     }
 
     @Override
@@ -52,12 +54,12 @@ public record Vector2(E1 e1, E2 e2) implements Geometric2<Vector2> {
 
     @Override
     public Vector2 inner(double other) {
-        return this.times(other);
+        return new Vector2(e1.times(other), e2.times(other));
     }
 
     @Override
     public Vector2 inner(Scalar other) {
-        return this.times(other);
+        return this.inner(other.value());
     }
 
     @Override
@@ -65,9 +67,13 @@ public record Vector2(E1 e1, E2 e2) implements Geometric2<Vector2> {
         return new Scalar(this.toVector().mul(other.toVector()).reduceLanes(VectorOperators.ADD));
     }
 
+    public Vector2 inner(Bivector2 other) {
+        return null;
+    }
+
     @Override
     public Vector2 outer(double other) {
-        return this.times(other);
+        return new Vector2(e1.times(other), e2.times(other));
     }
 
     @Override
@@ -102,7 +108,7 @@ public record Vector2(E1 e1, E2 e2) implements Geometric2<Vector2> {
 
     @Override
     public Vector2 inverse() {
-        return null;
+        return null; // TODO
     }
 
     @Override

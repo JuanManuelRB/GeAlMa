@@ -5,8 +5,7 @@ import jdk.incubator.vector.VectorSpecies;
 import juanmanuel.gealma.Geometric;
 import juanmanuel.gealma.operations.Normalization;
 import juanmanuel.gealma.vga.Scalar;
-import juanmanuel.gealma.vga.basis.Basis3;
-import juanmanuel.gealma.vga.basis.vga.*;
+import juanmanuel.gealma.vga.basis.*;
 
 import java.io.Serializable;
 import java.util.Iterator;
@@ -27,14 +26,14 @@ import java.util.NoSuchElementException;
  * </p>
  */
 public sealed interface Geometric3<T extends Geometric3<T>>
-        extends Iterable<Basis3<?>>, Geometric<T>, Normalization<T>, Serializable
+        extends Iterable<BladeDimension3<?>>, Geometric<T>, Normalization<T>, Serializable
         permits Vector3, Bivector3, Rotor3, Trivector3, Multivector3 {
 
     // Corresponds to the number of basis of the geometric object.
     byte NUMBER_OF_ELEMENTS = 8;
     VectorSpecies<Double> vectorSpecies = DoubleVector.SPECIES_256;
 
-    static DoubleVector simdVectorFrom(Basis3<?> b1, Basis3<?> b2, Basis3<?> b3) {
+    static DoubleVector simdVectorFrom(BladeDimension3<?> b1, BladeDimension3<?> b2, BladeDimension3<?> b3) {
         return DoubleVector.fromArray(
                 vectorSpecies,
                 new double[]{b1.value(), b2.value(), b3.value(), 0},
@@ -42,7 +41,7 @@ public sealed interface Geometric3<T extends Geometric3<T>>
         );
     }
 
-    static DoubleVector simdVectorFrom(Basis3<?> b1, Basis3<?> b2, Basis3<?> b3, Basis3<?> b4) {
+    static DoubleVector simdVectorFrom(BladeDimension3<?> b1, BladeDimension3<?> b2, BladeDimension3<?> b3, BladeDimension3<?> b4) {
         return DoubleVector.fromArray(
                 vectorSpecies,
                 new double[]{b1.value(), b2.value(), b3.value(), b4.value()},
@@ -240,7 +239,7 @@ public sealed interface Geometric3<T extends Geometric3<T>>
     }
 
     @Override
-    default Iterator<Basis3<?>> iterator() {
+    default Iterator<BladeDimension3<?>> iterator() {
         return new Iterator<>() {
             private byte actual = 1;
 
@@ -250,7 +249,7 @@ public sealed interface Geometric3<T extends Geometric3<T>>
             }
 
             @Override
-            public Basis3<?> next() {
+            public BladeDimension3<?> next() {
                 return switch (actual) {
                     case 1 -> {
                         actual++;

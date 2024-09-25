@@ -4,12 +4,15 @@
  */
 module gealma {
     requires jdk.incubator.vector;
+    requires org.jspecify;
 
     exports juanmanuel.gealma.vga.vga3;
     exports juanmanuel.gealma.vga.vga2;
     exports juanmanuel.gealma.operations;
     exports juanmanuel.gealma.vga.basis;
-    exports juanmanuel.gealma;
-    exports juanmanuel.gealma.vga.basis.vga;
     exports juanmanuel.gealma.vga;
+    exports juanmanuel.gealma;
+    exports juanmanuel.gealma.experimentalVGA3;
+    exports juanmanuel.gealma.experimentalVGA3.basis;
+    exports juanmanuel.gealma.experimentalVGA3.vectors;
 }
